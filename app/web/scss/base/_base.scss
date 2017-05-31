@@ -1,0 +1,28 @@
+//Base styles
+@import '../helpers/_index';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $gray;
+  color: $black;
+  font-family: $font-family-secondary;
+  font-size: 16px;
+}
+
+a {
+  color: $black;
+  outline: 0;
+  text-decoration: none;
+}
+
+p {
+  font-size: 1.25em;
+  margin-top: 0;
+}
+
+img {
+  max-width: 100%;
+}

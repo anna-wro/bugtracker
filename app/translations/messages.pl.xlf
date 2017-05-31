@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="title.bookmarks_list">
+                <source>title.bookmarks_list</source>
+                <target>Lista zakładek</target>
+            </trans-unit>
+            <trans-unit id="title.tags_list">
+                <source>title.tags_list</source>
+                <target>Lista tagów</target>
+            </trans-unit>
+            <trans-unit id="title.bookmark_view">
+                <source>title.bookmark_view</source>
+                <target>Zakładka #%id%</target>
+            </trans-unit>
+            <trans-unit id="title.tag_view">
+                <source>title.tag_view</source>
+                <target>Tag #%id%</target>
+            </trans-unit>
+            <trans-unit id="bookmark_table.title">
+                <source>bookmark_table.title</source>
+                <target>Nazwa</target>
+            </trans-unit>
+            <trans-unit id="bookmark_table.url">
+                <source>bookmark_table.url</source>
+                <target>Link</target>
+            </trans-unit>
+            <trans-unit id="bookmark_table.tag">
+                <source>bookmark_table.tag</source>
+                <target>Tagi</target>
+            </trans-unit>
+            <trans-unit id="bookmarks_not_found">
+                <source>bookmarks_not_found</source>
+                <target>Nie znaleziono zakładek!</target>
+            </trans-unit>
+            <trans-unit id="tag_not_found">
+                <source>tag_not_found</source>
+                <target>Taki tag nie istnieje!</target>
+            </trans-unit>
+            <trans-unit id="tags_not_found">
+                <source>tags_not_found</source>
+                <target>Nie znaleziono tagów!</target>
+            </trans-unit>
+            <trans-unit id="bookmark_not_found">
+                <source>bookmark_not_found</source>
+                <target>Taka zakładka nie istnieje!</target>
+            </trans-unit>
+            <trans-unit id="label.back_to_list">
+                <source>label.back_to_list</source>
+                <target>Wróć do listy zakładek</target>
+            </trans-unit>
+            <trans-unit id="label.view">
+                <source>label.view</source>
+                <target>Zobacz zakładkę</target>
+            </trans-unit>
+            <trans-unit id="title.bookmark_delete">
+                <source>title.bookmark_delete</source>
+                <target>Usuń zakładkę #%id%: %title%</target>
+            </trans-unit>
+        </body>
+
+    </file>
+</xliff>

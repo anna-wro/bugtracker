@@ -1,0 +1,38 @@
+// Global Config
+
+// Paths
+$path-img: '../img';
+$path-patterns: '../img/patterns';
+$path-fonts: '../fonts';
+
+// Font Stacks
+$font-url-google: '';
+$font-family-primary: "",
+sans-serif;
+$font-family-secondary: '',
+'Helvetica Neue',
+Helvetica,
+Arial,
+sans-serif;
+
+// Font Weights
+$font-weight-thin: 100;
+$font-weight-light: 300;
+$font-weight-medium: 400;
+$font-weight-bold: 700;
+$font-weight-ultra-bold: 900;
+
+// Descriptive Base Colors
+$white: #fff;
+$black: #06032f;
+$gray: #f5f5f5;
+
+// Color Usage
+$color-primary: $black;
+$color-secondary: $black;
+$color-accent: $black;
+$color-shadow: rgba($black, .3);
+
+// Text
+$base-font-size: 16px;
+$base-line: 1.4;

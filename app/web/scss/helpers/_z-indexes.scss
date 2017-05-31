@@ -1,0 +1,23 @@
+// Z-indexing
+// instead of guessing or adding random z-indexes throughout the project (e.g. 100000, 999999, etc.),
+// call the z-index function to generate a z-index from a stacked list of classes
+
+$z-indexes: (
+        'one',
+        'two',
+        'three'
+);
+
+// Example
+// .box {
+//  z-index: z('box');
+// }
+
+@function z($name) {
+  @if index($z-indexes, $name) {
+    @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+  } @else {
+    @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+    @return null;
+  }
+}

@@ -1,0 +1,35 @@
+// Responsive breakpoints
+@import 'index';
+
+$breakpoints: (
+        'phone':        em(375px),
+        'phone-wide':   em(480px),
+        'phablet':      em(560px),
+        'tablet-small': em(640px),
+        'tablet':       em(768px),
+        'tablet-wide':  em(1024px),
+        'desktop':      em(1248px),
+        'desktop-wide': em(1440px)
+);
+
+// .site-header {
+//   ...
+//   @include mq('tablet-small', 'max'){
+//     ...
+//   }
+//   @include mq('tablet-wide') {
+//     ...
+//   }
+// }
+
+@mixin mq($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+    @if $type == max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}

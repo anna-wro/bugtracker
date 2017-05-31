@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}{# jakby coś już tu było #}
+    <link rel="stylesheet" href="/css/style.css">
+{% endblock %}
+
+{% block title %}
+    {{ 'title.bookmarks_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ 'title.bookmarks_list'|trans }}
+    </h1>
+
+    {% if paginator.data|length %}
+        <table>
+            <thead>
+            <tr>
+                <th>{{ 'bookmark_table.title'|trans }}</th>
+                <th>{{ 'bookmark_table.url'|trans }}</th>
+                {#<th>{{ 'bookmark_table.tag'|trans }}</th>#}
+            </tr>
+            </thead>
+            <tbody>
+            {% for bookmark in paginator.data %}
+            <tr>
+                <td>
+                    {{ bookmark.title }}
+                </td>
+                <td>
+                    {{ bookmark.url }}
+                </td>
+                {#<td>#}
+                    {#<ul class="tag__list">#}
+                        {#{% for bookmark in paginator.data %}#}
+                            {#<li class="tag__item">{{ bookmark }}</li>#}
+                        {#{% endfor %}#}
+                    {#</ul>#}
+                {#</td>#}
+                <td>
+                    <a href="{{ url('bookmark_view', {'id': bookmark.id}) }}" class="table__link" title="{{ 'label.view'|trans }}">
+                        {{ 'label.view'|trans }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ url('bookmark_edit', {'id': bookmark.id}) }}" class="table__link" title="{{ 'label.edit'|trans }}">
+                        {{ 'label.edit'|trans }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ url('bookmark_delete', {'id': bookmark.id}) }}" class="table__link" title="{{ 'label.delete'|trans }}">
+                        {{ 'label.delete'|trans }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            {{ 'bookmarks_not_found'|trans }}
+        </div>
+    {% endif %}
+    <a href="{{ url('bookmark_add') }}" class="table__link table__link--detail"
+       title="{{ 'label.bookmark_add'|trans }}">
+        {{ 'label.bookmark_add'|trans }}
+    </a>
+    {% include 'default/_paginator.html.twig' with {
+    paginator: paginator,
+    route_name: 'bookmark_index_paginated',
+    } %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.bookmark_add'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.bookmark_add'|trans }}</h1>
+    {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', 'form/form_errors.html.twig'] %}
+    {{ form_start(form, { method: 'post', action: url('bookmark_add') }) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}{# jakby coś już tu było #}
+    <link rel="stylesheet" href="/css/style.css">
+{% endblock %}
+
+{% block title %}
+    {{ 'title.tags_list'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <h1>
+        {{ 'title.tags_list'|trans }}
+    </h1>
+
+    {% if paginator.data|length %}
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>{{ 'tag_name'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tag in paginator.data %}
+                <tr>
+                    <td>
+                        {{ tag.id }}
+                    </td>
+                    <td>
+                        {{ tag.name }}
+                    </td>
+                    <td>
+                        <a href="{{ url('tag_view', {'id': tag.id}) }}" class="table__link" title="{{ 'label.view'|trans }}">
+                            {{ 'label.tag_view'|trans }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url('tag_edit', {'id': tag.id}) }}" class="table__link" title="{{ 'label.edit'|trans }}">
+                            {{ 'label.edit'|trans }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url('tag_delete', {'id': tag.id}) }}" class="table__link" title="{{ 'label.delete'|trans }}">
+                            {{ 'label.delete'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            {{ 'tags_not_found'|trans }}
+        </div>
+    {% endif %}
+    <a href="{{ url('tag_add') }}" class="table__link table__link--detail"
+       title="{{ 'label.tag_add'|trans }}">
+        {{ 'label.tag_add'|trans }}
+    </a>
+    {% include 'default/_paginator.html.twig' with {
+    paginator: paginator,
+    route_name: 'tag_index_paginated',
+    } %}
+{% endblock %}

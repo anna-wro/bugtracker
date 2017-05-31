@@ -1,0 +1,45 @@
+h1 {
+  color: blueviolet;
+  margin: 5% auto 40px;
+  text-align: center; }
+
+th {
+  text-transform: uppercase;
+  padding: 12px; }
+
+td {
+  padding-left: 15px; }
+
+.table__link {
+  display: block;
+  padding-top: 20px;
+  margin-left: 10px;
+  color: #375ed8;
+  text-decoration: none; }
+
+.table__link:hover {
+  color: crimson;
+  text-decoration: none; }
+
+.table__link--detail {
+  max-width: 400px;
+  text-align: right; }
+
+.form-horizontal {
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto; }
+
+.form-horizontal input,
+.form-horizontal select {
+  max-width: 200px; }
+
+.form-group label.control-label.required:after {
+  content: " *";
+  color: #a94442; }
+
+.container {
+  max-width: 800px;
+  margin: 0 auto; }
+
+/*# sourceMappingURL=base.css.map */
