@@ -1,77 +1,68 @@
 <?php
 /**
- * Bookmark controller.
- *
- * @copyright (c) 2016 Tomasz Chojna
- * @link http://epi.chojna.info.pl
+ * Bug controller.
  */
-
 namespace Controller;
 
-use Repository\BookmarkRepository;
+use Repository\BugRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
+use Form\BugType;
 use Symfony\Component\HttpFoundation\Request;
-use Form\BookmarkType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 /**
- * Class BookmarkController.
+ * Class BugController.
  *
  * @package Controller
  */
-class BookmarkController implements ControllerProviderInterface
+class BugController implements ControllerProviderInterface
 {
-    /**
-     * Routing settings.
-     *
-     * @param \Silex\Application $app Silex application
-     *
-     * @return \Silex\ControllerCollection Result
-     */
 
+    /**
+     * {@inheritdoc}
+     */
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
-        $controller->get('/', [$this, 'indexAction'])->bind('bookmark_index');
+        $controller->get('/', [$this, 'indexAction'])->bind('bug_index');
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
-            ->bind('bookmark_index_paginated');
+            ->bind('bug_index_paginated');
         $controller->get('/{id}', [$this, 'viewAction'])
             ->assert('id', '[1-9]\d*')
-            ->bind('bookmark_view');
+            ->bind('bug_view');
         $controller->match('/add', [$this, 'addAction'])
             ->method('POST|GET')
-            ->bind('bookmark_add');
+            ->bind('bug_add');
         $controller->match('/{id}/edit', [$this, 'editAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
-            ->bind('bookmark_edit');
+            ->bind('bug_edit');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
-            ->bind('bookmark_delete');
+            ->bind('bug_delete');
         return $controller;
     }
-
 
     /**
      * Index action.
      *
-     * @param \Silex\Application $app Silex application
-     * @param int $page Current page number
+     * @param \Silex\Application $app  Silex application
+     * @param int                $page Current page number
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
     public function indexAction(Application $app, $page = 1)
     {
-        $bookmarkRepository = new BookmarkRepository($app['db']);
+        $bugRepository = new BugRepository($app['db']);
 
         return $app['twig']->render(
-            'bookmark/index.html.twig',
-            ['paginator' => $bookmarkRepository->findAllPaginated($page)]
+            'bug/index.html.twig',
+            ['paginator' => $bugRepository->findAllPaginated($page)]
         );
     }
 
@@ -79,31 +70,39 @@ class BookmarkController implements ControllerProviderInterface
      * View action.
      *
      * @param \Silex\Application $app Silex application
-     * @param string $id Element Id
+     * @param string             $id  Element Id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
     public function viewAction(Application $app, $id)
     {
-        $bookmarkRepository = new BookmarkRepository($app['db']);
+        $bugRepository = new BugRepository($app['db']);
 
         return $app['twig']->render(
-            'bookmark/view.html.twig',
-            ['bookmark' => $bookmarkRepository->findOneById($id),
-                'bookmarkId' => $id]
+            'bug/view.html.twig',
+            ['bug' => $bugRepository->findOneById($id),
+                'bugId' => $id]
         );
     }
 
+    /**
+     * Add action.
+     *
+     * @param \Silex\Application                        $app     Silex application
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     */
     public function addAction(Application $app, Request $request)
     {
-        $bookmark = [];
+        $bug = [];
 
-        $form = $app['form.factory']->createBuilder(BookmarkType::class, $bookmark)->getForm();
+        $form = $app['form.factory']->createBuilder(BugType::class, $bug)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bookmarkRepository = new BookmarkRepository($app['db']);
-            $bookmarkRepository->save($form->getData());
+            $bugRepository = new BugRepository($app['db']);
+            $bugRepository->save($form->getData());
 
             $app['session']->getFlashBag()->add(
                 'messages',
@@ -113,13 +112,13 @@ class BookmarkController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('bookmark_index'), 301);
+            return $app->redirect($app['url_generator']->generate('bug_index'), 301);
         }
 
         return $app['twig']->render(
-            'bookmark/add.html.twig',
+            'bug/add.html.twig',
             [
-                'bookmark' => $bookmark,
+                'bug' => $bug,
                 'form' => $form->createView(),
             ]
         );
@@ -136,10 +135,10 @@ class BookmarkController implements ControllerProviderInterface
      */
     public function editAction(Application $app, $id, Request $request)
     {
-        $bookmarkRepository = new BookmarkRepository($app['db']);
-        $bookmark = $bookmarkRepository->findOneById($id);
+        $bugRepository = new BugRepository($app['db']);
+        $bug = $bugRepository->findOneById($id);
 
-        if (!$bookmark) {
+        if (!$bug) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -148,14 +147,14 @@ class BookmarkController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('bookmark_index'));
+            return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
-        $form = $app['form.factory']->createBuilder(BookmarkType::class, $bookmark)->getForm();
+        $form = $app['form.factory']->createBuilder(BugType::class, $bug)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bookmarkRepository->save($form->getData());
+            $bugRepository->save($form->getData());
 
             $app['session']->getFlashBag()->add(
                 'messages',
@@ -165,13 +164,13 @@ class BookmarkController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('bookmark_index'), 301);
+            return $app->redirect($app['url_generator']->generate('bug_index'), 301);
         }
 
         return $app['twig']->render(
-            'bookmark/edit.html.twig',
+            'bug/edit.html.twig',
             [
-                'bookmark' => $bookmark,
+                'bug' => $bug,
                 'form' => $form->createView(),
             ]
         );
@@ -188,10 +187,10 @@ class BookmarkController implements ControllerProviderInterface
      */
     public function deleteAction(Application $app, $id, Request $request)
     {
-        $bookmarkRepository = new BookmarkRepository($app['db']);
-        $bookmark = $bookmarkRepository->findOneById($id);
+        $bugRepository = new BugRepository($app['db']);
+        $bug = $bugRepository->findOneById($id);
 
-        if (!$bookmark) {
+        if (!$bug) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -200,14 +199,14 @@ class BookmarkController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('bookmark_index'));
+            return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
-        $form = $app['form.factory']->createBuilder(FormType::class, $bookmark)->add('id', HiddenType::class)->getForm();
+        $form = $app['form.factory']->createBuilder(FormType::class, $bug)->add('id', HiddenType::class)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bookmarkRepository->delete($form->getData());
+            $bugRepository->delete($form->getData());
 
             $app['session']->getFlashBag()->add(
                 'messages',
@@ -218,15 +217,15 @@ class BookmarkController implements ControllerProviderInterface
             );
 
             return $app->redirect(
-                $app['url_generator']->generate('bookmark_index'),
+                $app['url_generator']->generate('bug_index'),
                 301
             );
         }
 
         return $app['twig']->render(
-            'bookmark/delete.html.twig',
+            'bug/delete.html.twig',
             [
-                'bookmark' => $bookmark,
+                'bug' => $bug,
                 'form' => $form->createView(),
             ]
         );

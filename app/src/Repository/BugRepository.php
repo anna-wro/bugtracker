@@ -1,6 +1,6 @@
 <?php
 /**
- * Bookmark repository.
+ * Bug repository.
  */
 namespace Repository;
 
@@ -8,11 +8,11 @@ use Doctrine\DBAL\Connection;
 use Utils\Paginator;
 
 /**
- * Class BookmarkRepository.
+ * Class BugRepository.
  *
  * @package Repository
  */
-class BookmarkRepository
+class BugRepository
 {
     /**
      * Number of items per page.
@@ -29,7 +29,7 @@ class BookmarkRepository
     protected $db;
 
     /**
-     * TagRepository constructor.
+     * BugRepository constructor.
      *
      * @param \Doctrine\DBAL\Connection $db
      */
@@ -81,47 +81,10 @@ class BookmarkRepository
     {
         $queryBuilder = $this->queryAll();
         $queryBuilder->where('b.id = :id')
-            ->setParameter(':id', $id, \PDO::PARAM_INT);
+            ->setParameter(':id', $id);
         $result = $queryBuilder->execute()->fetch();
 
         return !$result ? [] : $result;
-    }
-
-    /**
-     * Save record.
-     *
-     * @param array $bookmark Bookmark
-     *
-     * @return boolean Result
-     */
-    public function save($bookmark)
-    {
-        $currentDateTime = new \DateTime();
-        $bookmark['modified_at'] = $currentDateTime->format('Y-m-d H:i:s');
-        if (isset($bookmark['id']) && ctype_digit((string) $bookmark['id'])) {
-            // update record
-            $id = $bookmark['id'];
-            unset($bookmark['id']);
-
-            return $this->db->update('si_bookmarks', $bookmark, ['id' => $id]);
-        } else {
-            // add new record
-            $bookmark['created_at'] = $currentDateTime->format('Y-m-d H:i:s');
-
-            return $this->db->insert('si_bookmarks', $bookmark);
-        }
-    }
-
-    /**
-     * Remove record.
-     *
-     * @param array $bookmark Bookmark
-     *
-     * @return boolean Result
-     */
-    public function delete($bookmark)
-    {
-        return $this->db->delete('si_bookmarks', ['id' => $bookmark['id']]);
     }
 
     /**
@@ -133,13 +96,42 @@ class BookmarkRepository
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
-        return $queryBuilder->select(
-            'b.id',
-            'b.created_at',
-            'b.modified_at',
-            'b.title',
-            'b.url',
-            'b.is_public'
-        )->from('si_bookmarks', 'b');
+        // TODO: select all the columns
+        return $queryBuilder->select('b.id', 'b.name')
+            ->from('pr_bugs', 'b');
+    }
+
+    /**
+     * Save record.
+     *
+     * @param array $bug Bug
+     *
+     * @return boolean Result
+     */
+
+    public function save($bug)
+    {
+        if (isset($bug['id']) && ctype_digit((string) $bug['id'])) {
+            // update record
+            $id = $bug['id'];
+            unset($bug['id']);
+
+            return $this->db->update('pr_bugs', $bug, ['id' => $bug]);
+        } else {
+            // add new record
+            return $this->db->insert('pr_bugs', $bug);
+        }
+    }
+
+    /**
+     * Remove record.
+     *
+     * @param array $bug Bug
+     *
+     * @return boolean Result
+     */
+    public function delete($bug)
+    {
+        return $this->db->delete('pr_bugs', ['id' => $bug['id']]);
     }
 }

@@ -6,17 +6,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Controller\HelloController;
-use Controller\TagController;
 
+use Controller\BugController;
+use Controller\ProjectController;
 
-$app->mount('/hello', new HelloController());
-
-use Controller\BookmarkController;
-
-$app->mount('/bookmark', new BookmarkController());
-$app->mount('/tag', new tagController()); // '/tags' wpisujemy w przegladarce
-//$app->mount('/tag', new tagController()); // '/tag' wpisujemy w przegladarce
+$app->mount('/project', new ProjectController());
+$app->mount('/bug', new BugController());
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 

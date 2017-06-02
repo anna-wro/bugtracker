@@ -1,21 +1,24 @@
 <?php
 /**
- * Tag type.
+ * Project type.
  */
 namespace Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class TagType.
+ * Class ProjectType.
  *
  * @package Form
  */
-class TagType extends AbstractType
+
+class ProjectType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -23,21 +26,22 @@ class TagType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'name',
+            'title',
             TextType::class,
             [
-                'label' => 'label.name',
+                'label' => 'label.title',
                 'required' => true,
                 'attr' => [
                     'max_length' => 128,
+                    'class' => 'input__title'
                 ],
                 'constraints' => [
                     new Assert\NotBlank(
-                        ['groups' => ['tag-default']]
+                        ['groups' => ['project-default']]
                     ),
                     new Assert\Length(
                         [
-                            'groups' => ['tag-default'],
+                            'groups' => ['project-default'],
                             'min' => 3,
                             'max' => 128,
                         ]
@@ -45,16 +49,16 @@ class TagType extends AbstractType
                 ],
             ]
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(
+        $builder->add(
+            'is_public',
+            ChoiceType::class,
             [
-                'validation_groups' => 'tag-default',
+                'label' => 'label.is_public',
+                'choices'  => [
+                    'label.no' => 0,
+                    'label.yes' => 1,
+                ],
+                'required' => true,
             ]
         );
     }
@@ -64,6 +68,18 @@ class TagType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'tag_type';
+        return 'project_type';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            [
+                'validation_groups' => 'project-default',
+            ]
+        );
     }
 }

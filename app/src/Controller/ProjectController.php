@@ -1,68 +1,74 @@
 <?php
 /**
- * Tag controller.
+ * Project controller.
  */
+
 namespace Controller;
 
-use Repository\TagRepository;
+use Repository\ProjectRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
-use Form\TagType;
 use Symfony\Component\HttpFoundation\Request;
+use Form\ProjectType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 /**
- * Class TagController.
+ * Class ProjectController.
  *
  * @package Controller
  */
-class TagController implements ControllerProviderInterface
+class ProjectController implements ControllerProviderInterface
 {
-
     /**
-     * {@inheritdoc}
+     * Routing settings.
+     *
+     * @param \Silex\Application $app Silex application
+     *
+     * @return \Silex\ControllerCollection Result
      */
+
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
-        $controller->get('/', [$this, 'indexAction'])->bind('tag_index');
+        $controller->get('/', [$this, 'indexAction'])->bind('project_index');
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
-            ->bind('tag_index_paginated');
+            ->bind('project_index_paginated');
         $controller->get('/{id}', [$this, 'viewAction'])
             ->assert('id', '[1-9]\d*')
-            ->bind('tag_view');
+            ->bind('project_view');
         $controller->match('/add', [$this, 'addAction'])
             ->method('POST|GET')
-            ->bind('tag_add');
+            ->bind('project_add');
         $controller->match('/{id}/edit', [$this, 'editAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
-            ->bind('tag_edit');
+            ->bind('project_edit');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
-            ->bind('tag_delete');
+            ->bind('project_delete');
         return $controller;
     }
+
 
     /**
      * Index action.
      *
-     * @param \Silex\Application $app  Silex application
-     * @param int                $page Current page number
+     * @param \Silex\Application $app Silex application
+     * @param int $page Current page number
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
     public function indexAction(Application $app, $page = 1)
     {
-        $tagRepository = new TagRepository($app['db']);
+        $projectRepository = new ProjectRepository($app['db']);
 
         return $app['twig']->render(
-            'tag/index.html.twig',
-            ['paginator' => $tagRepository->findAllPaginated($page)]
+            'project/index.html.twig',
+            ['paginator' => $projectRepository->findAllPaginated($page)]
         );
     }
 
@@ -70,39 +76,31 @@ class TagController implements ControllerProviderInterface
      * View action.
      *
      * @param \Silex\Application $app Silex application
-     * @param string             $id  Element Id
+     * @param string $id Element Id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
     public function viewAction(Application $app, $id)
     {
-        $tagRepository = new TagRepository($app['db']);
+        $projectRepository = new ProjectRepository($app['db']);
 
         return $app['twig']->render(
-            'tag/view.html.twig',
-            ['tag' => $tagRepository->findOneById($id),
-                'tagId' => $id]
+            'project/view.html.twig',
+            ['project' => $projectRepository->findOneById($id),
+                'projectId' => $id]
         );
     }
 
-    /**
-     * Add action.
-     *
-     * @param \Silex\Application                        $app     Silex application
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
-     */
     public function addAction(Application $app, Request $request)
     {
-        $tag = [];
+        $project = [];
 
-        $form = $app['form.factory']->createBuilder(TagType::class, $tag)->getForm();
+        $form = $app['form.factory']->createBuilder(ProjectType::class, $project)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $tagRepository = new TagRepository($app['db']);
-            $tagRepository->save($form->getData());
+            $projectRepository = new ProjectRepository($app['db']);
+            $projectRepository->save($form->getData());
 
             $app['session']->getFlashBag()->add(
                 'messages',
@@ -112,13 +110,13 @@ class TagController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('tag_index'), 301);
+            return $app->redirect($app['url_generator']->generate('project_index'), 301);
         }
 
         return $app['twig']->render(
-            'tag/add.html.twig',
+            'project/add.html.twig',
             [
-                'tag' => $tag,
+                'project' => $project,
                 'form' => $form->createView(),
             ]
         );
@@ -127,18 +125,18 @@ class TagController implements ControllerProviderInterface
     /**
      * Edit action.
      *
-     * @param \Silex\Application                        $app     Silex application
-     * @param int                                       $id      Record id
+     * @param \Silex\Application $app Silex application
+     * @param int $id Record id
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
     public function editAction(Application $app, $id, Request $request)
     {
-        $tagRepository = new TagRepository($app['db']);
-        $tag = $tagRepository->findOneById($id);
+        $projectRepository = new ProjectRepository($app['db']);
+        $project = $projectRepository->findOneById($id);
 
-        if (!$tag) {
+        if (!$project) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -147,14 +145,14 @@ class TagController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('tag_index'));
+            return $app->redirect($app['url_generator']->generate('project_index'));
         }
 
-        $form = $app['form.factory']->createBuilder(TagType::class, $tag)->getForm();
+        $form = $app['form.factory']->createBuilder(ProjectType::class, $project)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $tagRepository->save($form->getData());
+            $projectRepository->save($form->getData());
 
             $app['session']->getFlashBag()->add(
                 'messages',
@@ -164,13 +162,13 @@ class TagController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('tag_index'), 301);
+            return $app->redirect($app['url_generator']->generate('project_index'), 301);
         }
 
         return $app['twig']->render(
-            'tag/edit.html.twig',
+            'project/edit.html.twig',
             [
-                'tag' => $tag,
+                'project' => $project,
                 'form' => $form->createView(),
             ]
         );
@@ -179,18 +177,18 @@ class TagController implements ControllerProviderInterface
     /**
      * Delete action.
      *
-     * @param \Silex\Application                        $app     Silex application
-     * @param int                                       $id      Record id
+     * @param \Silex\Application $app Silex application
+     * @param int $id Record id
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
     public function deleteAction(Application $app, $id, Request $request)
     {
-        $tagRepository = new TagRepository($app['db']);
-        $tag = $tagRepository->findOneById($id);
+        $projectRepository = new ProjectRepository($app['db']);
+        $project = $projectRepository->findOneById($id);
 
-        if (!$tag) {
+        if (!$project) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -199,14 +197,14 @@ class TagController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('tag_index'));
+            return $app->redirect($app['url_generator']->generate('project_index'));
         }
 
-        $form = $app['form.factory']->createBuilder(FormType::class, $tag)->add('id', HiddenType::class)->getForm();
+        $form = $app['form.factory']->createBuilder(FormType::class, $project)->add('id', HiddenType::class)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $tagRepository->delete($form->getData());
+            $projectRepository->delete($form->getData());
 
             $app['session']->getFlashBag()->add(
                 'messages',
@@ -217,15 +215,15 @@ class TagController implements ControllerProviderInterface
             );
 
             return $app->redirect(
-                $app['url_generator']->generate('tag_index'),
+                $app['url_generator']->generate('project_index'),
                 301
             );
         }
 
         return $app['twig']->render(
-            'tag/delete.html.twig',
+            'project/delete.html.twig',
             [
-                'tag' => $tag,
+                'project' => $project,
                 'form' => $form->createView(),
             ]
         );
