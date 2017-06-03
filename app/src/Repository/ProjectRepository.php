@@ -19,7 +19,7 @@ class ProjectRepository
      *
      * const int NUM_ITEMS
      */
-    const NUM_ITEMS = 3;
+    const NUM_ITEMS = 10;
 
     /**
      * Doctrine DBAL connection.
@@ -96,8 +96,8 @@ class ProjectRepository
      */
     public function save($project)
     {
-        $currentDateTime = new \DateTime();
-        $project['modified_at'] = $currentDateTime->format('Y-m-d H:i:s');
+        // FIXME: Getting real user id instead of this one
+        $project['user_id'] = 1;
         if (isset($project['id']) && ctype_digit((string) $project['id'])) {
             // update record
             $id = $project['id'];
@@ -106,8 +106,6 @@ class ProjectRepository
             return $this->db->update('pr_projects', $project, ['id' => $id]);
         } else {
             // add new record
-            $project['created_at'] = $currentDateTime->format('Y-m-d H:i:s');
-
             return $this->db->insert('pr_projects', $project);
         }
     }

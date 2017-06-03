@@ -1,4 +1,4 @@
 // Calculate em values
-@function em($target, $context: $base-font-size) {
+@function em($target, $context: 16px) {
   @return ($target / $context) * 1em;
 }

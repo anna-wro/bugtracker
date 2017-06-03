@@ -5,9 +5,8 @@
 namespace Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,14 +25,13 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'title',
+            'name',
             TextType::class,
             [
-                'label' => 'label.title',
+                'label' => 'label.project_name',
                 'required' => true,
                 'attr' => [
-                    'max_length' => 128,
-                    'class' => 'input__title'
+                    'max_length' => 45
                 ],
                 'constraints' => [
                     new Assert\NotBlank(
@@ -43,22 +41,56 @@ class ProjectType extends AbstractType
                         [
                             'groups' => ['project-default'],
                             'min' => 3,
-                            'max' => 128,
+                            'max' => 45,
                         ]
                     ),
                 ],
             ]
         );
         $builder->add(
-            'is_public',
-            ChoiceType::class,
+            'description',
+            TextType::class,
             [
-                'label' => 'label.is_public',
-                'choices'  => [
-                    'label.no' => 0,
-                    'label.yes' => 1,
+                'label' => 'label.project_description',
+                'required' => false,
+                'attr' => [
+                    'max_length' => 1024
                 ],
-                'required' => true,
+                'constraints' => [
+                    new Assert\Length(
+                        [
+                            'groups' => ['project-default'],
+                            'max' => 1024,
+                        ]
+                    ),
+                ],
+            ]
+        );
+
+        $builder->add(
+            'start_date',
+            DateType::class,
+            [
+                'label' => 'label.project_start_date',
+                'required' => false,
+                'widget' => 'single_text',
+                'input' => 'string',
+                'constraints' => [
+                    new Assert\Date(),
+                ],
+            ]
+        );
+        $builder->add(
+            'end_date',
+            DateType::class,
+            [
+                'label' => 'label.project_end_date',
+                'required' => false,
+                'widget' => 'single_text',
+                'input' => 'string',
+                'constraints' => [
+                    new Assert\Date(),
+                ],
             ]
         );
     }

@@ -1,2 +1,19 @@
 // Icons
 @import '../helpers/index';
+
+.fa-bug:hover {
+  color: $blue;
+}
+
+.fa-pencil:hover {
+  color:$purple;
+}
+
+.fa-trash:hover {
+  color:$red;
+}
+
+.icon-back {
+  padding-right: 4px;
+  padding-top: 2px;
+}

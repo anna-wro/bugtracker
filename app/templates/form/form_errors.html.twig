@@ -1,10 +1,10 @@
 {% block form_errors %}
     {% if errors|length > 0 -%}
-        {% if compound %}<div class="has-error">{% endif %}
+        {% if compound %}<div class="is-danger">{% endif %}
     {% if form.parent %}<span class="help-block">{% else %}<div class="alert alert-danger">{% endif %}
-        <ul class="list-unstyled">
+        <ul>
         {%- for error in errors -%}
-            <li><span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}</li>
+            <li><span class="fa fa-exclamation-circle"></span> {{ error.message }}</li>
         {%- endfor -%}
     </ul>
         {% if form.parent %}</span>{% else %}</div>{% endif %}

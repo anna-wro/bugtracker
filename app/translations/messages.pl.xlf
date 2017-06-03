@@ -54,11 +54,11 @@
                 <source>label.back_to_list</source>
                 <target>Wróć do listy</target>
             </trans-unit>
-            <trans-unit id="label.see">
-                <source>label.see</source>
-                <target>Zobacz</target>
+            <trans-unit id="label.view">
+                <source>label.view</source>
+                <target>Zobacz bugi</target>
             </trans-unit>
-            <trans-unit id="label.edit">
+            <trans-unit id="action.edit">
                 <source>label.edit</source>
                 <target>Edytuj</target>
             </trans-unit>
@@ -77,6 +77,22 @@
             <trans-unit id="label.project_add">
                 <source>label.project_add</source>
                 <target>Dodaj projekt</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Zapisz projekt</target>
+            </trans-unit>
+            <trans-unit id="title.project_delete">
+                <source>title.project_delete</source>
+                <target>Usuń projekt</target>
+            </trans-unit>
+            <trans-unit id="project_delete">
+                <source>project_delete</source>
+                <target>Czy na pewno chcesz usunąć projekt %id%: %name%?</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Tak, usuń go!</target>
             </trans-unit>
         </body>
 

@@ -5,6 +5,7 @@
 
 namespace Controller;
 
+use Repository\BugRepository;
 use Repository\ProjectRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
@@ -36,12 +37,12 @@ class ProjectController implements ControllerProviderInterface
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
             ->bind('project_index_paginated');
-        $controller->get('/{id}', [$this, 'viewAction'])
-            ->assert('id', '[1-9]\d*')
-            ->bind('project_view');
         $controller->match('/add', [$this, 'addAction'])
             ->method('POST|GET')
             ->bind('project_add');
+        $controller->get('/{id}/bugs', [$this, 'bugsAction'])
+            ->assert('id', '[1-9]\d*')
+            ->bind('project_bugs');
         $controller->match('/{id}/edit', [$this, 'editAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
@@ -73,23 +74,36 @@ class ProjectController implements ControllerProviderInterface
     }
 
     /**
-     * View action.
+     * Bugs action.
      *
      * @param \Silex\Application $app Silex application
      * @param string $id Element Id
      *
+     * @param int $page
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
-    public function viewAction(Application $app, $id)
+    public function bugsAction(Application $app, $id, $page = 1)
     {
-        $projectRepository = new ProjectRepository($app['db']);
+        $bugRepository = new BugRepository($app['db']);
 
         return $app['twig']->render(
-            'project/view.html.twig',
-            ['project' => $projectRepository->findOneById($id),
-                'projectId' => $id]
+            'bug/index.html.twig',
+            ['bug' => $bugRepository->findAllFromProject($id),
+                'projectId' => $id,
+                'paginator' => $bugRepository->findAllPaginated($page)]
         );
     }
+
+    /**
+     * Add action.
+     *
+     * @param \Silex\Application $app Silex application
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     * @internal param string $id Element Id
+     *
+     * @internal param int $page
+     */
 
     public function addAction(Application $app, Request $request)
     {

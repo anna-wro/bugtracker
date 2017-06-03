@@ -19,7 +19,7 @@ class BugRepository
      *
      * const int NUM_ITEMS
      */
-    const NUM_ITEMS = 3;
+    const NUM_ITEMS = 10;
 
     /**
      * Doctrine DBAL connection.
@@ -83,6 +83,23 @@ class BugRepository
         $queryBuilder->where('b.id = :id')
             ->setParameter(':id', $id);
         $result = $queryBuilder->execute()->fetch();
+
+        return !$result ? [] : $result;
+    }
+
+    /**
+     * Find bugs from chosen project
+     *
+     * @param string $projectId Project id
+     *
+     * @return array|mixed Result
+     */
+    public function findAllFromProject($projectId)
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->where('b.project_id = :id')
+            ->setParameter(':id', $projectId);
+        $result = $queryBuilder->execute()->fetchAll();
 
         return !$result ? [] : $result;
     }
