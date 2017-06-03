@@ -1,63 +1,61 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="title.bookmarks_list">
-                <source>title.bookmarks_list</source>
-                <target>Bookmarks List</target>
+            <trans-unit id="title.projects_list">
+                <source>title.projects_list</source>
+                <target>Projects</target>
             </trans-unit>
-            <trans-unit id="title.tags_list">
-                <source>title.tags_list</source>
-                <target>Tags List</target>
+            <trans-unit id="title.bugs_list">
+                <source>title.bugs_list</source>
+                <target>Bugs</target>
             </trans-unit>
-            <trans-unit id="tag_name">
-                <source>tag_name</source>
-                <target>Nazwa</target>
+            <trans-unit id="title.project_view">
+                <source>title.project_view</source>
+                <target>Project #%id%</target>
             </trans-unit>
-            <trans-unit id="title.bookmark_view">
-                <source>title.bookmark_view</source>
-                <target>Bookmark #%id%</target>
+            <trans-unit id="title.bug_view">
+                <source>title.bug_view</source>
+                <target>Bug #%id%</target>
             </trans-unit>
-            <trans-unit id="title.tag_view">
-                <source>title.tag_view</source>
-                <target>Tag #%id%</target>
+            <trans-unit id="label.project_name">
+                <source>label.project_name</source>
+                <target>Name</target>
             </trans-unit>
-            <trans-unit id="bookmark_table.title">
-                <source>bookmark_table.title</source>
-                <target>Title</target>
+            <trans-unit id="label.project_start_date">
+                <source>label.project_start_date</source>
+                <target>Start</target>
             </trans-unit>
-            <trans-unit id="bookmark_table.url">
-                <source>bookmark_table.url</source>
-                <target>URL</target>
+            <trans-unit id="label.project_end_date">
+                <source>label.project_end_date</source>
+                <target>End</target>
             </trans-unit>
-            <trans-unit id="bookmark_table.tag">
-                <source>bookmark_table.tag</source>
-                <target>Tags</target>
+            <trans-unit id="label.project_description">
+                <source>label.project_description</source>
+                <target>Description</target>
             </trans-unit>
-            <trans-unit id="bookmars_not_found">
-                <source>bookmars_not_found</source>
-                <target>Bookmarks not found</target>
+            <trans-unit id="projects_not_found">
+                <source>projects_not_found</source>
+                <target>Projects not found!</target>
             </trans-unit>
-            <trans-unit id="bookmark_not_found">
-                <source>bookmark_not_found</source>
-                <target>This bookmark does not exist!</target>
+            <trans-unit id="bug_not_found">
+                <source>bug_not_found</source>
+                <target>This bug doesn't exist!</target>
             </trans-unit>
-            <trans-unit id="tag_not_found">
-                <source>tag_not_found</source>
-                <target>This tag does not exist!</target>
+            <trans-unit id="bugs_not_found">
+                <source>bugs_not_found</source>
+                <target>Bugs not found!</target>
             </trans-unit>
-            <trans-unit id="tags_not_found">
-                <source>tags_not_found</source>
-                <target>Tags not found</target>
+            <trans-unit id="project_not_found">
+                <source>project_not_found</source>
+                <target>This project doesn't exist!</target>
             </trans-unit>
             <trans-unit id="label.back_to_list">
                 <source>label.back_to_list</source>
-                <target>Go back to the list</target>
+                <target>Go back to the list/target>
             </trans-unit>
-            <trans-unit id="label.view">
-                <source>label.view</source>
-                <target>See this bookmark</target>
-            </trans-unit>
+
         </body>
+
     </file>
 </xliff>

@@ -10,6 +10,7 @@
     {% block stylesheets %}
         <!--build:css css/app.min.css-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css" rel="stylesheet">
         <link href="{{ asset('css/application.css') }}" rel="stylesheet">
         <!--endbuild-->
     {% endblock %}
@@ -18,7 +19,11 @@
 <body>
 {% include 'default/_flash_messages.html.twig' %}
 <div class="container">
-    {% block body %}{% endblock %}
+    <div class="columns">
+        <div class="column is-offset-1 is-10 is-centered">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
 </div>
 {% block javascripts %}
     <!--build:js js/main.min.js -->

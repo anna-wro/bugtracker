@@ -6,12 +6,12 @@
 
 {% block body %}
 
-    <h1>
+    <h1 class="title is-1">
         {{ 'title.bugs_list'|trans }}
     </h1>
 
     {% if paginator.data|length %}
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>ID</th>

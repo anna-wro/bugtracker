@@ -96,9 +96,20 @@ class BugRepository
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
-        // TODO: select all the columns
-        return $queryBuilder->select('b.id', 'b.name')
-            ->from('pr_bugs', 'b');
+        return $queryBuilder->select(
+            'b.id',
+            'b.name',
+            'b.description',
+            'b.expected_result',
+            'b.reproduction',
+            'b.start_date',
+            'b.end_date',
+            'b.type_id',
+            'b.priority_id',
+            'b.status_id',
+            'b.project_id',
+            'b.user_id'
+        )->from('pr_bugs', 'b');
     }
 
     /**

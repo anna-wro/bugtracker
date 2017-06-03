@@ -60,7 +60,7 @@ class ProjectRepository
     public function findAllPaginated($page = 1)
     {
         $countQueryBuilder = $this->queryAll()
-            ->select('COUNT(DISTINCT b.id) AS total_results')
+            ->select('COUNT(DISTINCT p.id) AS total_results')
             ->setMaxResults(1);
 
         $paginator = new Paginator($this->queryAll(), $countQueryBuilder);
@@ -134,12 +134,12 @@ class ProjectRepository
         $queryBuilder = $this->db->createQueryBuilder();
 
         return $queryBuilder->select(
-            'b.id',
-            'b.created_at',
-            'b.modified_at',
-            'b.title',
-            'b.url',
-            'b.is_public'
-        )->from('si_bookmarks', 'b');
+            'p.id',
+            'p.name',
+            'p.description',
+            'p.start_date',
+            'p.end_date',
+            'p.user_id'
+        )->from('pr_projects', 'p');
     }
 }

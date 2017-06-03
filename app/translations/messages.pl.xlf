@@ -2,62 +2,59 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="title.bookmarks_list">
-                <source>title.bookmarks_list</source>
-                <target>Lista zakładek</target>
+            <trans-unit id="title.projects_list">
+                <source>title.projects_list</source>
+                <target>Lista projektów</target>
             </trans-unit>
-            <trans-unit id="title.tags_list">
-                <source>title.tags_list</source>
-                <target>Lista tagów</target>
+            <trans-unit id="title.bugs_list">
+                <source>title.bugs_list</source>
+                <target>Lista bugów</target>
             </trans-unit>
-            <trans-unit id="title.bookmark_view">
-                <source>title.bookmark_view</source>
-                <target>Zakładka #%id%</target>
+            <trans-unit id="title.project_view">
+                <source>title.project_view</source>
+                <target>Projekt #%id%</target>
             </trans-unit>
-            <trans-unit id="title.tag_view">
-                <source>title.tag_view</source>
-                <target>Tag #%id%</target>
+            <trans-unit id="title.bug_view">
+                <source>title.bug_view</source>
+                <target>Bug #%id%</target>
             </trans-unit>
-            <trans-unit id="bookmark_table.title">
-                <source>bookmark_table.title</source>
+            <trans-unit id="label.project_name">
+                <source>label.project_name</source>
                 <target>Nazwa</target>
             </trans-unit>
-            <trans-unit id="bookmark_table.url">
-                <source>bookmark_table.url</source>
-                <target>Link</target>
+            <trans-unit id="label.project_start_date">
+                <source>label.project_start_date</source>
+                <target>Start</target>
             </trans-unit>
-            <trans-unit id="bookmark_table.tag">
-                <source>bookmark_table.tag</source>
-                <target>Tagi</target>
+            <trans-unit id="label.project_end_date">
+                <source>label.project_end_date</source>
+                <target>Koniec</target>
             </trans-unit>
-            <trans-unit id="bookmarks_not_found">
-                <source>bookmarks_not_found</source>
-                <target>Nie znaleziono zakładek!</target>
+            <trans-unit id="label.project_description">
+                <source>label.project_description</source>
+                <target>Opis</target>
             </trans-unit>
-            <trans-unit id="tag_not_found">
-                <source>tag_not_found</source>
-                <target>Taki tag nie istnieje!</target>
+            <trans-unit id="projects_not_found">
+                <source>projects_not_found</source>
+                <target>Nie znaleziono projektów!</target>
             </trans-unit>
-            <trans-unit id="tags_not_found">
-                <source>tags_not_found</source>
-                <target>Nie znaleziono tagów!</target>
+            <trans-unit id="bug_not_found">
+                <source>bug_not_found</source>
+                <target>Taki bug nie istnieje!</target>
             </trans-unit>
-            <trans-unit id="bookmark_not_found">
-                <source>bookmark_not_found</source>
-                <target>Taka zakładka nie istnieje!</target>
+            <trans-unit id="bugs_not_found">
+                <source>bugs_not_found</source>
+                <target>Nie znaleziono bugów!</target>
+            </trans-unit>
+            <trans-unit id="project_not_found">
+                <source>project_not_found</source>
+                <target>Taki projekt nie istnieje!</target>
             </trans-unit>
             <trans-unit id="label.back_to_list">
                 <source>label.back_to_list</source>
-                <target>Wróć do listy zakładek</target>
+                <target>Wróć do listy</target>
             </trans-unit>
-            <trans-unit id="label.view">
-                <source>label.view</source>
-                <target>Zobacz zakładkę</target>
-            </trans-unit>
-            <trans-unit id="title.bookmark_delete">
-                <source>title.bookmark_delete</source>
-                <target>Usuń zakładkę #%id%: %title%</target>
-            </trans-unit>
+
         </body>
 
     </file>
