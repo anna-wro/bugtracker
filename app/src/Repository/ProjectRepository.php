@@ -98,6 +98,9 @@ class ProjectRepository
     {
         // FIXME: Getting real user id instead of this one
         $project['user_id'] = 1;
+        if($project['start_date'] == 0000-00-00) $project['start_date'] = null;
+        if($project['end_date'] == 0000-00-00) $project['end_date'] = null;
+
         if (isset($project['id']) && ctype_digit((string) $project['id'])) {
             // update record
             $id = $project['id'];
