@@ -1,36 +1,25 @@
 {#
     Default view for paginator.
 #}
-<nav aria-label="...">
-    <ul class="pager">
-        {% if paginator.page > 1 %}
-            {% set previous = (paginator.page - 1) %}
-            <li class="previous">
-                <a href="{{ url(route_name, {'page': previous}) }}" title="{{ 'labels.nav.prev'|trans }}">
-                    <span aria-hidden="true">&larr;</span>{{ 'labels.nav.prev'|trans }}
-                </a>
-            </li>
-        {% else %}
-            <li class="previous disabled">
-                <a href="#" title="{{ 'labels.nav.prev'|trans }}">
-                    <span aria-hidden="true">&larr;</span>{{ 'labels.nav.prev'|trans }}
-                </a>
-            </li>
-        {%  endif %}
-
-        {% if paginator.page < paginator.pages_number %}
-            {% set next = (paginator.page + 1) %}
-            <li class="next">
-                <a href="{{ url(route_name, {'page': next}) }}" title="{{ 'label.nav.next'|trans }}">
-                    {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        {% else %}
-            <li class="next disabled">
-                <a href="#" title="{{ 'label.nav.next'|trans }}">
-                    {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        {% endif  %}
-    </ul>
+<nav class="pagination is-centered">
+    {% if paginator.page > 1 %}
+    {% set previous = (paginator.page - 1) %}
+    <a class="pagination-previous" href="{{ url(route_name, {'page': previous}) }}"
+       title="{{ 'label.nav.prev'|trans }}">
+        <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
+    {% else %}
+    <a class="pagination-previous is-disabled" href="#"
+       title="{{ 'label.nav.prev'|trans }}" disabled>
+        <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
+    {% endif %}
+    {% if paginator.page < paginator.pages_number %}
+    {% set next = (paginator.page + 1) %}
+    <a class="pagination-next" href="{{ url(route_name, {'page': next}) }}" title="{{ 'label.nav.next'|trans }}">
+        {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
+    </a>
+    {% else %}
+    <a class="pagination-next is-disabled" href="#" title="{{ 'label.nav.next'|trans }}" disabled>
+        {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
+    </a>
+    {% endif %}
 </nav>

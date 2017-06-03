@@ -54,7 +54,30 @@
                 <source>label.back_to_list</source>
                 <target>Wróć do listy</target>
             </trans-unit>
-
+            <trans-unit id="label.see">
+                <source>label.see</source>
+                <target>Zobacz</target>
+            </trans-unit>
+            <trans-unit id="label.edit">
+                <source>label.edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="label.delete">
+                <source>label.delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="label.nav.prev">
+                <source>label.nav.prev</source>
+                <target>poprzednie</target>
+            </trans-unit>
+            <trans-unit id="label.nav.next">
+                <source>label.nav.next</source>
+                <target>następne</target>
+            </trans-unit>
+            <trans-unit id="label.project_add">
+                <source>label.project_add</source>
+                <target>Dodaj projekt</target>
+            </trans-unit>
         </body>
 
     </file>

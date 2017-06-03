@@ -23,9 +23,9 @@
                 <th>{{ 'label.project_description'|trans }}</th>
                 <th>{{ 'label.project_start_date'|trans }}</th>
                 <th>{{ 'label.project_end_date'|trans }}</th>
-                <th>{{ 'label.see'|trans }}</th>
-                <th>{{ 'label.edit'|trans }}</th>
-                <th>{{ 'label.delete'|trans }}</th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@
             {{ 'projects_not_found'|trans }}
         </div>
     {% endif %}
-    <a href="{{ url('project_add') }}" class="table__link table__link--detail"
+    <a href="{{ url('project_add') }}" class="button is-primary button__add"
        title="{{ 'label.project_add'|trans }}">
         {{ 'label.project_add'|trans }}
     </a>

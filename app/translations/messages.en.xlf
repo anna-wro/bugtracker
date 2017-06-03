@@ -52,9 +52,32 @@
             </trans-unit>
             <trans-unit id="label.back_to_list">
                 <source>label.back_to_list</source>
-                <target>Go back to the list/target>
+                <target>Go back to the list</target>
             </trans-unit>
-
+            <trans-unit id="label.see">
+                <source>label.see</source>
+                <target>See</target>
+            </trans-unit>
+            <trans-unit id="label.edit">
+                <source>label.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="label.delete">
+                <source>label.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="label.nav.prev">
+                <source>label.nav.prev</source>
+                <target>previous page</target>
+            </trans-unit>
+            <trans-unit id="label.nav.next">
+                <source>label.nav.next</source>
+                <target>next page</target>
+            </trans-unit>
+            <trans-unit id="label.project_add">
+                <source>label.project_add</source>
+                <target>Add new project</target>
+            </trans-unit>
         </body>
 
     </file>
