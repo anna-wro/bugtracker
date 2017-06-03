@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{% block title %}Default title{% endblock %}</title>
+
     {% block stylesheets %}
         <!--build:css css/app.min.css-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="{{ asset('css/application.css') }}" rel="stylesheet">
         <!--endbuild-->
     {% endblock %}

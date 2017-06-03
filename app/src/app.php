@@ -46,22 +46,7 @@ $app->extend('translator', function ($translator, $app) {
     return $translator;
 });
 
-$app->register(
-    new DoctrineServiceProvider(),
-    array(
-        'db.options' => array(
-            'driver'    => 'pdo_mysql',
-            'host'      => 'localhost',
-            'dbname'    => 'student',
-            'user'      => 'student',
-            'password'  => 'student123',
-            'charset'   => 'utf8',
-            'driverOptions' => array(
-                1002 => 'SET NAMES utf8',
-            ),
-        ),
-    )
-);
+require_once dirname(dirname(__FILE__)).'/config/db.php';
 
 $app->register(new FormServiceProvider());
 $app->register(new ValidatorServiceProvider());

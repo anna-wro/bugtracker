@@ -1,46 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.tag_view'|trans({'%id%': tagId}) }}
+    {{ 'title.bug_view'|trans({'%id%': bugId}) }}
 {% endblock %}
 
 {% block body %}
     <h1>
-        {{ 'title.tag_view'|trans({'%id%': tagId}) }}
+        {{ 'title.bug_view'|trans({'%id%': bugId}) }}
     </h1>
 
-    {% if tag|length %}
+    {% if bug|length %}
         <table>
             <thead>
             <tr>
-                <th>{{ 'tag_name'|trans }}</th>
+                <th>{{ 'bug_name'|trans }}</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>
-                    {{ tag.id }}
+                    {{ bug.id }}
                 </td>
                 <td>
-                    {{ tag.name }}
+                    {{ bug.name }}
                 </td>
             </tr>
             </tbody>
         </table>
-        <a href="{{ url('tag_index') }}" class="table__link table__link--detail"
-           title="{{ 'label.back_to_tag_list'|trans }}">
-            {{ 'label.back_to_tag_list'|trans }}
+        <a href="{{ url('bug_index') }}" class="table__link table__link--detail"
+           title="{{ 'label.back_to_bug_list'|trans }}">
+            {{ 'label.back_to_bug_list'|trans }}
         </a>
-        <a href="{{ url('tag_edit', {'id': tag.id}) }}" class="table__link" title="{{ 'label.edit'|trans }}">
+        <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="table__link" title="{{ 'label.edit'|trans }}">
             {{ 'label.edit'|trans }}
         </a>
-        <a href="{{ url('tag_delete', {'id': tag.id}) }}" class="table__link"
+        <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="table__link"
            title="{{ 'label.delete'|trans }}">
             {{ 'label.delete'|trans }}
         </a>
     {% else %}
         <div>
-            {{ 'tag_not_found'|trans }}
+            {{ 'bug_not_found'|trans }}
         </div>
     {% endif %}
 {% endblock %}

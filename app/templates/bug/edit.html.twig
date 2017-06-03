@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'title.tag_edit'|trans({'%id%': tag.id}) }}{% endblock %}
+{% block title %}{{ 'title.bug_edit'|trans({'%id%': bug.id}) }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.tag_edit'|trans({'%id%': tag.id}) }}</h1>
-    {{ form_start(form, { method: 'post', action: url('tag_edit', {'id': tag.id}) }) }}
+    <h1>{{ 'title.bug_edit'|trans({'%id%': bug.id}) }}</h1>
+    {{ form_start(form, { method: 'post', action: url('bug_edit', {'id': bug.id}) }) }}
     {{ form_widget(form) }}
     <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />
     {{ form_end(form) }}

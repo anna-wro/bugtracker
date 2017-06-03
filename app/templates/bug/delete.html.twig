@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'title.tag_delete'|trans({'%id%': tag.id}) }}{% endblock %}
+{% block title %}{{ 'title.bug_delete'|trans({'%id%': bug.id}) }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.tag_delete'|trans({'%id%': tag.id}) }}</h1>
-    {{ form_start(form, { method: 'post', action: url('tag_delete', {'id': tag.id}) }) }}
+    <h1>{{ 'title.bug_delete'|trans({'%id%': bug.id}) }}</h1>
+    {{ form_start(form, { method: 'post', action: url('bug_delete', {'id': bug.id}) }) }}
     {{ form_widget(form) }}
     <input type="submit" value="{{ 'action.delete'|trans }}" class="btn btn-success" />
     {{ form_end(form) }}
-    <a href="{{ url('tag_index') }}" title="{{ 'label.back_to_list'|trans }}" class="btn btn-default">
+    <a href="{{ url('bug_index') }}" title="{{ 'label.back_to_list'|trans }}" class="btn btn-default">
         <span class="fa fa-mail-reply" aria-hidden="true"></span>
         {{ 'label.back_to_list'|trans }}
     </a>
