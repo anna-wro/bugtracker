@@ -10,16 +10,15 @@
 {# TODO: replace with my own alert #}
 
 {% if is_single_message|default(true) %}
+{% endif %}
+<div class="notification is-{{ type }}" role="alert">
+    <button type="button" class="delete" data-dismiss="alert" aria-label="Close">
+    </button>
+    {% if message|trans is not same as(message) %}
+        {{ message|trans }}
+    {% else %}
+        {{ message }}
     {% endif %}
-    <div class="notification is-{{ type }}" role="alert">
-        <button type="button" class="delete" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"></span>
-        </button>
-        {% if message|trans is not same as(message) %}
-            {{ message|trans }}
-        {% else %}
-            {{ message }}
-        {% endif %}
-    </div>
-    {% if is_single_message|default(true) %}
+</div>
+{% if is_single_message|default(true) %}
 {% endif %}
