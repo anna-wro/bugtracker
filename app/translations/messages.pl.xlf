@@ -16,7 +16,7 @@
             </trans-unit>
             <trans-unit id="title.bug_view">
                 <source>title.bug_view</source>
-                <target>Bug #%id%</target>
+                <target>Bug %id%: %name%</target>
             </trans-unit>
             <trans-unit id="label.project_name">
                 <source>label.project_name</source>
@@ -109,8 +109,7 @@
             </trans-unit>
             <trans-unit id="placeholder.desc">
                 <source>placeholder.desc</source>
-                <target>Opowiedz mi coś o tym projekcie.
-O co w nim chodzi?</target>
+                <target>O co chodzi w tym projekcie?</target>
             </trans-unit>
             <trans-unit id="message.project_successfully_edited">
                 <source>message.project_successfully_edited</source>
@@ -127,6 +126,62 @@ O co w nim chodzi?</target>
             <trans-unit id="message.project_successfully_deleted">
                 <source>message.project_successfully_deleted</source>
                 <target>Projekt został usunięty</target>
+            </trans-unit>
+            <trans-unit id="label.bug_add">
+                <source>label.bug_add</source>
+                <target>Nowy bug</target>
+            </trans-unit>
+            <trans-unit id="label.more">
+                <source>label.more</source>
+                <target>Zobacz więcej</target>
+            </trans-unit>
+            <trans-unit id="label.bug_name">
+                <source>label.bug_name</source>
+                <target>Bug</target>
+            </trans-unit>
+            <trans-unit id="label.bug_priority">
+                <source>label.bug_priority</source>
+                <target>Priorytet</target>
+            </trans-unit>
+            <trans-unit id="label.bug_status">
+                <source>label.bug_status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="label.bug_type">
+                <source>label.bug_type</source>
+                <target>Typ błędu</target>
+            </trans-unit>
+            <trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Nazwa</target>
+            </trans-unit>
+            <trans-unit id="label.bug_desc">
+                <source>label.bug_desc</source>
+                <target>Co się dzieje?</target>
+            </trans-unit>
+            <trans-unit id="label.bug_start">
+                <source>label.bug_start</source>
+                <target>Dodano</target>
+            </trans-unit>
+            <trans-unit id="label.bug_end">
+                <source>label.bug_end</source>
+                <target>Zamknięto</target>
+            </trans-unit>
+            <trans-unit id="label.bug_project">
+                <source>label.bug_project</source>
+                <target>Projekt</target>
+            </trans-unit>
+            <trans-unit id="project.name">
+                <source>project.name</source>
+                <target>Projekt</target>
+            </trans-unit>
+            <trans-unit id="status_1">
+                <source>status_1</source>
+                <target>Do zrobienia</target>
+            </trans-unit>
+            <trans-unit id="status_2">
+                <source>status_2</source>
+                <target>Zakończone</target>
             </trans-unit>
         </body>
 
