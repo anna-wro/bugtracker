@@ -5,3 +5,24 @@ h1 {
   margin: 5% auto;
   text-align: center;
 }
+
+::selection {
+  background: $turquoise;
+  color: $white;
+}
+
+::-moz-selection {
+  background: $turquoise;
+  color: $white;
+}
+
+.bug__number {
+
+  text-align: right;
+  padding-left: 10px;
+}
+
+.single-bug__category {
+  padding-right: 15px;
+  padding-top:1px;
+}

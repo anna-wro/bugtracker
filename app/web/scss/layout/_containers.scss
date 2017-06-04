@@ -1,10 +1,20 @@
 // Containers
 @import '../helpers/index';
 
-table {
+table, .single-bug {
   margin-top: 50px;
+}
+
+.single-bug__table {
+  margin-top: 0;
+
+   td {
+     font-size: $size-6;
+     border: none;
+   }
 }
 
 .notification:not(:last-child) {
   margin-bottom: 0;
 }
+

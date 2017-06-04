@@ -1,46 +1,84 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.bug_view'|trans({'%id%': bugId}) }}
+    {{ 'title.bug_view'|trans({'%id%': bugId, '%name%' : bug.name}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>
-        {{ 'title.bug_view'|trans({'%id%': bugId}) }}
-    </h1>
+    <div class="column is-10 is-offset-1 single-bug">
 
+    <div class="tile is-ancestor">
     {% if bug|length %}
-        <table>
-            <thead>
-            <tr>
-                <th>{{ 'bug_name'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    {{ bug.id }}
-                </td>
-                <td>
-                    {{ bug.name }}
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <a href="{{ url('bug_index') }}" class="table__link table__link--detail"
-           title="{{ 'label.back_to_bug_list'|trans }}">
-            {{ 'label.back_to_bug_list'|trans }}
-        </a>
-        <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="table__link" title="{{ 'label.edit'|trans }}">
-            {{ 'label.edit'|trans }}
-        </a>
-        <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="table__link"
-           title="{{ 'label.delete'|trans }}">
-            {{ 'label.delete'|trans }}
-        </a>
-    {% else %}
-        <div>
-            {{ 'bug_not_found'|trans }}
+    <div class="tile is-parent is-3">
+        {% if bug.status_id == 1 and bug.priority_id <= 2 %}
+        <div class="tile is-child notification is-danger">
+            {% elseif  bug.status_id == 1 %}
+            <div class="tile is-child notification is-warning">
+                {% else %}
+                <div class="tile is-child notification is-success">
+                    {% endif %}
+                    <div class="title is-2 has-text-right bug__number">#{{ bug.id }}</div>
+                </div>
+            </div>
+            <div class="tile is-parent is-9">
+                <div class="tile is-child  notification is-primary">
+                    <h2 class="title is-2">{{ bug.name }}</h2>
+                </div>
+            </div>
         </div>
-    {% endif %}
+        <div class="tile is-ancestor">
+            <div class="tile is-vertical is-8">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <p class="title is-spaced">{{ 'label.bug_desc'|trans }}</p>
+                        <p class="subtitle">{{ bug.description }}</p>
+                    </article>
+                </div>
+                <div class="tile">
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification">
+                            <p class="title is-spaced">{{ 'label.bug_type'|trans }}</p>
+                            <p class="subtitle">{{ bug.type_id }}</p>
+                        </article>
+                    </div>
+
+                    <div class="tile is-parent is-vertical">
+                        <article class="tile is-child notification">
+                            <p class="title is-spaced">{{ 'label.bug_priority'|trans }}</p>
+                            <p class="subtitle">{{ priority.name | trans }}</p>
+                        </article>
+                        <article class="tile is-child notification">
+                            <p class="title is-spaced">{{ 'label.bug_project'|trans }}</p>
+                            <p class="subtitle">{{ project.name }}</p>
+                        </article>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="tile  is-vertical is-4">
+                <article class="tile is-parent is-vertical">
+                    <article class="tile is-child notification">
+                        <p class="title is-spaced">{{ 'label.bug_status'|trans }}</p>
+                        <p class="subtitle">{{ status.name |trans }}</p>
+                    </article>
+                    {% if bug.start_date != null %}
+                        <article class="tile is-child notification">
+                            <p class="title is-spaced">{{ 'label.bug_start'|trans }}</p>
+                            <p class="subtitle">{{ bug.start_date }}</p>
+                        </article>
+                    {% endif %}
+                    {% if bug.end_date != null %}
+                        <article class="tile is-child notification">
+                            <p class="title is-spaced">{{ 'label.bug_end'|trans }}</p>
+                            <p class="subtitle">{{ bug.end_date }}</p>
+                        </article>
+                    {% endif %}
+                </article>
+            </div>
+        </div>
+        {% else %}
+            {{ 'bug_not_found'|trans }}
+        {% endif %}
+    </div>
 {% endblock %}
