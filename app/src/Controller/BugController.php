@@ -2,6 +2,7 @@
 /**
  * Bug controller.
  */
+
 namespace Controller;
 
 use Repository\BugRepository;
@@ -51,8 +52,8 @@ class BugController implements ControllerProviderInterface
     /**
      * Index action.
      *
-     * @param \Silex\Application $app  Silex application
-     * @param int                $page Current page number
+     * @param \Silex\Application $app Silex application
+     * @param int $page Current page number
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
@@ -70,7 +71,7 @@ class BugController implements ControllerProviderInterface
      * View action.
      *
      * @param \Silex\Application $app Silex application
-     * @param string             $id  Element Id
+     * @param string $id Element Id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
@@ -81,6 +82,10 @@ class BugController implements ControllerProviderInterface
         return $app['twig']->render(
             'bug/view.html.twig',
             ['bug' => $bugRepository->findOneById($id),
+                'project' => $bugRepository->getLinkedProject($id),
+                'status' => $bugRepository->getLinkedStatus($id),
+                'priority' => $bugRepository->getLinkedPriority($id),
+                'type' => $bugRepository->getLinkedType($id),
                 'bugId' => $id]
         );
     }
@@ -88,7 +93,7 @@ class BugController implements ControllerProviderInterface
     /**
      * Add action.
      *
-     * @param \Silex\Application                        $app     Silex application
+     * @param \Silex\Application $app Silex application
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
@@ -127,8 +132,8 @@ class BugController implements ControllerProviderInterface
     /**
      * Edit action.
      *
-     * @param \Silex\Application                        $app     Silex application
-     * @param int                                       $id      Record id
+     * @param \Silex\Application $app Silex application
+     * @param int $id Record id
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
@@ -179,8 +184,8 @@ class BugController implements ControllerProviderInterface
     /**
      * Delete action.
      *
-     * @param \Silex\Application                        $app     Silex application
-     * @param int                                       $id      Record id
+     * @param \Silex\Application $app Silex application
+     * @param int $id Record id
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response

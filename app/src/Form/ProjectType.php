@@ -104,6 +104,7 @@ class ProjectType extends AbstractType
                 'input' => 'string',
                 'constraints' => [
                     new Assert\Date(),
+                    new Assert\GreaterThan('start_date')
                 ],
             ]
         );

@@ -2,6 +2,7 @@
 /**
  * Bug repository.
  */
+
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
@@ -88,20 +89,87 @@ class BugRepository
     }
 
     /**
-     * Find bugs from chosen project
+     * Get project's name
      *
-     * @param string $projectId Project id
+     * @param string $id Project id
      *
      * @return array|mixed Result
      */
-    public function findAllFromProject($projectId)
+    public function getLinkedProject($id)
     {
-        $queryBuilder = $this->queryAll();
-        $queryBuilder->where('b.project_id = :id')
-            ->setParameter(':id', $projectId);
-        $result = $queryBuilder->execute()->fetchAll();
+        $query = $this->findOneById($id);
+        $projectId = $query['project_id'];
 
-        return !$result ? [] : $result;
+        $queryBuilder = $this->db->createQueryBuilder()
+            ->select('pr.name')
+            ->from('pr_projects', 'pr')
+            ->where('pr.id = :id')
+            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+        $result = $queryBuilder->execute()->fetchAll();
+        return !$result ? [] : $result[0];
+    }
+
+    /**
+     * Get bug's status
+     *
+     * @param string $id Bug id
+     *
+     * @return array|mixed Result
+     */
+    public function getLinkedStatus($id)
+    {
+        $query = $this->findOneById($id);
+        $projectId = $query['status_id'];
+
+        $queryBuilder = $this->db->createQueryBuilder()
+            ->select('pr.name')
+            ->from('pr_statuses', 'pr')
+            ->where('pr.id = :id')
+            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+        $result = $queryBuilder->execute()->fetchAll();
+        return !$result ? [] : $result[0];
+    }
+
+    /**
+     * Get bug's priority
+     *
+     * @param string $id Bug id
+     *
+     * @return array|mixed Result
+     */
+    public function getLinkedPriority($id)
+    {
+        $query = $this->findOneById($id);
+        $projectId = $query['priority_id'];
+
+        $queryBuilder = $this->db->createQueryBuilder()
+            ->select('pr.name')
+            ->from('pr_priorities', 'pr')
+            ->where('pr.id = :id')
+            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+        $result = $queryBuilder->execute()->fetchAll();
+        return !$result ? [] : $result[0];
+    }
+
+    /**
+     * Get bug's type
+     *
+     * @param string $id Bug id
+     *
+     * @return array|mixed Result
+     */
+    public function getLinkedType($id)
+    {
+        $query = $this->findOneById($id);
+        $projectId = $query['type_id'];
+
+        $queryBuilder = $this->db->createQueryBuilder()
+            ->select('pr.name')
+            ->from('pr_types', 'pr')
+            ->where('pr.id = :id')
+            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+        $result = $queryBuilder->execute()->fetchAll();
+        return !$result ? [] : $result[0];
     }
 
     /**
@@ -139,7 +207,7 @@ class BugRepository
 
     public function save($bug)
     {
-        if (isset($bug['id']) && ctype_digit((string) $bug['id'])) {
+        if (isset($bug['id']) && ctype_digit((string)$bug['id'])) {
             // update record
             $id = $bug['id'];
             unset($bug['id']);
