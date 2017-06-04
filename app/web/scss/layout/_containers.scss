@@ -4,3 +4,7 @@
 table {
   margin-top: 50px;
 }
+
+.notification:not(:last-child) {
+  margin-bottom: 0;
+}

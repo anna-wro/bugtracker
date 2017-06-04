@@ -94,6 +94,39 @@
                 <source>action.delete</source>
                 <target>Yes, delete it!</target>
             </trans-unit>
+            <trans-unit id="title.project_edit">
+                <source>title.project_edit</source>
+                <target>Edit project</target>
+            </trans-unit>
+            <trans-unit id="action.save_changes">
+                <source>action.save_changes</source>
+                <target>Save changes</target>
+            </trans-unit>
+            <trans-unit id="action.cancel_editing">
+                <source>action.cancel_editing</source>
+                <target>Cancel</target>
+            </trans-unit>
+            <trans-unit id="placeholder.desc">
+                <source>placeholder.desc</source>
+                <target>Tell me more about this project.
+What is it about?</target>
+            </trans-unit>
+            <trans-unit id="message.project_successfully_edited">
+                <source>message.project_successfully_edited</source>
+                <target>The project was successfully edited</target>
+            </trans-unit>
+            <trans-unit id="message.project_successfully_added">
+                <source>message.project_successfully_added</source>
+                <target>You've just added a new project</target>
+            </trans-unit>
+            <trans-unit id="message.project_not_found">
+                <source>message.project_not_found</source>
+                <target>Project not found</target>
+            </trans-unit>
+            <trans-unit id="message.project_successfully_deleted">
+                <source>message.project_successfully_deleted</source>
+                <target>The project was successfully deleted</target>
+            </trans-unit>
         </body>
 
     </file>

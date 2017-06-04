@@ -1,14 +1,12 @@
 {% if app.session.flashBag.peekAll is not empty %}
-    <div class="x_content bs-example-popovers">
-        {% for messages in app.session.flashBag.all %}
-            {% for message in messages %}
-                {%  include 'default/_single_alert_message.html.twig' with {
-                is_single_message: false,
-                is_dismissible: true,
-                type: message.type,
-                message: message.message
-                } %}
-            {% endfor %}
+    {% for messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            {% include 'default/_single_alert_message.html.twig' with {
+            is_single_message: false,
+            is_dismissible: true,
+            type: message.type,
+            message: message.message
+            } %}
         {% endfor %}
-    </div>
+    {% endfor %}
 {% endif %}

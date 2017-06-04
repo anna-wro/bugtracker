@@ -3,10 +3,14 @@
 {% block title %}{{ 'title.project_edit'|trans({'%id%': project.id}) }}{% endblock %}
 
 {% block body %}
-    <h1 class="title is-1">{{ 'title.project_edit'|trans({'%id%': project.id}) }}</h1>
+    <h1 class="title is-3">{{ 'title.project_edit'|trans({'%id%': project.id}) }}</h1>
     {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
     {{ form_start(form, { method: 'post', action: url('project_edit', {'id': project.id}) }) }}
     {{ form_widget(form) }}
-    <input type="submit" value="{{ 'action.save'|trans }}" class="button is-info button__edit" />
+    <input type="submit" value="{{ 'action.save_changes'|trans }}" class="button is-info is-outlined button__edit" />
     {{ form_end(form) }}
+    <a href="{{ url('project_index') }}" title="{{ 'action.cancel_editing'|trans }}" class="button is-primary is-outlined button__back">
+        <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
+        {{ 'label.back_to_list'|trans }}
+    </a>
 {% endblock %}

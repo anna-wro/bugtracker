@@ -120,7 +120,7 @@ class ProjectController implements ControllerProviderInterface
                 'messages',
                 [
                     'type' => 'success',
-                    'message' => 'message.element_successfully_added',
+                    'message' => 'message.project_successfully_added',
                 ]
             );
 
@@ -155,7 +155,7 @@ class ProjectController implements ControllerProviderInterface
                 'messages',
                 [
                     'type' => 'warning',
-                    'message' => 'message.record_not_found',
+                    'message' => 'message.project_not_found',
                 ]
             );
 
@@ -172,7 +172,7 @@ class ProjectController implements ControllerProviderInterface
                 'messages',
                 [
                     'type' => 'success',
-                    'message' => 'message.element_successfully_edited',
+                    'message' => 'message.project_successfully_edited',
                 ]
             );
 
@@ -207,7 +207,7 @@ class ProjectController implements ControllerProviderInterface
                 'messages',
                 [
                     'type' => 'warning',
-                    'message' => 'message.record_not_found',
+                    'message' => 'message.project_not_found',
                 ]
             );
 
@@ -224,7 +224,7 @@ class ProjectController implements ControllerProviderInterface
                 'messages',
                 [
                     'type' => 'success',
-                    'message' => 'message.element_successfully_deleted',
+                    'message' => 'message.project_successfully_deleted',
                 ]
             );
 

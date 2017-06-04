@@ -7,6 +7,7 @@ namespace Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -48,14 +49,19 @@ class ProjectType extends AbstractType
                 ],
             ]
         );
+
+        $today = new \DateTime();
+        $formattedDate = $today -> format ('Y-m-d');
+
         $builder->add(
             'description',
-            TextType::class,
+            TextareaType::class,
             [
                 'label' => 'label.project_description',
                 'required' => false,
                 'attr' => [
-                    'max_length' => 1024
+                    'max_length' => 1024,
+                    'placeholder' => 'placeholder.desc',
                 ],
                 'constraints' => [
                     new Assert\Length(
@@ -76,6 +82,7 @@ class ProjectType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
                 'input' => 'string',
+                'data' => $formattedDate,
                 'constraints' => [
                     new Assert\Date(),
                 ],
