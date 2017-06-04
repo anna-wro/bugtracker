@@ -4,3 +4,14 @@
 label {
   padding-top: 20px;
 }
+
+.errors-list {
+  margin-bottom:10px;
+}
+
+.error {
+  background-color: $red;
+  color: $white;
+  padding: 5px 12px;
+  border-radius: 4px;
+}

@@ -109,7 +109,8 @@ class ProjectController implements ControllerProviderInterface
     {
         $project = [];
 
-        $form = $app['form.factory']->createBuilder(ProjectType::class, $project)->getForm();
+        $form = $app['form.factory']->createBuilder(ProjectType::class, $project,
+            ['project_repository' => new ProjectRepository($app['db'])])->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -162,7 +163,8 @@ class ProjectController implements ControllerProviderInterface
             return $app->redirect($app['url_generator']->generate('project_index'));
         }
 
-        $form = $app['form.factory']->createBuilder(ProjectType::class, $project)->getForm();
+        $form = $app['form.factory']->createBuilder(ProjectType::class, $project,
+            ['project_repository' => new ProjectRepository($app['db'])])->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

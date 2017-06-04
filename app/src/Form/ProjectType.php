@@ -2,23 +2,23 @@
 /**
  * Project type.
  */
+
 namespace Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Validator\Constraints as CustomAssert;
 
 /**
  * Class ProjectType.
  *
  * @package Form
  */
-
 class ProjectType extends AbstractType
 {
     /**
@@ -46,12 +46,18 @@ class ProjectType extends AbstractType
                             'max' => 45,
                         ]
                     ),
+                    new CustomAssert\UniqueProject(
+                        [
+                            'groups' => ['project-default'],
+                            'repository' => isset($options['project_repository']) ? $options['project_repository'] : null,
+                            'elementId' => isset($options['data']['id']) ? $options['data']['id'] : null,
+                        ]
+                    ),
                 ],
             ]
         );
-
         $today = new \DateTime();
-        $formattedDate = $today -> format ('Y-m-d');
+        $formattedDate = $today->format('Y-m-d');
 
         $builder->add(
             'description',
@@ -120,6 +126,7 @@ class ProjectType extends AbstractType
         $resolver->setDefaults(
             [
                 'validation_groups' => 'project-default',
+                'project_repository' => null,
             ]
         );
     }

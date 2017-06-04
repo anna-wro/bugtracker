@@ -142,4 +142,25 @@ class ProjectRepository
             'p.user_id'
         )->from('pr_projects', 'p');
     }
+
+    /**
+     * Find for uniqueness.
+     *
+     * @param string          $name Element name
+     * @param int|string|null $id   Element id
+     *
+     * @return array Result
+     */
+    public function findForUniqueness($name, $id = null)
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->where('p.name = :name')
+            ->setParameter(':name', $name, \PDO::PARAM_STR);
+        if ($id) {
+            $queryBuilder->andWhere('p.id <> :id')
+                ->setParameter(':id', $id, \PDO::PARAM_INT);
+        }
+
+        return $queryBuilder->execute()->fetchAll();
+    }
 }

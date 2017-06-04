@@ -88,7 +88,8 @@
             </trans-unit>
             <trans-unit id="project_delete">
                 <source>project_delete</source>
-                <target>Czy na pewno chcesz usunąć projekt %id%: %name%?</target>
+                <target>Czy na pewno chcesz usunąć
+                    projekt %id%: %name%?</target>
             </trans-unit>
             <trans-unit id="action.delete">
                 <source>action.delete</source>
@@ -124,7 +125,7 @@ O co w nim chodzi?</target>
                 <target>Nie znaleziono projektu</target>
             </trans-unit>
             <trans-unit id="message.project_successfully_deleted">
-                <source> message.project_successfully_deleted</source>
+                <source>message.project_successfully_deleted</source>
                 <target>Projekt został usunięty</target>
             </trans-unit>
         </body>
