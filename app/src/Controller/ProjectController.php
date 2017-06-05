@@ -90,7 +90,7 @@ class ProjectController implements ControllerProviderInterface
             'bug/index.html.twig',
             ['bug' => $bugRepository->findAllFromProject($id),
                 'projectId' => $id,
-                'paginator' => $bugRepository->findAllPaginated($page)]
+                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $page)]
         );
     }
 

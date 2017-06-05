@@ -137,15 +137,58 @@ class BugType extends AbstractType
             ]
         );
         $builder->add(
+            'project_id',
+            ChoiceType::class,
+            [
+                'label' => 'label.bug_project',
+                'required' => true,
+                'choices' => $this->prepareOptionsForChoices($options['projects_repository']),
+                'choice_translation_domain' => 'messages',
+                'constraints' => [
+                    new Assert\NotNull(),
+                ],
+            ]
+        );
+        $builder->add(
             'type_id',
             ChoiceType::class,
             [
                 'label' => 'label.bug_type',
-                'required' => false,
-                'choices' => $this->prepareTypesForChoices($options['types_repository']),
+                'required' => true,
+                'choices' => $this->prepareOptionsForChoices($options['types_repository']),
+                'choice_translation_domain' => 'messages',
+                'constraints' => [
+                    new Assert\NotNull(),
+                ],
             ]
         );
-
+        $builder->add(
+            'priority_id',
+            ChoiceType::class,
+            [
+                'label' => 'label.bug_priority',
+                'required' => true,
+                'choices' => $this->prepareOptionsForChoices($options['priorities_repository']),
+                'choice_translation_domain' => 'messages',
+                'constraints' => [
+                    new Assert\NotNull(),
+                ],
+            ]
+        );
+        $builder->add(
+            'status_id',
+            ChoiceType::class,
+            [
+                'label' => 'label.bug_status',
+                'required' => true,
+                'choices' => $this->prepareOptionsForChoices($options['statuses_repository']),
+                'choice_translation_domain' => 'messages',
+                'data' => 1,
+                'constraints' => [
+                    new Assert\NotNull(),
+                ],
+            ]
+        );
     }
 
     /**
@@ -165,14 +208,17 @@ class BugType extends AbstractType
             [
                 'validation_groups' => 'bug-default',
                 'bug_repository' => null,
+                'projects_repository' => null,
                 'types_repository' => null,
+                'priorities_repository' => null,
+                'statuses_repository' => null,
             ]
         );
     }
 
-    protected function prepareTypesForChoices($typeRepository)
+    protected function prepareOptionsForChoices($repository)
     {
-        $types = $typeRepository->findAll();
+        $types = $repository->findAll();
         $choices = [];
 
         foreach ($types as $type) {
@@ -181,4 +227,5 @@ class BugType extends AbstractType
 
         return $choices;
     }
+
 }

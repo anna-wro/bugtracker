@@ -134,6 +134,10 @@
                 <source>message.project_successfully_deleted</source>
                 <target>The project was successfully deleted</target>
             </trans-unit>
+            <trans-unit id="message.element_successfully_deleted">
+                <source>message.element_successfully_deleted</source>
+                <target>The element was successfully deleted</target>
+            </trans-unit>
             <trans-unit id="label.bug_add">
                 <source>label.bug_add</source>
                 <target>New bug</target>
@@ -230,6 +234,22 @@
                 <source>placeholder.expected</source>
                 <target>How it should be?
                 </target>
+            </trans-unit>
+            <trans-unit id="priority_1">
+                <source>priority_1</source>
+                <target>Important and urgent</target>
+            </trans-unit>
+            <trans-unit id="priority_2">
+                <source>priority_2</source>
+                <target>Important, but not urgent</target>
+            </trans-unit>
+            <trans-unit id="priority_3">
+                <source>priority_3</source>
+                <target>Urgent, but not important</target>
+            </trans-unit>
+            <trans-unit id="priority_4">
+                <source>priority_4</source>
+                <target>Neither urgent nor important </target>
             </trans-unit>
         </body>
 

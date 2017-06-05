@@ -6,6 +6,9 @@
 namespace Controller;
 
 use Repository\BugRepository;
+use Repository\PriorityRepository;
+use Repository\ProjectRepository;
+use Repository\StatusRepository;
 use Repository\TypeRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
@@ -84,8 +87,8 @@ class BugController implements ControllerProviderInterface
             'bug/view.html.twig',
             ['bug' => $bugRepository->findOneById($id),
                 'project' => $bugRepository->getLinkedProject($id),
-                'status' => $bugRepository->getLinkedStatus($id),
-                'priority' => $bugRepository->getLinkedPriority($id),
+                'status' => $bugRepository->getLinkedStatus($app, $id),
+                'priority' => $bugRepository->getLinkedPriority($app, $id),
                 'type' => $bugRepository->getLinkedType($id),
                 'bugId' => $id]
         );
@@ -106,7 +109,10 @@ class BugController implements ControllerProviderInterface
         $form = $app['form.factory']->createBuilder(
             BugType::class,
             $bug,
-            ['types_repository' => new TypeRepository($app['db'])]
+            ['types_repository' => new TypeRepository($app['db']),
+                'projects_repository' => new ProjectRepository($app['db']),
+                'statuses_repository' => new StatusRepository($app['db']),
+                'priorities_repository' => new PriorityRepository($app['db'])]
         )->getForm();
         $form->handleRequest($request);
 
@@ -163,7 +169,10 @@ class BugController implements ControllerProviderInterface
         $form = $app['form.factory']->createBuilder(
             BugType::class,
             $bug,
-            ['types_repository' => new TypeRepository($app['db'])]
+            ['types_repository' => new TypeRepository($app['db']),
+                'projects_repository' => new ProjectRepository($app['db']),
+                'statuses_repository' => new StatusRepository($app['db']),
+                'priorities_repository' => new PriorityRepository($app['db'])]
         )->getForm();
 
         $form->handleRequest($request);

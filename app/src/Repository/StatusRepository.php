@@ -6,11 +6,11 @@ use Doctrine\DBAL\Connection;
 use Utils\Paginator;
 
 /**
- * Class TypeRepository.
+ * Class StatusRepository.
  *
  * @package Repository
  */
-class TypeRepository
+class StatusRepository
 {
     /**
      * Doctrine DBAL connection.
@@ -20,7 +20,7 @@ class TypeRepository
     protected $db;
 
     /**
-     * TypeRepository constructor.
+     * StatusRepository constructor.
      *
      * @param \Doctrine\DBAL\Connection $db
      */
@@ -50,7 +50,7 @@ class TypeRepository
     public function findOneById($id)
     {
         $queryBuilder = $this->queryAll();
-        $queryBuilder->where('t.id = :id')
+        $queryBuilder->where('s.id = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetch();
         return !$result ? [] : $result;
@@ -59,33 +59,33 @@ class TypeRepository
     /**
      * Save record.
      *
-     * @param array $type Type
+     * @param array $status Type
      *
      * @return boolean Result
      */
-    public function save($type)
+    public function save($status)
     {
-        if (isset($type['id']) && ctype_digit((string)$type['id'])) {
+        if (isset($status['id']) && ctype_digit((string)$status['id'])) {
             // update record
-            $id = $type['id'];
-            unset($type['id']);
-            return $this->db->update('pr_types', $type, ['id' => $id]);
+            $id = $status['id'];
+            unset($status['id']);
+            return $this->db->update('pr_statuses', $status, ['id' => $id]);
         } else {
             // add new record
-            return $this->db->insert('pr_types', $type);
+            return $this->db->insert('pr_statuses', $status);
         }
     }
 
     /**
      * Remove record.
      *
-     * @param array $type Type
+     * @param array $status Type
      *
      * @return boolean Result
      */
-    public function delete($type)
+    public function delete($status)
     {
-        return $this->db->delete('pr_types', ['id' => $type['id']]);
+        return $this->db->delete('pr_priorities', ['id' => $status['id']]);
     }
 
     /**
@@ -97,9 +97,9 @@ class TypeRepository
     {
         $queryBuilder = $this->db->createQueryBuilder();
         return $queryBuilder->select(
-            't.id',
-            't.name'
-        )->from('pr_types', 't');
+            's.id',
+            's.name'
+        )->from('pr_statuses', 's');
     }
 
 }

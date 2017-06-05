@@ -7,6 +7,7 @@ namespace Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Silex\Application;
 use Utils\Paginator;
 
 /**
@@ -117,39 +118,27 @@ class BugRepository
      *
      * @return array|mixed Result
      */
-    public function getLinkedStatus($id)
+    public function getLinkedStatus(Application $app, $id)
     {
         $query = $this->findOneById($id);
         $projectId = $query['status_id'];
-
-        $queryBuilder = $this->db->createQueryBuilder()
-            ->select('pr.name')
-            ->from('pr_statuses', 'pr')
-            ->where('pr.id = :id')
-            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
-        $result = $queryBuilder->execute()->fetch();
-        return !$result ? [] : $result;
+        $statusRepository = new StatusRepository($app['db']);
+        return $statusRepository->findOneById($projectId);
     }
 
     /**
      * Get bug's priority
      *
+     * @param Application $app
      * @param string $id Bug id
-     *
      * @return array|mixed Result
      */
-    public function getLinkedPriority($id)
+    public function getLinkedPriority(Application $app, $id)
     {
         $query = $this->findOneById($id);
         $projectId = $query['priority_id'];
-
-        $queryBuilder = $this->db->createQueryBuilder()
-            ->select('pr.name')
-            ->from('pr_priorities', 'pr')
-            ->where('pr.id = :id')
-            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
-        $result = $queryBuilder->execute()->fetch();
-        return !$result ? [] : $result;
+        $priorityRepository = new PriorityRepository($app['db']);
+        return $priorityRepository->findOneById($projectId);
     }
 
     /**
@@ -171,6 +160,56 @@ class BugRepository
             ->setParameter(':id', $projectId, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetchAll();
         return !$result ? [] : $result[0];
+    }
+
+    /**
+     * Find all from the project
+     *
+     * @param $projectId
+     * @return array|mixed Result
+     * @internal param string $id Project id
+     *
+     */
+    public function findAllFromProject($projectId)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+
+            return $queryBuilder->select(
+                'b.id',
+                'b.name',
+                'b.description',
+                'b.expected_result',
+                'b.reproduction',
+                'b.start_date',
+                'b.end_date',
+                'b.type_id',
+                'b.priority_id',
+                'b.status_id',
+                'b.project_id',
+                'b.user_id'
+            )->from('pr_bugs', 'b')
+                ->where('b.project_id = :id')
+                ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+    }
+
+    /**
+     * Get records paginated.
+     *
+     * @param int $page Current page number
+     *
+     * @return array Result
+     */
+    public function findAllPaginatedFromProject($id, $page = 1)
+    {
+        $countQueryBuilder = $this->findAllFromProject($id)
+            ->select('COUNT(DISTINCT b.id) AS total_results')
+            ->setMaxResults(1);
+
+        $paginator = new Paginator($this->findAllFromProject($id), $countQueryBuilder);
+        $paginator->setCurrentPage($page);
+        $paginator->setMaxPerPage(self::NUM_ITEMS);
+
+        return $paginator->getCurrentPageResults();
     }
 
     /**
@@ -202,30 +241,30 @@ class BugRepository
      * Save record.
      *
      * @param array $bug Bug
-     *
-     * @return boolean Result
+     * @return bool Result
+     * @throws DBALException
      */
 
     public function save($bug)
     {
 
-        // TODO: implement all these fields and methods
-        $bug['priority_id'] = 1;
+        // TODO: implement all of these
         $bug['user_id'] = 1;
-        $bug['status_id'] = 1;
-        $bug['project_id'] = 2;
 
-        if (isset($bug['id']) && ctype_digit((string)$bug['id'])) {
-            // update record
-            $id = $bug['id'];
-            unset($bug['id']);
+        try {
+            if (isset($bug['id']) && ctype_digit((string)$bug['id'])) {
+                // update record
+                $id = $bug['id'];
+                unset($bug['id']);
 
-            return $this->db->update('pr_bugs', $bug, ['id' => $bug]);
-        } else {
-            // add new record
-            return $this->db->insert('pr_bugs', $bug);
+                return $this->db->update('pr_bugs', $bug, ['id' => $bug]);
+            } else {
+                // add new record
+                return $this->db->insert('pr_bugs', $bug);
+            }
+        } catch (DBALException $e) {
+            throw $e;
         }
-
 
     }
 
