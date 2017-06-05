@@ -88,8 +88,9 @@
             </trans-unit>
             <trans-unit id="project_delete">
                 <source>project_delete</source>
-                <target>Do you want to delete
-project \n%id% (%name%)?</target>
+                <target>Do you really want to delete
+                    project \n%id% (%name%)?
+                </target>
             </trans-unit>
             <trans-unit id="action.delete">
                 <source>action.delete</source>
@@ -110,11 +111,16 @@ project \n%id% (%name%)?</target>
             <trans-unit id="placeholder.desc">
                 <source>placeholder.desc</source>
                 <target>Tell me more about this project.
-What is it about?</target>
+                    What is it about?
+                </target>
             </trans-unit>
             <trans-unit id="message.project_successfully_edited">
                 <source>message.project_successfully_edited</source>
                 <target>The project was successfully edited</target>
+            </trans-unit>
+            <trans-unit id="message.element_successfully_added">
+                <source>message.element_successfully_added</source>
+                <target>You've just added a new project</target>
             </trans-unit>
             <trans-unit id="message.project_successfully_added">
                 <source>message.project_successfully_added</source>
@@ -179,6 +185,51 @@ What is it about?</target>
             <trans-unit id="status_2">
                 <source>status_2</source>
                 <target>Closed</target>
+            </trans-unit>
+            <trans-unit id="title.bug_delete">
+                <source>title.bug_delete</source>
+                <target>Delete bug</target>
+            </trans-unit>
+            <trans-unit id="bug_delete">
+                <source>bug_delete</source>
+                <target>Do you really want to delete
+                    bug \n%id% (%name%)?
+                </target>
+            </trans-unit>
+            <trans-unit id="label.bug_start_date">
+                <source>label.bug_start_date</source>
+                <target>Reported
+                </target>
+            </trans-unit>
+            <trans-unit id="label.bug_end_date">
+                <source>label.bug_end_date</source>
+                <target>Fixed
+                </target>
+            </trans-unit>
+            <trans-unit id="label.bug_reprodution">
+                <source>label.bug_reprodution</source>
+                <target>Reproduction
+                </target>
+            </trans-unit>
+            <trans-unit id="placeholder.repr">
+                <source>placeholder.repr</source>
+                <target>What do I need to do to see this bug?
+                </target>
+            </trans-unit>
+            <trans-unit id="placeholder.bug_desc">
+                <source>placeholder.bug_desc</source>
+                <target>Short description of the bug
+                </target>
+            </trans-unit>
+            <trans-unit id="label.bug_expected_result">
+                <source>label.bug_expected_result</source>
+                <target>Expected result
+                </target>
+            </trans-unit>
+            <trans-unit id="placeholder.expected">
+                <source>placeholder.expected</source>
+                <target>How it should be?
+                </target>
             </trans-unit>
         </body>
 

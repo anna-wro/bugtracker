@@ -6,6 +6,7 @@
 namespace Controller;
 
 use Repository\BugRepository;
+use Repository\TypeRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use Form\BugType;
@@ -102,7 +103,11 @@ class BugController implements ControllerProviderInterface
     {
         $bug = [];
 
-        $form = $app['form.factory']->createBuilder(BugType::class, $bug)->getForm();
+        $form = $app['form.factory']->createBuilder(
+            BugType::class,
+            $bug,
+            ['types_repository' => new TypeRepository($app['db'])]
+        )->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -155,7 +160,12 @@ class BugController implements ControllerProviderInterface
             return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
-        $form = $app['form.factory']->createBuilder(BugType::class, $bug)->getForm();
+        $form = $app['form.factory']->createBuilder(
+            BugType::class,
+            $bug,
+            ['types_repository' => new TypeRepository($app['db'])]
+        )->getForm();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

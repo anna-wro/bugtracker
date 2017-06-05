@@ -115,6 +115,10 @@
                 <source>message.project_successfully_edited</source>
                 <target>Projekt został edytowany</target>
             </trans-unit>
+            <trans-unit id="message.element_successfully_added">
+                <source>message.element_successfully_added</source>
+                <target>Zgłoszono nowego buga</target>
+            </trans-unit>
             <trans-unit id="message.project_successfully_added">
                 <source>message.project_successfully_added</source>
                 <target>Dodano nowy projekt</target>
@@ -182,6 +186,50 @@
             <trans-unit id="status_2">
                 <source>status_2</source>
                 <target>Zakończone</target>
+            </trans-unit>
+            <trans-unit id="title.bug_delete">
+                <source>title.bug_delete</source>
+                <target>Usuń element</target>
+            </trans-unit>
+            <trans-unit id="bug_delete">
+                <source>bug_delete</source>
+                <target>Czy na pewno chcesz usunąć
+                    bug %id%: %name%?</target>
+            </trans-unit>
+            <trans-unit id="label.bug_start_date">
+                <source>label.bug_start_date</source>
+                <target>Zgłoszony
+                </target>
+            </trans-unit>
+            <trans-unit id="placeholder.bug_desc">
+                <source>placeholder.bug_desc</source>
+                <target>Krótki opis błędu
+                </target>
+            </trans-unit>
+            <trans-unit id="label.bug_reprodution">
+                <source>label.bug_reprodution</source>
+                <target>Odtworzenie błędu
+                </target>
+            </trans-unit>
+            <trans-unit id="placeholder.repr">
+                <source>placeholder.repr</source>
+                <target>Co muszę zrobić, żeby się pojawił?
+                </target>
+            </trans-unit>
+            <trans-unit id="label.bug_expected_result">
+                <source>label.bug_expected_result</source>
+                <target>Oczekiwany efekt
+                </target>
+            </trans-unit>
+            <trans-unit id="placeholder.expected">
+                <source>placeholder.expected</source>
+                <target>Jak powinno być?
+                </target>
+            </trans-unit>
+            <trans-unit id="label.cancel">
+                <source>label.cancel</source>
+                <target>anuluj
+                </target>
             </trans-unit>
         </body>
 

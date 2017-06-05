@@ -37,8 +37,8 @@
                 <div class="tile">
                     <div class="tile is-parent">
                         <article class="tile is-child notification">
-                            <p class="title is-spaced">{{ 'label.bug_type'|trans }}</p>
-                            <p class="subtitle">{{ type.name | trans }}</p>
+                            <p class="title is-spaced">{{ 'label.bug_project'|trans }}</p>
+                            <p class="subtitle">{{ project.name }}</p>
                         </article>
                     </div>
 
@@ -48,8 +48,8 @@
                             <p class="subtitle">{{ priority.name | trans }}</p>
                         </article>
                         <article class="tile is-child notification">
-                            <p class="title is-spaced">{{ 'label.bug_project'|trans }}</p>
-                            <p class="subtitle">{{ project.name }}</p>
+                            <p class="title is-spaced">{{ 'label.bug_status'|trans }}</p>
+                            <p class="subtitle">{{ status.name |trans }}</p>
                         </article>
                     </div>
 
@@ -59,8 +59,8 @@
             <div class="tile  is-vertical is-4">
                 <article class="tile is-parent is-vertical">
                     <article class="tile is-child notification">
-                        <p class="title is-spaced">{{ 'label.bug_status'|trans }}</p>
-                        <p class="subtitle">{{ status.name |trans }}</p>
+                        <p class="title is-spaced">{{ 'label.bug_type'|trans }}</p>
+                        <p class="subtitle">{{ type.name | trans }}</p>
                     </article>
                     {% if bug.start_date != null %}
                         <article class="tile is-child notification">
@@ -76,6 +76,23 @@
                     {% endif %}
                 </article>
             </div>
+        </div>
+        <div class="block">
+            <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="button is-warning"
+               title="{{ 'label.edit'|trans }}">
+                <span class="fa fa-pencil" aria-hidden="true"></span>{{ 'label.edit'|trans }}
+            </a>
+
+            <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="button is-danger"
+               title="{{ 'label.delete'|trans }}">
+                <span class="fa fa-trash icon-back" aria-hidden="true"></span>{{ 'label.delete'|trans }}
+            </a>
+
+            <a href="{{ url('bug_index') }}" title="{{ 'label.back_to_list'|trans }}"
+               class="button is-primary is-outlined button__back">
+                <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
+                {{ 'label.back_to_list'|trans }}
+            </a>
         </div>
         {% else %}
             {{ 'bug_not_found'|trans }}

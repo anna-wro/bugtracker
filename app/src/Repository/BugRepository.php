@@ -6,6 +6,7 @@
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Utils\Paginator;
 
 /**
@@ -105,8 +106,8 @@ class BugRepository
             ->from('pr_projects', 'pr')
             ->where('pr.id = :id')
             ->setParameter(':id', $projectId, \PDO::PARAM_INT);
-        $result = $queryBuilder->execute()->fetchAll();
-        return !$result ? [] : $result[0];
+        $result = $queryBuilder->execute()->fetch();
+        return !$result ? [] : $result;
     }
 
     /**
@@ -126,8 +127,8 @@ class BugRepository
             ->from('pr_statuses', 'pr')
             ->where('pr.id = :id')
             ->setParameter(':id', $projectId, \PDO::PARAM_INT);
-        $result = $queryBuilder->execute()->fetchAll();
-        return !$result ? [] : $result[0];
+        $result = $queryBuilder->execute()->fetch();
+        return !$result ? [] : $result;
     }
 
     /**
@@ -147,8 +148,8 @@ class BugRepository
             ->from('pr_priorities', 'pr')
             ->where('pr.id = :id')
             ->setParameter(':id', $projectId, \PDO::PARAM_INT);
-        $result = $queryBuilder->execute()->fetchAll();
-        return !$result ? [] : $result[0];
+        $result = $queryBuilder->execute()->fetch();
+        return !$result ? [] : $result;
     }
 
     /**
@@ -207,6 +208,13 @@ class BugRepository
 
     public function save($bug)
     {
+
+        // TODO: implement all these fields and methods
+        $bug['priority_id'] = 1;
+        $bug['user_id'] = 1;
+        $bug['status_id'] = 1;
+        $bug['project_id'] = 2;
+
         if (isset($bug['id']) && ctype_digit((string)$bug['id'])) {
             // update record
             $id = $bug['id'];
@@ -217,6 +225,8 @@ class BugRepository
             // add new record
             return $this->db->insert('pr_bugs', $bug);
         }
+
+
     }
 
     /**

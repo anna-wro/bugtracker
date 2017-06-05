@@ -1,6 +1,6 @@
 <?php
 /**
- * Bookmark repository.
+ * Project repository.
  */
 namespace Repository;
 
@@ -19,7 +19,7 @@ class ProjectRepository
      *
      * const int NUM_ITEMS
      */
-    const NUM_ITEMS = 10;
+    const NUM_ITEMS = 5;
 
     /**
      * Doctrine DBAL connection.
@@ -96,14 +96,11 @@ class ProjectRepository
      */
     public function save($project)
     {
-        // FIXME: Getting real user id instead of this one
+        //  TODO: Getting real user id instead of this one
         $project['user_id'] = 1;
 
         if($project['start_date'] == 0000-00-00) $project['start_date'] = null;
         if($project['end_date'] == 0000-00-00) $project['end_date'] = null;
-        if($project['end_date'] < $project['start_date']) {
-
-            }
 
         if (isset($project['id']) && ctype_digit((string) $project['id'])) {
             // update record
