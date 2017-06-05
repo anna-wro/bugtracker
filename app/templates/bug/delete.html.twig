@@ -12,7 +12,7 @@
         {{ form_widget(form) }}
         <input type="submit" value="{{ 'action.delete'|trans }}" class="button is-danger button__delete"/>
         {{ form_end(form) }}
-        <a href="{{ url('bug_index') }}" title="{{ 'label.back_to_list'|trans }}"
+        <a href="{{ url('project_bugs', {'id': bug.project_id}) }}" title="{{ 'label.back_to_list'|trans }}"
            class="button is-primary is-outlined button__back">
             <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
             {{ 'label.back_to_list'|trans }}

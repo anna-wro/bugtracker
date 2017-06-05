@@ -245,19 +245,19 @@
             </trans-unit>
             <trans-unit id="priority_1">
                 <source>priority_1</source>
-                <target>1 - Important and urgent</target>
+                <target>1 - important and urgent</target>
             </trans-unit>
             <trans-unit id="priority_2">
                 <source>priority_2</source>
-                <target>2 - Important, but not urgent</target>
+                <target>2 - important, but not urgent</target>
             </trans-unit>
             <trans-unit id="priority_3">
                 <source>priority_3</source>
-                <target>3 - Urgent, but not important</target>
+                <target>3 - urgent, but not important</target>
             </trans-unit>
             <trans-unit id="priority_4">
                 <source>priority_4</source>
-                <target>4 - Neither urgent nor important </target>
+                <target>4 - neither urgent nor important </target>
             </trans-unit>
         </body>
 

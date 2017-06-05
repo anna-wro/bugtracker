@@ -10,7 +10,7 @@
     {{ form_widget(form) }}
     <input type="submit" value="{{ 'action.save_changes'|trans }}" class="button is-info is-outlined button__edit"/>
     {{ form_end(form) }}
-    <a href="{{ url('bug_index') }}" title="{{ 'action.cancel_editing'|trans }}"
+    <a href="{{url('project_bugs', {'id': bug.project_id}) }}" title="{{ 'action.cancel_editing'|trans }}"
        class="button is-primary is-outlined button__back">
         <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
         {{ 'label.back_to_list'|trans }}

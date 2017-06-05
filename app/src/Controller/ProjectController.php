@@ -6,7 +6,10 @@
 namespace Controller;
 
 use Repository\BugRepository;
+use Repository\PriorityRepository;
 use Repository\ProjectRepository;
+use Repository\StatusRepository;
+use Repository\TypeRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,12 +88,20 @@ class ProjectController implements ControllerProviderInterface
     public function bugsAction(Application $app, $id, $page = 1)
     {
         $bugRepository = new BugRepository($app['db']);
+        $typeRepository = new TypeRepository($app['db']);
+        $statusRepository = new StatusRepository($app['db']);
+        $priorityRepository = new PriorityRepository($app['db']);
+        $projectRepository = new ProjectRepository($app['db']);
 
         return $app['twig']->render(
             'bug/index.html.twig',
             ['bug' => $bugRepository->findAllFromProject($id),
                 'projectId' => $id,
-                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $page)]
+                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $page),
+                'types' => $typeRepository->findAll(),
+                'statuses' => $statusRepository->findAll(),
+                'priorities' => $priorityRepository->findAll(),
+                'projects' => $projectRepository->findAll()]
         );
     }
 

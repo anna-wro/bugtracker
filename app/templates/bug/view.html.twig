@@ -88,7 +88,7 @@
                 <span class="fa fa-trash icon-back" aria-hidden="true"></span>{{ 'label.delete'|trans }}
             </a>
 
-            <a href="{{ url('bug_index') }}" title="{{ 'label.back_to_list'|trans }}"
+            <a href="{{ url('project_bugs', {'id': bug.project_id}) }}" title="{{ 'label.back_to_list'|trans }}"
                class="button is-primary is-outlined button__back">
                 <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
                 {{ 'label.back_to_list'|trans }}

@@ -241,19 +241,19 @@
             </trans-unit>
             <trans-unit id="priority_1">
                 <source>priority_1</source>
-                <target>1 - Ważne i pilne</target>
+                <target>1 - ważne i pilne</target>
             </trans-unit>
             <trans-unit id="priority_2">
                 <source>priority_2</source>
-                <target>2 - Ważne, ale nie pilne</target>
+                <target>2 - ważne, ale nie pilne</target>
             </trans-unit>
             <trans-unit id="priority_3">
                 <source>priority_3</source>
-                <target>3 - Pilne, ale nie ważne</target>
+                <target>3 - pilne, ale nie ważne</target>
             </trans-unit>
             <trans-unit id="priority_4">
                 <source>priority_4</source>
-                <target>4 - Ani ważne, ani pilne</target>
+                <target>4 - ani ważne, ani pilne</target>
             </trans-unit>
             <trans-unit id="title.bug_edit">
                 <source>title.bug_edit</source>
