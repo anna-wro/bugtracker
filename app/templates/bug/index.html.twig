@@ -36,7 +36,13 @@
                         {{ types[bug.type_id-1].name |trans}}
                     </td>
                     <td>
-                        {{ priorities[bug.priority_id-1].name |trans}}
+                        <span class="tag is-medium is-a-tag
+                        {% if bug.priority_id == 1 %} is-priority
+                        {% elseif bug.priority_id == 3 %} is-important
+                        {% elseif bug.priority_id == 2 %} is-urgent
+                        {% else %} is-wasting-space {% endif %}">
+                            {{bug.priority_id}}
+                        </span>
                     </td>
                     <td>
                         {{ statuses[bug.status_id-1].name |trans}}
