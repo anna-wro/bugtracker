@@ -259,6 +259,38 @@
                 <source>priority_4</source>
                 <target>4 - neither urgent nor important </target>
             </trans-unit>
+            <trans-unit id="type_1">
+                <source>type_1</source>
+                <target>Functional</target>
+            </trans-unit>
+            <trans-unit id="type_2">
+                <source>type_2</source>
+                <target>Security</target>
+            </trans-unit>
+            <trans-unit id="type_3">
+                <source>type_3</source>
+                <target>Usability</target>
+            </trans-unit>
+            <trans-unit id="type_4">
+                <source>type_4</source>
+                <target>Text</target>
+            </trans-unit>
+            <trans-unit id="type_5">
+                <source>type_5</source>
+                <target>Visual</target>
+            </trans-unit>
+            <trans-unit id="type_6">
+                <source>type_6</source>
+                <target>User input data</target>
+            </trans-unit>
+            <trans-unit id="type_7">
+                <source>type_7</source>
+                <target>Suggestion</target>
+            </trans-unit>
+            <trans-unit id="type_8">
+                <source>type_8</source>
+                <target>Other</target>
+            </trans-unit>
         </body>
 
     </file>

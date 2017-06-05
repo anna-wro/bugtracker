@@ -259,6 +259,38 @@
                 <source>title.bug_edit</source>
                 <target>Edycja zgłoszenia błędu</target>
             </trans-unit>
+            <trans-unit id="type_1">
+                <source>type_1</source>
+                <target>Funkcjonalny</target>
+            </trans-unit>
+            <trans-unit id="type_2">
+                <source>type_2</source>
+                <target>Zabezpieczenia</target>
+            </trans-unit>
+            <trans-unit id="type_3">
+                <source>type_3</source>
+                <target>Wygoda obsługi</target>
+            </trans-unit>
+            <trans-unit id="type_4">
+                <source>type_4</source>
+                <target>Tekst</target>
+            </trans-unit>
+            <trans-unit id="type_5">
+                <source>type_5</source>
+                <target>Wizualny</target>
+            </trans-unit>
+            <trans-unit id="type_6">
+                <source>type_6</source>
+                <target>Wprowadzane dane</target>
+            </trans-unit>
+            <trans-unit id="type_7">
+                <source>type_7</source>
+                <target>Sugestia</target>
+            </trans-unit>
+            <trans-unit id="type_8">
+                <source>type_8</source>
+                <target>Inny błąd</target>
+            </trans-unit>
         </body>
 
     </file>
