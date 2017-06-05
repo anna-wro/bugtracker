@@ -33,13 +33,13 @@
                         {{ bug.name }}
                     </td>
                     <td>
-                        {{ bug.type_id }}
+                        {{ types[bug.type_id-1].name |trans}}
                     </td>
                     <td>
-                        {{ bug.priority_id }}
+                        {{ priorities[bug.priority_id-1].name |trans}}
                     </td>
                     <td>
-                        {{ bug.status_id }}
+                        {{ statuses[bug.status_id-1].name |trans}}
                     </td>
                     <td>
                         <a href="{{ url('bug_view', {'id': bug.id}) }}" class="fa fa-info"

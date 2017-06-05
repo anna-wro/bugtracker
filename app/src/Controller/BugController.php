@@ -64,10 +64,18 @@ class BugController implements ControllerProviderInterface
     public function indexAction(Application $app, $page = 1)
     {
         $bugRepository = new BugRepository($app['db']);
+        $typeRepository = new TypeRepository($app['db']);
+        $statusRepository = new StatusRepository($app['db']);
+        $priorityRepository = new PriorityRepository($app['db']);
+        $projectRepository = new ProjectRepository($app['db']);
 
         return $app['twig']->render(
             'bug/index.html.twig',
-            ['paginator' => $bugRepository->findAllPaginated($page)]
+            ['paginator' => $bugRepository->findAllPaginated($page),
+                'types' => $typeRepository->findAll(),
+                'statuses' => $statusRepository->findAll(),
+                'priorities' => $priorityRepository->findAll(),
+                'projects' => $projectRepository->findAll()]
         );
     }
 
@@ -82,15 +90,19 @@ class BugController implements ControllerProviderInterface
     public function viewAction(Application $app, $id)
     {
         $bugRepository = new BugRepository($app['db']);
+        $typeRepository = new TypeRepository($app['db']);
+        $statusRepository = new StatusRepository($app['db']);
+        $priorityRepository = new PriorityRepository($app['db']);
+        $projectRepository = new ProjectRepository($app['db']);
 
         return $app['twig']->render(
             'bug/view.html.twig',
             ['bug' => $bugRepository->findOneById($id),
-                'project' => $bugRepository->getLinkedProject($id),
-                'status' => $bugRepository->getLinkedStatus($app, $id),
-                'priority' => $bugRepository->getLinkedPriority($app, $id),
-                'type' => $bugRepository->getLinkedType($id),
-                'bugId' => $id]
+                'bugId' => $id,
+                'types' => $typeRepository->findAll(),
+                'statuses' => $statusRepository->findAll(),
+                'priorities' => $priorityRepository->findAll(),
+                'projects' => $projectRepository->findAll()]
         );
     }
 
@@ -117,8 +129,9 @@ class BugController implements ControllerProviderInterface
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $bug =$form->getData();
             $bugRepository = new BugRepository($app['db']);
-            $bugRepository->save($form->getData());
+            $bugRepository->save($bug);
 
             $app['session']->getFlashBag()->add(
                 'messages',
@@ -128,7 +141,7 @@ class BugController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('bug_index'), 301);
+            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' =>$bug['project_id']]), 301);
         }
 
         return $app['twig']->render(
@@ -188,7 +201,7 @@ class BugController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('bug_index'), 301);
+            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' =>$bug['project_id']]), 301);
         }
 
         return $app['twig']->render(

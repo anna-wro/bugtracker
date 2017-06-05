@@ -38,18 +38,18 @@
                     <div class="tile is-parent">
                         <article class="tile is-child notification">
                             <p class="title is-spaced">{{ 'label.bug_project'|trans }}</p>
-                            <p class="subtitle">{{ project.name }}</p>
+                            <p class="subtitle">{{ projects[bug.project_id-1].name |trans}}</p>
                         </article>
                     </div>
 
                     <div class="tile is-parent is-vertical">
                         <article class="tile is-child notification">
                             <p class="title is-spaced">{{ 'label.bug_priority'|trans }}</p>
-                            <p class="subtitle">{{ priority.name | trans }}</p>
+                            <p class="subtitle">{{ priorities[bug.priority_id-1].name |trans}}</p>
                         </article>
                         <article class="tile is-child notification">
                             <p class="title is-spaced">{{ 'label.bug_status'|trans }}</p>
-                            <p class="subtitle">{{ status.name |trans }}</p>
+                            <p class="subtitle">{{ statuses[bug.status_id-1].name }}</p>
                         </article>
                     </div>
 
@@ -60,7 +60,7 @@
                 <article class="tile is-parent is-vertical">
                     <article class="tile is-child notification">
                         <p class="title is-spaced">{{ 'label.bug_type'|trans }}</p>
-                        <p class="subtitle">{{ type.name | trans }}</p>
+                        <p class="subtitle">{{ types[bug.type_id-1].name | trans}}</p>
                     </article>
                     {% if bug.start_date != null %}
                         <article class="tile is-child notification">

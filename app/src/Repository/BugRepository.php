@@ -91,78 +91,6 @@ class BugRepository
     }
 
     /**
-     * Get project's name
-     *
-     * @param string $id Project id
-     *
-     * @return array|mixed Result
-     */
-    public function getLinkedProject($id)
-    {
-        $query = $this->findOneById($id);
-        $projectId = $query['project_id'];
-
-        $queryBuilder = $this->db->createQueryBuilder()
-            ->select('pr.name')
-            ->from('pr_projects', 'pr')
-            ->where('pr.id = :id')
-            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
-        $result = $queryBuilder->execute()->fetch();
-        return !$result ? [] : $result;
-    }
-
-    /**
-     * Get bug's status
-     *
-     * @param string $id Bug id
-     *
-     * @return array|mixed Result
-     */
-    public function getLinkedStatus(Application $app, $id)
-    {
-        $query = $this->findOneById($id);
-        $projectId = $query['status_id'];
-        $statusRepository = new StatusRepository($app['db']);
-        return $statusRepository->findOneById($projectId);
-    }
-
-    /**
-     * Get bug's priority
-     *
-     * @param Application $app
-     * @param string $id Bug id
-     * @return array|mixed Result
-     */
-    public function getLinkedPriority(Application $app, $id)
-    {
-        $query = $this->findOneById($id);
-        $projectId = $query['priority_id'];
-        $priorityRepository = new PriorityRepository($app['db']);
-        return $priorityRepository->findOneById($projectId);
-    }
-
-    /**
-     * Get bug's type
-     *
-     * @param string $id Bug id
-     *
-     * @return array|mixed Result
-     */
-    public function getLinkedType($id)
-    {
-        $query = $this->findOneById($id);
-        $projectId = $query['type_id'];
-
-        $queryBuilder = $this->db->createQueryBuilder()
-            ->select('pr.name')
-            ->from('pr_types', 'pr')
-            ->where('pr.id = :id')
-            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
-        $result = $queryBuilder->execute()->fetchAll();
-        return !$result ? [] : $result[0];
-    }
-
-    /**
      * Find all from the project
      *
      * @param $projectId
@@ -247,8 +175,7 @@ class BugRepository
 
     public function save($bug)
     {
-
-        // TODO: implement all of these
+        // TODO: implement login
         $bug['user_id'] = 1;
 
         try {
@@ -257,7 +184,7 @@ class BugRepository
                 $id = $bug['id'];
                 unset($bug['id']);
 
-                return $this->db->update('pr_bugs', $bug, ['id' => $bug]);
+                return $this->db->update('pr_bugs', $bug, ['id' => $id]);
             } else {
                 // add new record
                 return $this->db->insert('pr_bugs', $bug);

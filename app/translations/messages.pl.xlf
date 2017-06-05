@@ -119,6 +119,10 @@
                 <source>message.element_successfully_added</source>
                 <target>Zgłoszono nowego buga</target>
             </trans-unit>
+            <trans-unit id="message.element_successfully_edited">
+                <source>message.element_successfully_edited</source>
+                <target>Bug został edytowany</target>
+            </trans-unit>
             <trans-unit id="message.project_successfully_added">
                 <source>message.project_successfully_added</source>
                 <target>Dodano nowy projekt</target>
@@ -237,19 +241,23 @@
             </trans-unit>
             <trans-unit id="priority_1">
                 <source>priority_1</source>
-                <target>Ważne i pilne</target>
+                <target>1 - Ważne i pilne</target>
             </trans-unit>
             <trans-unit id="priority_2">
                 <source>priority_2</source>
-                <target>Ważne, ale nie pilne</target>
+                <target>2 - Ważne, ale nie pilne</target>
             </trans-unit>
             <trans-unit id="priority_3">
                 <source>priority_3</source>
-                <target>Pilne, ale nie ważne</target>
+                <target>3 - Pilne, ale nie ważne</target>
             </trans-unit>
             <trans-unit id="priority_4">
                 <source>priority_4</source>
-                <target>Ani ważne, ani pilne</target>
+                <target>4 - Ani ważne, ani pilne</target>
+            </trans-unit>
+            <trans-unit id="title.bug_edit">
+                <source>title.bug_edit</source>
+                <target>Edycja zgłoszenia błędu</target>
             </trans-unit>
         </body>
 
