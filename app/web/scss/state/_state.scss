@@ -3,25 +3,30 @@
 @import "../vendor/bulma";
 
 .is-a-tag {
-  padding: 0 12px ;
+  font-size: 14px;
+  padding: 0 10px ;
 }
 
 .is-important {
-  background-color: #ff5514;
+  background-color: $priority-2;
   color: $white;
 }
 
 .is-urgent {
-  background-color: #ffa717;
+  background-color: $priority-3;
   color: $white;
 }
 
 .is-priority{
-  background-color: #ff3f4d;
+  background-color: $priority-1;
   color: $white;
 }
 
 .is-wasting-space {
-  background-color: #ffd940;
+  background-color: $priority-4;
   color: $white;
+}
+.is-done:before {
+  content: "✔"; padding-right:7px;
+  color: $priority-2;
 }

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="title is-1">
+    <h1 class="title is-1 list-name">
         {{ 'title.bugs_list'|trans }}
     </h1>
 
@@ -29,23 +29,26 @@
                     <td>
                         {{ bug.id }}
                     </td>
-                    <td>
-                        {{ bug.name }}
+                    <td class="has-text-dark">
+                        <b>{{ bug.name }}</b>
                     </td>
                     <td>
-                        {{ types[bug.type_id-1].name |trans}}
+                         <span class="tag is-medium">{{ types[bug.type_id-1].name |trans}}</span>
                     </td>
                     <td>
-                        <span class="tag is-medium is-a-tag
+                        <span class="tag is-a-tag
                         {% if bug.priority_id == 1 %} is-priority
-                        {% elseif bug.priority_id == 3 %} is-important
-                        {% elseif bug.priority_id == 2 %} is-urgent
+                        {% elseif bug.priority_id == 3 %} is-urgent
+                        {% elseif bug.priority_id == 2 %} is-important
                         {% else %} is-wasting-space {% endif %}">
                             {{bug.priority_id}}
                         </span>
                     </td>
                     <td>
-                        {{ statuses[bug.status_id-1].name |trans}}
+                        <span class="tag is-medium {% if bug.status_id == 2 %} is-done{% endif %}">
+                            {% if bug.status_id ==1 %}<span class="get-it-done">▢</span>{% endif %}
+                            &nbsp;&nbsp;{{ statuses[bug.status_id-1].name |trans}}</span>
+
                     </td>
                     <td>
                         <a href="{{ url('bug_view', {'id': bug.id}) }}" class="fa fa-info"

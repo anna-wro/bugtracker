@@ -1,9 +1,16 @@
 // Typography
 @import '../helpers/_index';
+@import "../vendor/bulma";
 
 h1 {
   margin: 5% auto;
   text-align: center;
+  font-family: 'Hammersmith One', sans-serif;
+  text-shadow: -.08em .08em $gray;
+}
+
+.list-name, .form-name {
+  color: $turquoise;
 }
 
 ::selection {
