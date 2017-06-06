@@ -3,7 +3,7 @@
 @import "../vendor/bulma";
 
 h1 {
-  margin: 5% auto;
+  margin: 4% auto;
   text-align: center;
   font-family: 'Hammersmith One', sans-serif;
   text-shadow: -.08em .08em $gray;
@@ -32,4 +32,8 @@ h1 {
 .single-bug__category {
   padding-right: 15px;
   padding-top:1px;
+}
+
+footer {
+  font-size: 14px;
 }

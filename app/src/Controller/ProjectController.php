@@ -94,14 +94,15 @@ class ProjectController implements ControllerProviderInterface
         $projectRepository = new ProjectRepository($app['db']);
 
         return $app['twig']->render(
-            'bug/index.html.twig',
+            'project/bugs.html.twig',
             ['bug' => $bugRepository->findAllFromProject($id),
                 'projectId' => $id,
                 'paginator' => $bugRepository->findAllPaginatedFromProject($id, $page),
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
-                'projects' => $projectRepository->findAll()]
+                'projects' => $projectRepository->findAll(),
+                'project' => $projectRepository->findOneById($id)]
         );
     }
 

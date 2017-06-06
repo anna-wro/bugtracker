@@ -5,10 +5,6 @@
         * `type`: message type (success|info|warning|danger)
         * `message`: message
 #}
-
-{# Bootstrap alert, see http://getbootstrap.com/components/#alerts #}
-{# TODO: replace with my own alert #}
-
 {% if is_single_message|default(true) %}
 {% endif %}
 <div class="notification is-{{ type }}" role="alert">

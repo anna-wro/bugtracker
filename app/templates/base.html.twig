@@ -21,13 +21,16 @@
 <nav class="nav has-shadow">
     <div class="container">
         <div class="nav-left">
-            <a class="nav-item">
-                <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
+            {% block nav_links %}
+            <a class="nav-item nav-item__name">
+                {# TODO: Main page - login/register -> update url #}
+                {{ 'title.app'|trans }}
             </a>
-            <a class="nav-item is-tab is-hidden-mobile is-active">Home</a>
-            <a class="nav-item is-tab is-hidden-mobile">Features</a>
-            <a class="nav-item is-tab is-hidden-mobile">Pricing</a>
-            <a class="nav-item is-tab is-hidden-mobile">About</a>
+            <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
+                                                                     title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
+            <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
+            title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+            {% endblock %}
         </div>
         <span class="nav-toggle">
       <span></span>
@@ -40,12 +43,9 @@
             <a class="nav-item is-tab is-hidden-tablet">Pricing</a>
             <a class="nav-item is-tab is-hidden-tablet">About</a>
             <a class="nav-item is-tab">
-                <figure class="image is-16x16" style="margin-right: 8px;">
-                    <img src="http://bulma.io/images/jgthms.png">
-                </figure>
-                Profile
+                {{ 'action.profile'|trans }}
             </a>
-            <a class="nav-item is-tab">Log out</a>
+            <a class="nav-item is-tab">{{ 'action.logout'|trans }}</a>
         </div>
     </div>
 </nav>
@@ -59,6 +59,7 @@
         </div>
     </div>
 </div>
+
 {% block javascripts %}
     <!--build:js js/main.min.js -->
     <script src="{{ asset('js/main.js') }}"></script>

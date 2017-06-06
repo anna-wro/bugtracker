@@ -291,6 +291,30 @@
                 <source>type_8</source>
                 <target>Other</target>
             </trans-unit>
+            <trans-unit id="title.project_bugs">
+                <source>title.project_bugs</source>
+                <target>%name%</target>
+            </trans-unit>
+            <trans-unit id="title.app">
+                <source>title.app</source>
+                <target>Bug tracker</target>
+            </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Log out</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="action.profile">
+                <source>action.profile</source>
+                <target>My profile</target>
+            </trans-unit>
         </body>
 
     </file>

@@ -89,7 +89,8 @@
             <trans-unit id="project_delete">
                 <source>project_delete</source>
                 <target>Czy na pewno chcesz usunąć
-                    projekt %id%: %name%?</target>
+                    projekt %id%: %name%?
+                </target>
             </trans-unit>
             <trans-unit id="action.delete">
                 <source>action.delete</source>
@@ -202,7 +203,8 @@
             <trans-unit id="bug_delete">
                 <source>bug_delete</source>
                 <target>Czy na pewno chcesz usunąć
-                    bug %id%: %name%?</target>
+                    bug %id%: %name%?
+                </target>
             </trans-unit>
             <trans-unit id="label.bug_start_date">
                 <source>label.bug_start_date</source>
@@ -290,6 +292,30 @@
             <trans-unit id="type_8">
                 <source>type_8</source>
                 <target>Inny błąd</target>
+            </trans-unit>
+            <trans-unit id="title.project_bugs">
+                <source>title.project_bugs</source>
+                <target>%name%</target>
+            </trans-unit>
+            <trans-unit id="title.app">
+                <source>title.app</source>
+                <target>Bug tracker</target>
+            </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Wyloguj się</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Załóż konto</target>
+            </trans-unit>
+            <trans-unit id="action.profile">
+                <source>action.profile</source>
+                <target>Mój profil</target>
             </trans-unit>
         </body>
 
