@@ -27,9 +27,9 @@
                 <th>{{ 'label.project_description'|trans }}</th>
                 <th>{{ 'label.project_start_date'|trans }}</th>
                 <th>{{ 'label.project_end_date'|trans }}</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th class="action-column"></th>
+                <th class="action-column"></th>
+                <th class="action-column"></th>
             </tr>
             </thead>
             <tbody>
@@ -54,18 +54,18 @@
                             {{ project.end_date }}
                         {% endif %}
                     </td>
-                    <td>
-                        <a href="{{ url('project_bugs', {'id': project.id}) }}" class="fa fa-bug"
+                    <td class="action-column">
+                        <a href="{{ url('project_bugs', {'id': project.id}) }}" class="action-icon action-icon--more fa fa-bug"
                            title="{{ 'label.view'|trans }}">
                         </a>
                     </td>
-                    <td>
-                        <a href="{{ url('project_edit', {'id': project.id}) }}" class="fa fa-pencil"
+                    <td class="action-column">
+                        <a href="{{ url('project_edit', {'id': project.id}) }}" class="action-icon action-icon--edit fa fa-pencil"
                            title="{{ 'label.edit'|trans }}">
                         </a>
                     </td>
-                    <td>
-                        <a href="{{ url('project_delete', {'id': project.id}) }}" class="fa fa-trash"
+                    <td class="action-column">
+                        <a href="{{ url('project_delete', {'id': project.id}) }}" class="action-icon action-icon--delete fa fa-trash"
                            title="{{ 'label.delete'|trans }}">
                         </a>
                     </td>

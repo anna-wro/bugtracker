@@ -1,16 +1,31 @@
 // Icons
 @import '../helpers/index';
 
-.fa-bug:hover, .fa-info:hover {
-  color: $blue;
+.action-icon {
+  display: inline-block;
+  width: 32px;
+  padding: 5px 7px;
+  border-radius: 100%;
 }
 
-.fa-pencil:hover {
-  color:$purple;
+.fa-bug {
+  padding-left: 6px;
 }
 
-.fa-trash:hover {
-  color:$red;
+.action-icon--more:hover {
+  background-color: hsla(215, 100%, 60%, 0.75);
+  color: $gray;
+
+}
+
+.action-icon--edit:hover {
+  background-color: hsla(271, 100%, 71%, 0.84);
+  color: $gray;
+}
+
+.action-icon--delete:hover {
+  background-color: hsla(348, 100%, 61%, 0.78);
+  color: $gray;
 }
 
 .icon-back {

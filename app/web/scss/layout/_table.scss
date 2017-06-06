@@ -1,0 +1,19 @@
+// Table
+@import '../helpers/index';
+
+table, .single-bug {
+  margin-top: 50px;
+}
+
+.single-bug__table {
+  margin-top: 0;
+
+  td {
+    font-size: $size-6;
+    border: none;
+  }
+}
+
+.priority-dot {
+ margin-left: 10px;
+}

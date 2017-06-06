@@ -323,7 +323,7 @@
             </trans-unit>
             <trans-unit id="action.undo">
                 <source>action.undo</source>
-                <target>Zmień status</target>
+                <target>Cofnij status</target>
             </trans-unit>
         </body>
 

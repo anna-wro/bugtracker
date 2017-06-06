@@ -7,9 +7,9 @@
             <th>{{ 'label.bug_type'|trans }}</th>
             <th>{{ 'label.bug_priority'|trans }}</th>
             <th>{{ 'label.bug_status'|trans }}</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th class="action-column"></th>
+            <th class="action-column"></th>
+            <th class="action-column"></th>
         </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
                     <span class="tag is-medium">{{ types[bug.type_id-1].name |trans}}</span>
                 </td>
                 <td>
-                        <span class="tag is-a-tag
+                        <span class="tag is-a-tag priority-dot
                         {% if bug.priority_id == 1 %} is-priority
                         {% elseif bug.priority_id == 3 %} is-urgent
                         {% elseif bug.priority_id == 2 %} is-important
@@ -39,18 +39,18 @@
                             {% if bug.status_id ==2 %}<a class="change-status is-done" title="{{ 'action.undo'|trans }}">✔</a>{% endif %}
                             {{ statuses[bug.status_id-1].name |trans}}</span>
                 </td>
-                <td>
-                    <a href="{{ url('bug_view', {'id': bug.id}) }}" class="fa fa-info"
+                <td class="action-column">
+                    <a href="{{ url('bug_view', {'id': bug.id}) }}" class="action-icon action-icon--more fa fa-info"
                        title="{{ 'label.more'|trans }}">
                     </a>
                 </td>
-                <td>
-                    <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="fa fa-pencil"
+                <td class="action-column">
+                    <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="action-icon action-icon--edit fa fa-pencil"
                        title="{{ 'label.edit'|trans }}">
                     </a>
                 </td>
-                <td>
-                    <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="fa fa-trash"
+                <td class="action-column">
+                    <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="action-icon action-icon--delete fa fa-trash"
                        title="{{ 'label.delete'|trans }}">
                     </a>
                 </td>
