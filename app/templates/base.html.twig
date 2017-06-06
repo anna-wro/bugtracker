@@ -18,6 +18,12 @@
 
 </head>
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;" fill-rule="evenodd" clip-rule="evenodd"
+     stroke-linejoin="round" stroke-miterlimit="1.41421">
+    <symbol id="github" viewbox="0 0 300 298">
+        <path d="M120.58 297.0925C51.85 283.4115 0 222.7135 0 150.0005c0-82.788 67.213-150 150-150s150 67.212 150 150c0 68.043-45.405 125.566-107.547 143.857-1.352-5.916-2.344-11.515-2.824-15.546v-36.384c0-12.375-4.342-20.441-9.093-24.551 29.523-3.281 60.537-14.496 60.537-65.421 0-14.474-5.137-26.307-13.645-35.589 1.37-3.336 5.911-16.827-1.304-35.091 0 0-11.115-3.558-36.428 13.59-10.596-2.939-21.944-4.408-33.214-4.464-11.27.056-22.606 1.525-33.18 4.464-25.335-17.148-36.472-13.59-36.472-13.59-7.204 18.253-2.663 31.744-1.293 35.091-8.475 9.282-13.657 21.104-13.657 35.589 0 50.792 30.96 62.162 60.405 65.532-3.801 3.303-7.237 9.159-8.419 17.722-7.569 3.392-26.761 9.248-38.583-11.016 0 0-7.005-12.739-20.319-13.667 0 0-12.95-.177-.917 8.055 0 0 8.695 4.077 14.728 19.402 0 0 7.679 23.667 44.56 15.645v24.683c0 1.413-1.045 9.603-2.755 18.781z"></path>
+    </symbol>
+</svg>
 <nav class="nav has-shadow">
     <div class="container">
         <div class="nav-left">
@@ -59,7 +65,24 @@
         </div>
     </div>
 </div>
-
+{% block footer %}
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Bug tracker</strong> by <b><a href="https://anna.pm" class="is-link footer__link">Anna Wróbel</a></b>
+                    <br />Projekt zaliczeniowy z Systemu Interakcyjnego</p>
+                <p>
+                    <a class="icon" href="https://github.com/anna-wro/">
+                        <svg class="icon">
+                            <use xlink:href="#github"></use>
+                        </svg>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
 {% block javascripts %}
     <!--build:js js/main.min.js -->
     <script src="{{ asset('js/main.js') }}"></script>

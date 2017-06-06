@@ -34,10 +34,10 @@
                         </span>
                 </td>
                 <td>
-                        <span class="tag is-medium {% if bug.status_id == 2 %} is-done{% endif %}">
-                            {% if bug.status_id ==1 %}<a class="get-it-done">▢</a>{% endif %}
-                            &nbsp;&nbsp;{{ statuses[bug.status_id-1].name |trans}}</span>
-
+                        <span class="tag is-medium">
+                            {% if bug.status_id ==1 %}<a class="change-status get-it-done" title="{{ 'action.do'|trans }}">▢</a>{% endif %}
+                            {% if bug.status_id ==2 %}<a class="change-status is-done" title="{{ 'action.undo'|trans }}">✔</a>{% endif %}
+                            {{ statuses[bug.status_id-1].name |trans}}</span>
                 </td>
                 <td>
                     <a href="{{ url('bug_view', {'id': bug.id}) }}" class="fa fa-info"

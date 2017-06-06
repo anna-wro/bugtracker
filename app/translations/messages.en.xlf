@@ -315,6 +315,14 @@
                 <source>action.profile</source>
                 <target>My profile</target>
             </trans-unit>
+            <trans-unit id="action.do">
+                <source>action.do</source>
+                <target>Done!</target>
+            </trans-unit>
+            <trans-unit id="action.undo">
+                <source>action.undo</source>
+                <target>Undo</target>
+            </trans-unit>
         </body>
 
     </file>

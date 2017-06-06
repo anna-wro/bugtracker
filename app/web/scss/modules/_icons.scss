@@ -21,3 +21,11 @@
 .get-it-done {
   color: $priority-1;
 }
+
+.is-done, .get-it-done {
+  color: $priority-2;
+}
+
+.change-status {
+  padding-right: 8px;
+}

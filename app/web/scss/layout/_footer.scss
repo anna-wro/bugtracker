@@ -1,2 +1,16 @@
 // Footer
 @import '../helpers/index';
+
+footer {
+  font-size: 14px;
+  & svg:hover {
+    fill: $purple;
+  }
+}
+
+.footer {
+  padding-bottom: 50px;
+  &__link:hover {
+    color: $purple;
+  }
+}
