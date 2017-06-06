@@ -28,14 +28,12 @@
     <div class="container">
         <div class="nav-left">
             {% block nav_links %}
-            <a class="nav-item nav-item__name">
-                {# TODO: Main page - login/register -> update url #}
-                {{ 'title.app'|trans }}
-            </a>
-            <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
-                                                                     title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
-            <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
-            title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+                <a class="nav-item nav-item__name">
+                    {# TODO: Main page - login/register -> update url #}
+                    {{ 'title.app'|trans }}
+                </a>
+                <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
+                   title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
             {% endblock %}
         </div>
         <span class="nav-toggle">
@@ -52,6 +50,15 @@
                 {{ 'action.profile'|trans }}
             </a>
             <a class="nav-item is-tab">{{ 'action.logout'|trans }}</a>
+            {# to change locale of current page only#}
+            {% set params = global.request.attributes.get('_route_params')|merge(global.request.query.all()) %}
+            {% set plParams = params|merge({'_locale': 'pl'}) %}
+            {% set enParams = params|merge({'_locale': 'en'}) %}
+            {%if global.request.locale == "en"%}
+                <a class="nav-item is-tab" href="{{ path(global.request.attributes.get('_route'), plParams) }}">PL</a>
+            {%else%}
+                <a class="nav-item is-tab" href="{{ path(global.request.attributes.get('_route'), enParams) }}">EN</a>
+            {%endif%}
         </div>
     </div>
 </nav>
@@ -70,8 +77,9 @@
         <div class="container">
             <div class="content has-text-centered">
                 <p>
-                    <strong>Bug tracker</strong> by <b><a href="https://anna.pm" class="is-link footer__link">Anna Wróbel</a></b>
-                    <br />Projekt zaliczeniowy z Systemu Interakcyjnego</p>
+                    <strong>Bug tracker</strong> by <b><a href="https://anna.pm" class="is-link footer__link">Anna
+                            Wróbel</a></b>
+                    <br/>Projekt zaliczeniowy z Systemu Interakcyjnego</p>
                 <p>
                     <a class="icon" href="https://github.com/anna-wro/">
                         <svg class="icon">

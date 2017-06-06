@@ -52,7 +52,7 @@
             </trans-unit>
             <trans-unit id="label.back_to_list">
                 <source>label.back_to_list</source>
-                <target>Go back to the list</target>
+                <target>Go back</target>
             </trans-unit>
             <trans-unit id="label.view">
                 <source>label.view</source>

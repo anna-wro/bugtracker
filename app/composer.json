@@ -23,6 +23,7 @@
         "symfony/validator": "~2.8|^3.0",
         "symfony/locale": "^2.8",
         "doctrine/dbal": "v2.5.12"
+
     },
     "autoload": {
         "psr-0": { "": "src/" }

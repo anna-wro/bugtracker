@@ -10,8 +10,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Controller\BugController;
 use Controller\ProjectController;
 
-$app->mount('/project', new ProjectController());
-$app->mount('/bug', new BugController());
+$app->mount('{_locale}/project', new ProjectController());
+$app->mount('{_locale}/bug', new BugController());
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
