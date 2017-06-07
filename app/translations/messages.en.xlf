@@ -120,7 +120,7 @@
             </trans-unit>
             <trans-unit id="message.element_successfully_added">
                 <source>message.element_successfully_added</source>
-                <target>You've just added a new project</target>
+                <target>You've just added a new bug</target>
             </trans-unit>
             <trans-unit id="message.project_successfully_added">
                 <source>message.project_successfully_added</source>

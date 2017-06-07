@@ -3,7 +3,19 @@
 {% block title %}
     {{ 'title.project_bugs'|trans({'%name%': project.name}) }}
 {% endblock %}
-
+ {% block nav_links %}
+     <a class="nav-item nav-item__name">
+         {# TODO: Main page - login/register -> update url #}
+         {{ 'title.app'|trans }}
+     </a>
+     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
+        title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
+     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
+        title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+     <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('project_bugs',
+     {'id': project.id}) }}"
+        title=" {{ 'title.project_bugs'|trans({'%name%': project.name}) }}"> {{ 'title.project_bugs'|trans({'%name%': project.name}) }}</a>
+ {% endblock %}
 {% block body %}
     <h1 class="title is-1 list-name">
         {{ 'title.project_bugs'|trans({'%name%': project.name}) }}

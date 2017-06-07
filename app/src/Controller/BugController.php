@@ -46,6 +46,9 @@ class BugController implements ControllerProviderInterface
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
             ->bind('bug_edit');
+        $controller->get('/{id}/change', [$this, 'changeStatusAction'])
+            ->assert('id', '[1-9]\d*')
+            ->bind('bug_change_status');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
@@ -106,6 +109,43 @@ class BugController implements ControllerProviderInterface
         );
     }
 
+
+
+    /**
+     * Change status action
+     *
+     * @param \Silex\Application $app Silex application
+     * @param int $id Record id
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     */
+
+    public function changeStatusAction(Application $app, $id)
+    {
+        $bugRepository = new BugRepository($app['db']);
+        $bugToChange = $bugRepository->findOneById($id);
+
+        if (!$bugToChange) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'warning',
+                    'message' => 'message.record_not_found',
+                ]
+            );
+
+            return $app->redirect($app['url_generator']->generate('bug_index'));
+        }
+
+        $bugToChange['status_id'] = ($bugToChange['status_id'] == 1) ? 2 : 1;
+        $bugRepository->save($bugToChange);
+        unset($bugToChange);
+
+        return $app->redirect($app['url_generator']->generate('bug_index'), 301);
+    }
+
+
     /**
      * Add action.
      *
@@ -129,7 +169,7 @@ class BugController implements ControllerProviderInterface
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bug =$form->getData();
+            $bug = $form->getData();
             $bugRepository = new BugRepository($app['db']);
             $bugRepository->save($bug);
 
@@ -141,7 +181,7 @@ class BugController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' =>$bug['project_id']]), 301);
+            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bug['project_id']]), 301);
         }
 
         return $app['twig']->render(
@@ -201,7 +241,7 @@ class BugController implements ControllerProviderInterface
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' =>$bug['project_id']]), 301);
+            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bug['project_id']]), 301);
         }
 
         return $app['twig']->render(
