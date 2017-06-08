@@ -15,5 +15,6 @@ $app->register(new MonologServiceProvider(), array(
 
 $app->register(new WebProfilerServiceProvider(), array(
     'profiler.cache_dir' => __DIR__.'/../var/cache/profiler',
+    //'web_profiler.debug_toolbar.intercept_redirects' => true,
 ));
 

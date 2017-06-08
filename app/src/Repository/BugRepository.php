@@ -176,6 +176,8 @@ class BugRepository
     public function save($bug)
     {
         // TODO: implement login
+
+
         $bug['user_id'] = 1;
 
         try {
@@ -194,6 +196,7 @@ class BugRepository
         }
 
     }
+
 
     /**
      * Remove record.

@@ -66,6 +66,12 @@ class BugController implements ControllerProviderInterface
      */
     public function indexAction(Application $app, $page = 1)
     {
+//        $token = $app['security.token_storage']->getToken();
+//        if (null !== $token) {
+//            $user = $token->getUser();
+//        }
+//        dump($user);
+
         $bugRepository = new BugRepository($app['db']);
         $typeRepository = new TypeRepository($app['db']);
         $statusRepository = new StatusRepository($app['db']);
@@ -110,21 +116,22 @@ class BugController implements ControllerProviderInterface
     }
 
 
-
     /**
      * Change status action
      *
      * @param \Silex\Application $app Silex application
      * @param int $id Record id
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     * @internal param Request $request HTTP Request
+     *
      */
 
     public function changeStatusAction(Application $app, $id)
     {
         $bugRepository = new BugRepository($app['db']);
         $bugToChange = $bugRepository->findOneById($id);
+
+
 
         if (!$bugToChange) {
             $app['session']->getFlashBag()->add(
@@ -138,9 +145,10 @@ class BugController implements ControllerProviderInterface
             return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
-        $bugToChange['status_id'] = ($bugToChange['status_id'] == 1) ? 2 : 1;
+//        dump($bugToChange);
+        $bugToChange['status_id'] = ($bugToChange['status_id'] == 1 ? 2 : 1);
+//        dump($bugToChange);
         $bugRepository->save($bugToChange);
-        unset($bugToChange);
 
         return $app->redirect($app['url_generator']->generate('bug_index'), 301);
     }
