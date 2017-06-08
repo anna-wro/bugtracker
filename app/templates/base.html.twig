@@ -34,8 +34,6 @@
                 </a>
                 <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
                    title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
-                <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
-                   title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
 
             {% endblock %}
         </div>
@@ -52,7 +50,15 @@
             <a class="nav-item is-tab">
                 {{ 'action.profile'|trans }}
             </a>
-            <a class="nav-item is-tab">{{ 'action.logout'|trans }}</a>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a class="nav-item is-tab" href="{{ url('auth_logout') }}" title="{{ 'auth.logout.label'|trans }}">
+                    {{ 'auth.logout.label'|trans }}
+                </a>
+            {% else %}
+                <a class="nav-item is-tab" href="{{ url('auth_login') }}" title="{{ 'auth.login.label'|trans }}">
+                    {{ 'auth.login.label'|trans }}
+                </a>
+            {% endif %}
             {# to change locale of current page only#}
             {% set params = global.request.attributes.get('_route_params')|merge(global.request.query.all()) %}
             {% set plParams = params|merge({'_locale': 'pl'}) %}

@@ -299,12 +299,12 @@
                 <source>title.app</source>
                 <target>Bug tracker</target>
             </trans-unit>
-            <trans-unit id="action.login">
-                <source>action.login</source>
+            <trans-unit id="auth.login.label">
+                <source>auth.login.label</source>
                 <target>Log in</target>
             </trans-unit>
-            <trans-unit id="action.logout">
-                <source>action.logout</source>
+            <trans-unit id="auth.logout.label">
+                <source>auth.logout.label</source>
                 <target>Log out</target>
             </trans-unit>
             <trans-unit id="action.register">
@@ -322,6 +322,18 @@
             <trans-unit id="action.undo">
                 <source>action.undo</source>
                 <target>Undo</target>
+            </trans-unit>
+            <trans-unit id="label.login">
+                <source>label.login</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Log in</target>
             </trans-unit>
         </body>
 

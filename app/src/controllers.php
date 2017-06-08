@@ -2,9 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Controller\AuthController;
 
 
 use Controller\BugController;
@@ -12,14 +10,14 @@ use Controller\ProjectController;
 
 $app->mount('{_locale}/project', new ProjectController());
 $app->mount('{_locale}/bug', new BugController());
+$app->mount('{_locale}/auth', new AuthController());
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 })
-->bind('homepage')
-;
+->bind('homepage');
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
