@@ -1,8 +1,9 @@
 // Buttons
 @import '../helpers/index';
 
-.button__add, .button__edit, .button__delete, .button__back {
+.button__add, .button__edit, .button__delete, .button__back, .button--login {
   margin: 40px auto;
   display: block;
   max-width: 150px;
 }
+

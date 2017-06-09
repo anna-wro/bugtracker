@@ -24,7 +24,7 @@ abstract class BaseController implements ControllerProviderInterface {
      * @param \Silex\Application $app Silex application
      * @return String $userData['id'] User ID
      */
-    
+
     public function getUserId(Application $app)
     {
         $token = $app['security.token_storage']->getToken();

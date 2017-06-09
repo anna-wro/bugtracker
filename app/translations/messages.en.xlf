@@ -335,6 +335,11 @@
                 <source>action.login</source>
                 <target>Log in</target>
             </trans-unit>
+            <trans-unit id="title.auth_login">
+                <source>title.auth_login</source>
+                <target>Log in</target>
+            </trans-unit>
+
         </body>
 
     </file>
