@@ -23,8 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  *
  * @package Controller
  */
-class ProjectController implements ControllerProviderInterface
-{
+class ProjectController extends BaseController {
     /**
      * Routing settings.
      *
@@ -127,7 +126,10 @@ class ProjectController implements ControllerProviderInterface
 
         if ($form->isSubmitted() && $form->isValid()) {
             $projectRepository = new ProjectRepository($app['db']);
-            $projectRepository->save($form->getData());
+            $project = $form->getData();
+            $id = $this->getUserId($app);
+            $project['user_id'] = $id;
+            $projectRepository->save($project);
 
             $app['session']->getFlashBag()->add(
                 'messages',

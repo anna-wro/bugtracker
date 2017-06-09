@@ -23,8 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  *
  * @package Controller
  */
-class BugController implements ControllerProviderInterface
-{
+class BugController extends BaseController{
 
     /**
      * {@inheritdoc}
@@ -66,12 +65,6 @@ class BugController implements ControllerProviderInterface
      */
     public function indexAction(Application $app, $page = 1)
     {
-//        $token = $app['security.token_storage']->getToken();
-//        if (null !== $token) {
-//            $user = $token->getUser();
-//        }
-//        dump($user);
-
         $bugRepository = new BugRepository($app['db']);
         $typeRepository = new TypeRepository($app['db']);
         $statusRepository = new StatusRepository($app['db']);
@@ -131,8 +124,6 @@ class BugController implements ControllerProviderInterface
         $bugRepository = new BugRepository($app['db']);
         $bugToChange = $bugRepository->findOneById($id);
 
-
-
         if (!$bugToChange) {
             $app['session']->getFlashBag()->add(
                 'messages',
@@ -178,6 +169,8 @@ class BugController implements ControllerProviderInterface
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bug = $form->getData();
+            $id = $this->getUserId($app);
+            $bug['user_id'] = $id;
             $bugRepository = new BugRepository($app['db']);
             $bugRepository->save($bug);
 
