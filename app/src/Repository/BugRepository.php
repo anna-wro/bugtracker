@@ -22,7 +22,7 @@ class BugRepository
      *
      * const int NUM_ITEMS
      */
-    const NUM_ITEMS = 10;
+    const NUM_ITEMS = 8;
 
     /**
      * Doctrine DBAL connection.

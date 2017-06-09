@@ -86,7 +86,6 @@ class ProjectController extends BaseController {
      */
     public function bugsAction(Application $app, $id, $page = 1)
     {
-        $projectId = $id;
         $userId = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
         $typeRepository = new TypeRepository($app['db']);
@@ -96,14 +95,14 @@ class ProjectController extends BaseController {
 
         return $app['twig']->render(
             'project/bugs.html.twig',
-            ['bug' => $bugRepository->findAllFromProject($projectId, $userId),
-                'projectId' => $projectId,
-                'paginator' => $bugRepository->findAllPaginatedFromProject($projectId, $userId, $page),
+            ['bug' => $bugRepository->findAllFromProject($id, $userId),
+                'projectId' => $id,
+                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $userId, $page),
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
                 'projects' => $projectRepository->findAll(),
-                'project' => $projectRepository->findOneById($projectId)]
+                'project' => $projectRepository->findOneById($id)]
         );
     }
 

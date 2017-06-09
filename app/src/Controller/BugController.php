@@ -98,6 +98,10 @@ class BugController extends BaseController{
         $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
 
+        $bug = $bugRepository->findOneById($id);
+        $projectId = $bug['project_id'];
+
+
         return $app['twig']->render(
             'bug/view.html.twig',
             ['bug' => $bugRepository->findOneById($id),
@@ -105,7 +109,7 @@ class BugController extends BaseController{
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
-                'projects' => $projectRepository->findAll()]
+                'project' => $projectRepository->findOneById($projectId)]
         );
     }
 
