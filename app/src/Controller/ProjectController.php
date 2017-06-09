@@ -92,7 +92,6 @@ class ProjectController extends BaseController {
         $statusRepository = new StatusRepository($app['db']);
         $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
-
         return $app['twig']->render(
             'project/bugs.html.twig',
             ['bug' => $bugRepository->findAllFromProject($id, $userId),
@@ -101,7 +100,6 @@ class ProjectController extends BaseController {
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
-                'projects' => $projectRepository->findAll(),
                 'project' => $projectRepository->findOneById($id)]
         );
     }

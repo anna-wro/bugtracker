@@ -122,7 +122,7 @@ class BugRepository
             )->from('pr_bugs', 'b')
                 ->where('b.project_id = :id')
                 ->setParameter(':id', $projectId, \PDO::PARAM_INT)
-                ->where('b.user_id = :userId')
+                ->andWhere('b.user_id = :userId')
                 ->setParameter(':userId', $userId, \PDO::PARAM_INT);
     }
 
