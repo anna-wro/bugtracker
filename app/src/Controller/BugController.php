@@ -65,6 +65,7 @@ class BugController extends BaseController{
      */
     public function indexAction(Application $app, $page = 1)
     {
+        $id = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
         $typeRepository = new TypeRepository($app['db']);
         $statusRepository = new StatusRepository($app['db']);
@@ -73,7 +74,7 @@ class BugController extends BaseController{
 
         return $app['twig']->render(
             'bug/index.html.twig',
-            ['paginator' => $bugRepository->findAllPaginated($page),
+            ['paginator' => $bugRepository->findAllPaginated($page, $id),
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),

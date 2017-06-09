@@ -58,15 +58,17 @@ class BugRepository
      *
      * @param int $page Current page number
      *
+     * @param int $userId User ID
      * @return array Result
      */
-    public function findAllPaginated($page = 1)
+
+    public function findAllPaginated($page = 1, $userId)
     {
-        $countQueryBuilder = $this->queryAll()
+        $countQueryBuilder = $this->queryAllFromUser($userId)
             ->select('COUNT(DISTINCT b.id) AS total_results')
             ->setMaxResults(1);
 
-        $paginator = new Paginator($this->queryAll(), $countQueryBuilder);
+        $paginator = new Paginator($this->queryAllFromUser($userId), $countQueryBuilder);
         $paginator->setCurrentPage($page);
         $paginator->setMaxPerPage(self::NUM_ITEMS);
 
@@ -80,6 +82,7 @@ class BugRepository
      *
      * @return array|mixed Result
      */
+
     public function findOneById($id)
     {
         $queryBuilder = $this->queryAll();
@@ -94,11 +97,12 @@ class BugRepository
      * Find all from the project
      *
      * @param $projectId
+     * @param $userId
      * @return array|mixed Result
      * @internal param string $id Project id
-     *
      */
-    public function findAllFromProject($projectId)
+
+    public function findAllFromProject($projectId, $userId)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
@@ -117,23 +121,27 @@ class BugRepository
                 'b.user_id'
             )->from('pr_bugs', 'b')
                 ->where('b.project_id = :id')
-                ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+                ->setParameter(':id', $projectId, \PDO::PARAM_INT)
+                ->where('b.user_id = :userId')
+                ->setParameter(':userId', $userId, \PDO::PARAM_INT);
     }
 
     /**
      * Get records paginated.
      *
-     * @param int $page Current page number
-     *
+     * @param int $projectId    Project ID
+     * @param int $userId       User Id
+     * @param int $page         Current page number
      * @return array Result
      */
-    public function findAllPaginatedFromProject($id, $page = 1)
+
+    public function findAllPaginatedFromProject($projectId, $userId, $page = 1)
     {
-        $countQueryBuilder = $this->findAllFromProject($id)
+        $countQueryBuilder = $this->findAllFromProject($projectId, $userId)
             ->select('COUNT(DISTINCT b.id) AS total_results')
             ->setMaxResults(1);
 
-        $paginator = new Paginator($this->findAllFromProject($id), $countQueryBuilder);
+        $paginator = new Paginator($this->findAllFromProject($projectId, $userId), $countQueryBuilder);
         $paginator->setCurrentPage($page);
         $paginator->setMaxPerPage(self::NUM_ITEMS);
 
@@ -163,6 +171,34 @@ class BugRepository
             'b.project_id',
             'b.user_id'
         )->from('pr_bugs', 'b');
+    }
+
+    /**
+     * Query all records from chosen user
+     *
+     * @param $id
+     * @return \Doctrine\DBAL\Query\QueryBuilder Result
+     */
+    protected function queryAllFromUser($id)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        return $queryBuilder->select(
+            'b.id',
+            'b.name',
+            'b.description',
+            'b.expected_result',
+            'b.reproduction',
+            'b.start_date',
+            'b.end_date',
+            'b.type_id',
+            'b.priority_id',
+            'b.status_id',
+            'b.project_id',
+            'b.user_id'
+        )->from('pr_bugs', 'b')
+            ->where('b.user_id = :id')
+            ->setParameter(':id', $id, \PDO::PARAM_INT);
     }
 
     /**

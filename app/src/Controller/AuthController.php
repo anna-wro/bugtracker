@@ -28,6 +28,8 @@ class AuthController implements ControllerProviderInterface
             ->bind('auth_login');
         $controller->get('logout', [$this, 'logoutAction'])
             ->bind('auth_logout');
+        $controller->get('home', [$this, 'homeAction'])
+            ->bind('homepage');
 
         return $controller;
     }
@@ -67,4 +69,19 @@ class AuthController implements ControllerProviderInterface
 
         return $app['twig']->render('auth/logout.html.twig', []);
     }
+
+    /**
+     * Home action.
+     *
+     * @param \Silex\Application $app Silex application
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     */
+    public function homeAction(Application $app)
+    {
+        return $app['twig']->render('index.html.twig', []);
+    }
+
+
+
 }

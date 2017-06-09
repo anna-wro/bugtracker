@@ -53,17 +53,17 @@ class ProjectRepository
     /**
      * Get records paginated.
      *
+     * @param $userId
      * @param int $page Current page number
-     *
      * @return array Result
      */
-    public function findAllPaginated($page = 1)
+    public function findAllPaginated($page = 1, $userId)
     {
-        $countQueryBuilder = $this->queryAll()
+        $countQueryBuilder = $this->queryAllFromUser($userId)
             ->select('COUNT(DISTINCT p.id) AS total_results')
             ->setMaxResults(1);
 
-        $paginator = new Paginator($this->queryAll(), $countQueryBuilder);
+        $paginator = new Paginator($this->queryAllFromUser($userId), $countQueryBuilder);
         $paginator->setCurrentPage($page);
         $paginator->setMaxPerPage(self::NUM_ITEMS);
 
@@ -140,6 +140,28 @@ class ProjectRepository
             'p.end_date',
             'p.user_id'
         )->from('pr_projects', 'p');
+    }
+
+    /**
+     * Query all records from chosen user.
+     *
+     * @param $id
+     * @return \Doctrine\DBAL\Query\QueryBuilder Result
+     */
+    protected function queryAllFromUser($id)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        return $queryBuilder->select(
+            'p.id',
+            'p.name',
+            'p.description',
+            'p.start_date',
+            'p.end_date',
+            'p.user_id'
+        )->from('pr_projects', 'p')
+            ->where('p.user_id = :id')
+            ->setParameter(':id', $id, \PDO::PARAM_INT);
     }
 
     /**

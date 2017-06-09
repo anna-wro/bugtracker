@@ -67,11 +67,12 @@ class ProjectController extends BaseController {
      */
     public function indexAction(Application $app, $page = 1)
     {
+        $id = $this->getUserId($app);
         $projectRepository = new ProjectRepository($app['db']);
 
         return $app['twig']->render(
             'project/index.html.twig',
-            ['paginator' => $projectRepository->findAllPaginated($page)]
+            ['paginator' => $projectRepository->findAllPaginated($page, $id)]
         );
     }
 
@@ -79,13 +80,14 @@ class ProjectController extends BaseController {
      * Bugs action.
      *
      * @param \Silex\Application $app Silex application
-     * @param string $id Element Id
-     *
+     * @param $id
      * @param int $page
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     * @return
      */
     public function bugsAction(Application $app, $id, $page = 1)
     {
+        $projectId = $id;
+        $userId = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
         $typeRepository = new TypeRepository($app['db']);
         $statusRepository = new StatusRepository($app['db']);
@@ -94,14 +96,14 @@ class ProjectController extends BaseController {
 
         return $app['twig']->render(
             'project/bugs.html.twig',
-            ['bug' => $bugRepository->findAllFromProject($id),
-                'projectId' => $id,
-                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $page),
+            ['bug' => $bugRepository->findAllFromProject($projectId, $userId),
+                'projectId' => $projectId,
+                'paginator' => $bugRepository->findAllPaginatedFromProject($projectId, $userId, $page),
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
                 'projects' => $projectRepository->findAll(),
-                'project' => $projectRepository->findOneById($id)]
+                'project' => $projectRepository->findOneById($projectId)]
         );
     }
 

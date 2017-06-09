@@ -1,5 +1,12 @@
-{% extends "layout.html.twig" %}
-
-{% block content %}
-
+{% extends "base.html.twig" %}
+{% block nav_links %}
+    <a class="nav-item nav-item__name">
+        {# TODO: Main page - login/register -> update url #}
+        {{ 'title.app'|trans }}
+    </a>
+{% endblock %}
+{% block body %}
+    <h1 class="title is-1 list-name">
+        {{ 'title.app'|trans }}
+    </h1>
 {% endblock %}

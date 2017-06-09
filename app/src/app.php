@@ -72,7 +72,7 @@ $app->register(
                 'anonymous' => true,
                 'logout' => [
                     'logout_path' => 'auth_logout',
-                    'target_url' => 'project_index',
+                    'target_url' => 'homepage',
                 ],
                 'users' => function () use ($app) {
                     return new Provider\UserProvider($app['db']);
@@ -81,8 +81,8 @@ $app->register(
         ],
         'security.access_rules' => [
             ['^{_locale}/auth.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
+            ['^{_locale}/.+$', 'ROLE_USER'],
             ['^{_locale}/.+$', 'ROLE_ADMIN'],
-            ['^{_locale}/.+$', 'ROLE_USER']
         ],
         'security.role_hierarchy' => [
             'ROLE_ADMIN' => ['ROLE_USER'],
