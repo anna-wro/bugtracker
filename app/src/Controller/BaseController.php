@@ -5,19 +5,9 @@
 
 namespace Controller;
 
-use Repository\BugRepository;
-use Repository\PriorityRepository;
-use Repository\ProjectRepository;
-use Repository\StatusRepository;
-use Repository\TypeRepository;
 use Repository\UserRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
-use Form\BugType;
-use Silex\ControllerCollection;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 /**

@@ -11,7 +11,6 @@ use Repository\ProjectRepository;
 use Repository\StatusRepository;
 use Repository\TypeRepository;
 use Silex\Application;
-use Silex\Api\ControllerProviderInterface;
 use Form\BugType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -23,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  *
  * @package Controller
  */
+
 class BugController extends BaseController{
 
     /**
