@@ -19,13 +19,12 @@ use Silex\Api\ControllerProviderInterface;
 abstract class BaseController implements ControllerProviderInterface {
 
     /**
-     * Index action.
+     * Get user ID
      *
      * @param \Silex\Application $app Silex application
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
-     * @internal param int $page Current page number
-     *
+     * @return String $userData['id'] User ID
      */
+    
     public function getUserId(Application $app)
     {
         $token = $app['security.token_storage']->getToken();

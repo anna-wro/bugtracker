@@ -114,9 +114,8 @@ class BugController extends BaseController{
      *
      * @param \Silex\Application $app Silex application
      * @param int $id Record id
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
-     * @internal param Request $request HTTP Request
      *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 
     public function changeStatusAction(Application $app, $id)
