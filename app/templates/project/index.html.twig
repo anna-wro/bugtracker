@@ -17,73 +17,79 @@
     <h1 class="title is-1 list-name">
         {{ 'title.projects_list'|trans }}
     </h1>
-
-    {% if paginator.data|length %}
-        <table class="table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>{{ 'label.project_name'|trans }}</th>
-                <th>{{ 'label.project_description'|trans }}</th>
-                <th>{{ 'label.project_start_date'|trans }}</th>
-                <th>{{ 'label.project_end_date'|trans }}</th>
-                <th class="action-column"></th>
-                <th class="action-column"></th>
-                <th class="action-column"></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for project in paginator.data %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if paginator.data|length %}
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>
-                        {{ project.id }}
-                    </td>
-                    <td>
-                        {{ project.name }}
-                    </td>
-                    <td>
-                        {{ project.description }}
-                    </td>
-                    <td>
-                        {% if  project.start_date != '0000-00-00' %}
-                            {{ project.start_date }}
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if  project.end_date != '0000-00-00' %}
-                            {{ project.end_date }}
-                        {% endif %}
-                    </td>
-                    <td class="action-column">
-                        <a href="{{ url('project_bugs', {'id': project.id}) }}" class="action-icon action-icon--more fa fa-bug"
-                           title="{{ 'label.view'|trans }}">
-                        </a>
-                    </td>
-                    <td class="action-column">
-                        <a href="{{ url('project_edit', {'id': project.id}) }}" class="action-icon action-icon--edit fa fa-pencil"
-                           title="{{ 'label.edit'|trans }}">
-                        </a>
-                    </td>
-                    <td class="action-column">
-                        <a href="{{ url('project_delete', {'id': project.id}) }}" class="action-icon action-icon--delete fa fa-trash"
-                           title="{{ 'label.delete'|trans }}">
-                        </a>
-                    </td>
+                    <th>ID</th>
+                    <th>{{ 'label.project_name'|trans }}</th>
+                    <th>{{ 'label.project_description'|trans }}</th>
+                    <th>{{ 'label.project_start_date'|trans }}</th>
+                    <th>{{ 'label.project_end_date'|trans }}</th>
+                    <th class="action-column"></th>
+                    <th class="action-column"></th>
+                    <th class="action-column"></th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for project in paginator.data %}
+                    <tr>
+                        <td>
+                            {{ project.id }}
+                        </td>
+                        <td>
+                            {{ project.name }}
+                        </td>
+                        <td>
+                            {{ project.description }}
+                        </td>
+                        <td>
+                            {% if  project.start_date != '0000-00-00' %}
+                                {{ project.start_date }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if  project.end_date != '0000-00-00' %}
+                                {{ project.end_date }}
+                            {% endif %}
+                        </td>
+                        <td class="action-column">
+                            <a href="{{ url('project_bugs', {'id': project.id}) }}"
+                               class="action-icon action-icon--more fa fa-bug"
+                               title="{{ 'label.view'|trans }}">
+                            </a>
+                        </td>
+                        <td class="action-column">
+                            <a href="{{ url('project_edit', {'id': project.id}) }}"
+                               class="action-icon action-icon--edit fa fa-pencil"
+                               title="{{ 'label.edit'|trans }}">
+                            </a>
+                        </td>
+                        <td class="action-column">
+                            <a href="{{ url('project_delete', {'id': project.id}) }}"
+                               class="action-icon action-icon--delete fa fa-trash"
+                               title="{{ 'label.delete'|trans }}">
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div>
+                {{ 'projects_not_found'|trans }}
+            </div>
+        {% endif %}
+        <a href="{{ url('project_add') }}" class="button is-primary button__add"
+           title="{{ 'label.project_add'|trans }}">
+            {{ 'label.project_add'|trans }}
+        </a>
+        {% include 'default/_paginator.html.twig' with {
+        paginator: paginator,
+        route_name: 'project_index_paginated',
+        } %}
     {% else %}
-        <div>
-            {{ 'projects_not_found'|trans }}
-        </div>
+        {% include 'auth/login_required.html.twig' %}
     {% endif %}
-    <a href="{{ url('project_add') }}" class="button is-primary button__add"
-       title="{{ 'label.project_add'|trans }}">
-        {{ 'label.project_add'|trans }}
-    </a>
-    {% include 'default/_paginator.html.twig' with {
-    paginator: paginator,
-    route_name: 'project_index_paginated',
-    } %}
 {% endblock %}

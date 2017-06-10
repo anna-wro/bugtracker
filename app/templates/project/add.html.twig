@@ -3,17 +3,21 @@
 {% block title %}{{ 'label.project_add'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="column is-6-desktop is-offset-3-desktop">
-        <h1 class="title is-3 form-name">{{ 'label.project_add'|trans }}</h1>
-        {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
-        {{ form_start(form, { method: 'post', action: url('project_add') }) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="{{ 'action.save'|trans }}" class="button is-primary button__add"/>
-        {{ form_end(form) }}
-        <a href="{{ url('project_index') }}" title="{{ 'label.back_to_list'|trans }}"
-           class="button is-warning is-outlined button__back">
-            <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
-            {{ 'label.back_to_list'|trans }}
-        </a>
-    </div>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="column is-6-desktop is-offset-3-desktop">
+            <h1 class="title is-3 form-name">{{ 'label.project_add'|trans }}</h1>
+            {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
+            {{ form_start(form, { method: 'post', action: url('project_add') }) }}
+            {{ form_widget(form) }}
+            <input type="submit" value="{{ 'action.save'|trans }}" class="button is-primary button__add"/>
+            {{ form_end(form) }}
+            <a href="{{ url('project_index') }}" title="{{ 'label.back_to_list'|trans }}"
+               class="button is-warning is-outlined button__back">
+                <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
+                {{ 'label.back_to_list'|trans }}
+            </a>
+        </div>
+    {% else %}
+        {% include 'auth/login_required.html.twig' %}
+    {% endif %}
 {% endblock %}

@@ -5,97 +5,101 @@
 {% endblock %}
 
 {% block body %}
-    <div class="column is-10 is-offset-1 single-bug">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="column is-10 is-offset-1 single-bug">
 
-    <div class="tile is-ancestor">
-    {% if bug|length %}
-    <div class="tile is-parent is-3">
-        {% if bug.status_id == 1 and bug.priority_id <= 2 %}
-        <div class="tile is-child notification is-danger">
+        <div class="tile is-ancestor">
+        {% if bug|length %}
+            <div class="tile is-parent is-3">
+            {% if bug.status_id == 1 and bug.priority_id <= 2 %}
+                <div class="tile is-child notification is-danger">
             {% elseif  bug.status_id == 1 %}
-            <div class="tile is-child notification is-warning">
-                {% else %}
+                <div class="tile is-child notification is-warning">
+            {% else %}
                 <div class="tile is-child notification is-success">
-                    {% endif %}
-                    <div class="title is-2 has-text-right bug__number">#{{ bug.id }}</div>
-                </div>
+            {% endif %}
+            <div class="title is-2 has-text-right bug__number">#{{ bug.id }}</div>
+            </div>
             </div>
             <div class="tile is-parent is-9">
                 <div class="tile is-child  notification is-primary">
                     <h2 class="title is-2">{{ bug.name }}</h2>
                 </div>
             </div>
-        </div>
-        <div class="tile is-ancestor">
-            <div class="tile is-vertical is-8">
-                <div class="tile is-parent">
-                    <article class="tile is-child notification">
-                        <p class="title is-spaced">{{ 'label.bug_desc'|trans }}</p>
-                        <p class="subtitle">{{ bug.description }}</p>
-                    </article>
-                </div>
-                <div class="tile">
+            </div>
+            <div class="tile is-ancestor">
+                <div class="tile is-vertical is-8">
                     <div class="tile is-parent">
                         <article class="tile is-child notification">
-                            <p class="title is-spaced">{{ 'label.bug_project'|trans }}</p>
-                            <p class="subtitle">{{ project.name |trans}}</p>
+                            <p class="title is-spaced">{{ 'label.bug_desc'|trans }}</p>
+                            <p class="subtitle">{{ bug.description }}</p>
                         </article>
                     </div>
+                    <div class="tile">
+                        <div class="tile is-parent">
+                            <article class="tile is-child notification">
+                                <p class="title is-spaced">{{ 'label.bug_project'|trans }}</p>
+                                <p class="subtitle">{{ project.name |trans }}</p>
+                            </article>
+                        </div>
 
-                    <div class="tile is-parent is-vertical">
-                        <article class="tile is-child notification">
-                            <p class="title is-spaced">{{ 'label.bug_priority'|trans }}</p>
-                            <p class="subtitle">{{ priorities[bug.priority_id-1].name |trans}}</p>
-                        </article>
-                        <article class="tile is-child notification">
-                            <p class="title is-spaced">{{ 'label.bug_status'|trans }}</p>
-                            <p class="subtitle">{{ statuses[bug.status_id-1].name | trans}}</p>
-                        </article>
+                        <div class="tile is-parent is-vertical">
+                            <article class="tile is-child notification">
+                                <p class="title is-spaced">{{ 'label.bug_priority'|trans }}</p>
+                                <p class="subtitle">{{ priorities[bug.priority_id-1].name |trans }}</p>
+                            </article>
+                            <article class="tile is-child notification">
+                                <p class="title is-spaced">{{ 'label.bug_status'|trans }}</p>
+                                <p class="subtitle">{{ statuses[bug.status_id-1].name | trans }}</p>
+                            </article>
+                        </div>
+
                     </div>
 
                 </div>
-
-            </div>
-            <div class="tile  is-vertical is-4">
-                <article class="tile is-parent is-vertical">
-                    <article class="tile is-child notification">
-                        <p class="title is-spaced">{{ 'label.bug_type'|trans }}</p>
-                        <p class="subtitle">{{ types[bug.type_id-1].name | trans}}</p>
+                <div class="tile  is-vertical is-4">
+                    <article class="tile is-parent is-vertical">
+                        <article class="tile is-child notification">
+                            <p class="title is-spaced">{{ 'label.bug_type'|trans }}</p>
+                            <p class="subtitle">{{ types[bug.type_id-1].name | trans }}</p>
+                        </article>
+                        {% if bug.start_date != null %}
+                            <article class="tile is-child notification">
+                                <p class="title is-spaced">{{ 'label.bug_start'|trans }}</p>
+                                <p class="subtitle">{{ bug.start_date }}</p>
+                            </article>
+                        {% endif %}
+                        {% if bug.end_date != null %}
+                            <article class="tile is-child notification">
+                                <p class="title is-spaced">{{ 'label.bug_end'|trans }}</p>
+                                <p class="subtitle">{{ bug.end_date }}</p>
+                            </article>
+                        {% endif %}
                     </article>
-                    {% if bug.start_date != null %}
-                        <article class="tile is-child notification">
-                            <p class="title is-spaced">{{ 'label.bug_start'|trans }}</p>
-                            <p class="subtitle">{{ bug.start_date }}</p>
-                        </article>
-                    {% endif %}
-                    {% if bug.end_date != null %}
-                        <article class="tile is-child notification">
-                            <p class="title is-spaced">{{ 'label.bug_end'|trans }}</p>
-                            <p class="subtitle">{{ bug.end_date }}</p>
-                        </article>
-                    {% endif %}
-                </article>
+                </div>
             </div>
-        </div>
-        <div class="block">
-            <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="button is-warning"
-               title="{{ 'label.edit'|trans }}">
-                <span class="fa fa-pencil" aria-hidden="true"></span>{{ 'label.edit'|trans }}
-            </a>
+            <div class="block">
+                <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="button is-warning"
+                   title="{{ 'label.edit'|trans }}">
+                    <span class="fa fa-pencil" aria-hidden="true"></span>{{ 'label.edit'|trans }}
+                </a>
 
-            <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="button is-danger"
-               title="{{ 'label.delete'|trans }}">
-                <span class="fa fa-trash icon-back" aria-hidden="true"></span>{{ 'label.delete'|trans }}
-            </a>
+                <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="button is-danger"
+                   title="{{ 'label.delete'|trans }}">
+                    <span class="fa fa-trash icon-back" aria-hidden="true"></span>{{ 'label.delete'|trans }}
+                </a>
 
-            <a href="{{ url('project_bugs', {'id': bug.project_id}) }}" title="{{ 'label.back_to_list'|trans }}"
-               class="button is-primary is-outlined button__back">
-                <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
-                {{ 'label.back_to_list'|trans }}
-            </a>
-        </div>
+                <a href="{{ url('project_bugs', {'id': bug.project_id}) }}" title="{{ 'label.back_to_list'|trans }}"
+                   class="button is-primary is-outlined button__back">
+                    <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
+                    {{ 'label.back_to_list'|trans }}
+                </a>
+            </div>
         {% else %}
             {{ 'bug_not_found'|trans }}
         {% endif %}
-    </div>
+        </div>
+    {% else %}
+        {% include 'auth/login_required.html.twig' %}
+    {% endif %}
 {% endblock %}

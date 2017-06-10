@@ -1,0 +1,23 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content has-text-centered ">
+                        <h2 class="titleis-2 is-spaced">{{ 'message.login_required'|trans }}</h2>
+                        <p>{{ 'message.not_logged_in'|trans }}</p>
+                    </div>
+                    <a class="button button--modal is-primary is-pulled-right" href="{{ url('auth_login') }}"
+                       title="{{ 'label.ok'|trans }}">
+                        {{ 'label.ok'|trans }}
+                    </a>
+                    <a class="button button--modal is-light is-pulled-right" href="{{ url('homepage') }}"
+                       title="{{ 'label.back_to_home'|trans }}">
+                        {{ 'label.back_to_home'|trans }}
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>

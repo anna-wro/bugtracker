@@ -1,73 +1,83 @@
-{% if paginator.data|length %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>{{ 'label.bug_name'|trans }}</th>
-            <th>{{ 'label.bug_type'|trans }}</th>
-            <th>{{ 'label.bug_priority'|trans }}</th>
-            <th>{{ 'label.bug_status'|trans }}</th>
-            <th class="action-column"></th>
-            <th class="action-column"></th>
-            <th class="action-column"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for bug in paginator.data %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if paginator.data|length %}
+        <table class="table">
+            <thead>
             <tr>
-                <td>
-                    {{ bug.id }}
-                </td>
-                <td class="has-text-dark">
-                    <b>{{ bug.name }}</b>
-                </td>
-                <td>
-                    <span class="tag is-medium">{{ types[bug.type_id-1].name |trans}}</span>
-                </td>
-                <td>
+                <th>ID</th>
+                <th>{{ 'label.bug_name'|trans }}</th>
+                <th>{{ 'label.bug_type'|trans }}</th>
+                <th>{{ 'label.bug_priority'|trans }}</th>
+                <th>{{ 'label.bug_status'|trans }}</th>
+                <th class="action-column"></th>
+                <th class="action-column"></th>
+                <th class="action-column"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for bug in paginator.data %}
+                <tr>
+                    <td>
+                        {{ bug.id }}
+                    </td>
+                    <td class="has-text-dark">
+                        <b>{{ bug.name }}</b>
+                    </td>
+                    <td>
+                        <span class="tag is-medium">{{ types[bug.type_id-1].name |trans }}</span>
+                    </td>
+                    <td>
                         <span class="tag is-a-tag priority-dot
                         {% if bug.priority_id == 1 %} is-priority
                         {% elseif bug.priority_id == 3 %} is-urgent
                         {% elseif bug.priority_id == 2 %} is-important
                         {% else %} is-wasting-space {% endif %}">
-                            {{bug.priority_id}}
+                            {{ bug.priority_id }}
                         </span>
-                </td>
-                <td>
+                    </td>
+                    <td>
                         <span class="tag is-medium">
-                            {% if bug.status_id ==1 %}<a href="{{ url('bug_change_status', {'id': bug.id}) }}" class="change-status get-it-done" title="{{ 'action.do'|trans }}">▢</a>{% endif %}
-                            {% if bug.status_id ==2 %}<a href="{{ url('bug_change_status', {'id': bug.id})}}" class="change-status is-done" title="{{ 'action.undo'|trans }}">✔</a>{% endif %}
-                            {{ statuses[bug.status_id-1].name |trans}}</span>
-                </td>
-                <td class="action-column">
-                    <a href="{{ url('bug_view', {'id': bug.id}) }}" class="action-icon action-icon--more fa fa-info"
-                       title="{{ 'label.more'|trans }}">
-                    </a>
-                </td>
-                <td class="action-column">
-                    <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="action-icon action-icon--edit fa fa-pencil"
-                       title="{{ 'label.edit'|trans }}">
-                    </a>
-                </td>
-                <td class="action-column">
-                    <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="action-icon action-icon--delete fa fa-trash"
-                       title="{{ 'label.delete'|trans }}">
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            {% if bug.status_id ==1 %}<a href="{{ url('bug_change_status', {'id': bug.id}) }}"
+                                                         class="change-status get-it-done"
+                                                         title="{{ 'action.do'|trans }}">▢</a>{% endif %}
+                            {% if bug.status_id ==2 %}<a href="{{ url('bug_change_status', {'id': bug.id}) }}"
+                                                         class="change-status is-done"
+                                                         title="{{ 'action.undo'|trans }}">✔</a>{% endif %}
+                            {{ statuses[bug.status_id-1].name |trans }}</span>
+                    </td>
+                    <td class="action-column">
+                        <a href="{{ url('bug_view', {'id': bug.id}) }}" class="action-icon action-icon--more fa fa-info"
+                           title="{{ 'label.more'|trans }}">
+                        </a>
+                    </td>
+                    <td class="action-column">
+                        <a href="{{ url('bug_edit', {'id': bug.id}) }}"
+                           class="action-icon action-icon--edit fa fa-pencil"
+                           title="{{ 'label.edit'|trans }}">
+                        </a>
+                    </td>
+                    <td class="action-column">
+                        <a href="{{ url('bug_delete', {'id': bug.id}) }}"
+                           class="action-icon action-icon--delete fa fa-trash"
+                           title="{{ 'label.delete'|trans }}">
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            {{ 'bugs_not_found'|trans }}
+        </div>
+    {% endif %}
+    <a href="{{ url('bug_add') }}" class="button is-primary button__add"
+       title="{{ 'label.bug_add'|trans }}">
+        {{ 'label.bug_add'|trans }}
+    </a>
+    {% include 'default/_paginator.html.twig' with {
+    paginator: paginator,
+    route_name: 'bug_index_paginated',
+    } %}
 {% else %}
-    <div>
-        {{ 'bugs_not_found'|trans }}
-    </div>
+    {% include 'auth/login_required.html.twig' %}
 {% endif %}
-<a href="{{ url('bug_add') }}" class="button is-primary button__add"
-   title="{{ 'label.bug_add'|trans }}">
-    {{ 'label.bug_add'|trans }}
-</a>
-{% include 'default/_paginator.html.twig' with {
-paginator: paginator,
-route_name: 'bug_index_paginated',
-} %}

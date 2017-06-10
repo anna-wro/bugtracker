@@ -139,8 +139,8 @@
                 <target>The element was successfully deleted</target>
             </trans-unit>
             <trans-unit id="message.element_successfully_edited">
-            <source>message.element_successfully_edited</source>
-            <target>The bug was successfully edited</target>
+                <source>message.element_successfully_edited</source>
+                <target>The bug was successfully edited</target>
             </trans-unit>
             <trans-unit id="title.bug_edit">
                 <source>title.bug_edit</source>
@@ -257,7 +257,7 @@
             </trans-unit>
             <trans-unit id="priority_4">
                 <source>priority_4</source>
-                <target>4 - neither urgent nor important </target>
+                <target>4 - neither urgent nor important</target>
             </trans-unit>
             <trans-unit id="type_1">
                 <source>type_1</source>
@@ -339,7 +339,22 @@
                 <source>title.auth_login</source>
                 <target>Log in</target>
             </trans-unit>
-
+            <trans-unit id="message.not_logged_in">
+                <source>message.not_logged_in</source>
+                <target>You need to log in to see your projects and reported bugs.</target>
+            </trans-unit>
+            <trans-unit id="message.login_required">
+                <source>message.login_required</source>
+                <target>Login required</target>
+            </trans-unit>
+            <trans-unit id="label.back_to_home">
+                <source>label.back_to_home</source>
+                <target>Back to homepage</target>
+            </trans-unit>
+            <trans-unit id="label.ok">
+                <source>label.ok</source>
+                <target>Okay!</target>
+            </trans-unit>
         </body>
 
     </file>

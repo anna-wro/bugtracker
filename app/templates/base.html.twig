@@ -44,10 +44,10 @@
       <span></span>
     </span>
             <div class="nav-right nav-menu">
+                {# TODO: Add proper links#}
                 <a class="nav-item is-tab is-hidden-tablet is-active">Home</a>
-                <a class="nav-item is-tab is-hidden-tablet">Features</a>
-                <a class="nav-item is-tab is-hidden-tablet">Pricing</a>
-                <a class="nav-item is-tab is-hidden-tablet">About</a>
+                <a class="nav-item is-tab is-hidden-tablet">Project</a>
+                <a class="nav-item is-tab is-hidden-tablet">Bugs</a>
                 <a class="nav-item is-tab">
                     {{ 'action.profile'|trans }}
                 </a>
@@ -60,7 +60,7 @@
                         {{ 'auth.login.label'|trans }}
                     </a>
                 {% endif %}
-                {# to change locale of current page only#}
+                {# to change locale of current page only #}
                 {% set params = global.request.attributes.get('_route_params')|merge(global.request.query.all()) %}
                 {% set plParams = params|merge({'_locale': 'pl'}) %}
                 {% set enParams = params|merge({'_locale': 'en'}) %}

@@ -341,9 +341,22 @@
                 <source>title.auth_login</source>
                 <target>Logowanie</target>
             </trans-unit>
-
-
+            <trans-unit id="message.not_logged_in">
+                <source>message.not_logged_in</source>
+                <target>Zaloguj się, żeby zobaczyć swoje projekty i zgłoszone bugi.</target>
+            </trans-unit>
+            <trans-unit id="message.login_required">
+                <source>message.login_required</source>
+                <target>Wymagane logowanie</target>
+            </trans-unit>
+            <trans-unit id="label.back_to_home">
+                <source>label.back_to_home</source>
+                <target>Wróć do strony głównej</target>
+            </trans-unit>
+            <trans-unit id="label.ok">
+                <source>label.ok</source>
+                <target>Ok!</target>
+            </trans-unit>
         </body>
-
     </file>
 </xliff>
