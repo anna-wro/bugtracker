@@ -5,6 +5,7 @@ footer {
   font-size: 14px;
   & svg:hover {
     fill: $purple;
+    height: 200px;
   }
 }
 
@@ -13,4 +14,19 @@ footer {
   &__link:hover {
     color: $purple;
   }
+}
+
+html, body {
+  height: 100%;
+}
+
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -200px;
+}
+
+.page-wrap:after {
+  content: "";
+  height: 200px;
+  display: block;
 }
