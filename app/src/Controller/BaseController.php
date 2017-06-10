@@ -15,8 +15,8 @@ use Silex\Api\ControllerProviderInterface;
  *
  * @package Controller
  */
-
-abstract class BaseController implements ControllerProviderInterface {
+abstract class BaseController implements ControllerProviderInterface
+{
 
     /**
      * Get user ID
@@ -30,8 +30,9 @@ abstract class BaseController implements ControllerProviderInterface {
         $token = $app['security.token_storage']->getToken();
         if (null !== $token) {
             $user = $token->getUser();
-            $username = $user->getUsername();
+            if($user == 'anon.') return -1;
 
+            $username = $user->getUsername();
             $userRepository = new UserRepository($app['db']);
             $userData = $userRepository->getUserByLogin($username);
             return $userData['id'];
