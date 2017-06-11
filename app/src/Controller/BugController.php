@@ -15,6 +15,7 @@ use Form\BugType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -45,7 +46,8 @@ class BugController extends BaseController{
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
             ->bind('bug_edit');
-        $controller->get('/{id}/change', [$this, 'changeStatusAction'])
+        $controller->post('/{id}/change', [$this, 'changeStatusAction'])
+            ->method('POST')
             ->assert('id', '[1-9]\d*')
             ->bind('bug_change_status');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
@@ -120,6 +122,7 @@ class BugController extends BaseController{
      * @param \Silex\Application $app Silex application
      * @param int $id Record id
      *
+     * @param Response $response
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 
@@ -140,9 +143,7 @@ class BugController extends BaseController{
             return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
-//        dump($bugToChange);
         $bugToChange['status_id'] = ($bugToChange['status_id'] == 1 ? 2 : 1);
-//        dump($bugToChange);
         $bugRepository->save($bugToChange);
 
         return $app->redirect($app['url_generator']->generate('bug_index'), 301);

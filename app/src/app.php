@@ -33,8 +33,8 @@ $app->register(new LocaleServiceProvider());
 $app->register(
     new TranslationServiceProvider(),
     [
-        'locale' => 'pl',
-        'locale_fallbacks' => array('en'),
+        'locale' => 'en',
+        'locale_fallbacks' => array('pl'),
     ]
 );
 $app->extend('translator', function ($translator, $app) {

@@ -36,12 +36,16 @@
                     </td>
                     <td>
                         <span class="tag is-medium">
-                            {% if bug.status_id ==1 %}<a href="{{ url('bug_change_status', {'id': bug.id}) }}"
-                                                         class="change-status get-it-done"
-                                                         title="{{ 'action.do'|trans }}">▢</a>{% endif %}
-                            {% if bug.status_id ==2 %}<a href="{{ url('bug_change_status', {'id': bug.id}) }}"
-                                                         class="change-status is-done"
-                                                         title="{{ 'action.undo'|trans }}">✔</a>{% endif %}
+                            <form action="{{ url('bug_change_status', {'id': bug.id}) }}" method="post">
+                            <input type="hidden" name="_method" value="POST"/>
+                                {% if bug.status_id == 1 %}
+                                    <input type="submit" value="▢" title="{{ 'action.do'|trans }}"
+                                           class="change-status get-it-done"/>
+                                 {% else %}
+                                    <input type="submit" value="✔" title="{{ 'action.undo'|trans }}"
+                                           class="change-status is-done"/>
+                                {% endif %}
+                            </form>
                             {{ statuses[bug.status_id-1].name |trans }}</span>
                     </td>
                     <td class="action-column">
@@ -79,5 +83,5 @@
     route_name: 'bug_index_paginated',
     } %}
 {% else %}
-    {% include 'auth/login_required.html.twig' %}
+
 {% endif %}
