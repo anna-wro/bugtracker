@@ -23,7 +23,8 @@
                         <b>{{ bug.name }}</b>
                     </td>
                     <td>
-                        <span class="tag is-medium">{{ types[bug.type_id-1].name |trans }}</span>
+                        <span class="tag is-medium">
+                            {{ types[bug.type_id-1].name |trans }}</span>
                     </td>
                     <td>
                         <span class="tag is-a-tag priority-dot
@@ -36,20 +37,23 @@
                     </td>
                     <td>
                         <span class="tag is-medium">
-                            <form action="{{ url('bug_change_status', {'id': bug.id}) }}" method="post">
-                            <input type="hidden" name="_method" value="POST"/>
+                            <form action="{{ url('bug_change_status', {'id': bug.id}) }}"
+                                  method="post">
                                 {% if bug.status_id == 1 %}
-                                    <input type="submit" value="▢" title="{{ 'action.do'|trans }}"
+                                    <input type="submit" value="▢"
+                                           title="{{ 'action.do'|trans }}"
                                            class="change-status get-it-done"/>
                                  {% else %}
-                                    <input type="submit" value="✔" title="{{ 'action.undo'|trans }}"
+                                    <input type="submit" value="✔"
+                                           title="{{ 'action.undo'|trans }}"
                                            class="change-status is-done"/>
                                 {% endif %}
                             </form>
                             {{ statuses[bug.status_id-1].name |trans }}</span>
                     </td>
                     <td class="action-column">
-                        <a href="{{ url('bug_view', {'id': bug.id}) }}" class="action-icon action-icon--more fa fa-info"
+                        <a href="{{ url('bug_view', {'id': bug.id}) }}"
+                           class="action-icon action-icon--more fa fa-info"
                            title="{{ 'label.more'|trans }}">
                         </a>
                     </td>
