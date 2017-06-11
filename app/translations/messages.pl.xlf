@@ -343,7 +343,7 @@
             </trans-unit>
             <trans-unit id="message.not_logged_in">
                 <source>message.not_logged_in</source>
-                <target>Zaloguj się, żeby zobaczyć swoje projekty i zgłoszone bugi.</target>
+                <target>Zaloguj się, żeby to zobaczyć.</target>
             </trans-unit>
             <trans-unit id="message.login_required">
                 <source>message.login_required</source>
@@ -356,6 +356,18 @@
             <trans-unit id="label.ok">
                 <source>label.ok</source>
                 <target>Ok!</target>
+            </trans-unit>
+            <trans-unit id="auth.register.label">
+                <source>auth.register.label</source>
+                <target>Zarejestruj się</target>
+            </trans-unit>
+            <trans-unit id="auth.register.text">
+                <source>auth.register.text</source>
+                <target>Nie masz jeszcze konta?</target>
+            </trans-unit>
+            <trans-unit id="auth.register.text2">
+                <source>auth.register.text2</source>
+                <target>.</target>
             </trans-unit>
         </body>
     </file>

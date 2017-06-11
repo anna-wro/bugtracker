@@ -89,7 +89,7 @@
             <trans-unit id="project_delete">
                 <source>project_delete</source>
                 <target>Do you really want to delete
-                    project \n%id% (%name%)?
+                    project %id% (%name%)?
                 </target>
             </trans-unit>
             <trans-unit id="action.delete">
@@ -205,7 +205,7 @@
             <trans-unit id="bug_delete">
                 <source>bug_delete</source>
                 <target>Do you really want to delete
-                    bug \n%id% (%name%)?
+                    bug %id% (%name%)?
                 </target>
             </trans-unit>
             <trans-unit id="label.bug_start_date">
@@ -341,7 +341,7 @@
             </trans-unit>
             <trans-unit id="message.not_logged_in">
                 <source>message.not_logged_in</source>
-                <target>You need to log in to see your projects and reported bugs.</target>
+                <target>You need to log in to see this.</target>
             </trans-unit>
             <trans-unit id="message.login_required">
                 <source>message.login_required</source>
@@ -355,6 +355,19 @@
                 <source>label.ok</source>
                 <target>Okay!</target>
             </trans-unit>
+            <trans-unit id="auth.register.label">
+                <source>auth.register.label</source>
+                <target>Sign up</target>
+            </trans-unit>
+            <trans-unit id="auth.register.text">
+                <source>auth.register.text</source>
+                <target>Don't have an account?</target>
+            </trans-unit>
+            <trans-unit id="auth.register.text2">
+                <source>auth.register.text2</source>
+                <target> instead.</target>
+            </trans-unit>
+
         </body>
 
     </file>
