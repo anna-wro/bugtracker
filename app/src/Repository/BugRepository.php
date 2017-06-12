@@ -127,6 +127,21 @@ class BugRepository
     }
 
     /**
+     * Delete all from the project
+     *
+     * @param $projectId
+     * @return array|mixed Result
+     */
+
+    public function deleteAllFromProject($projectId)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        return $this->db->delete('pr_bugs', ['project_id' => $projectId]);
+    }
+
+
+    /**
      * Get records paginated.
      *
      * @param int $projectId    Project ID

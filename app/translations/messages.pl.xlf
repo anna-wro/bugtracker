@@ -89,7 +89,7 @@
             <trans-unit id="project_delete">
                 <source>project_delete</source>
                 <target>Czy na pewno chcesz usunąć
-                    projekt %id%: %name%?
+                    projekt "%name%"?
                 </target>
             </trans-unit>
             <trans-unit id="action.delete">
@@ -103,6 +103,10 @@
             <trans-unit id="action.save_changes">
                 <source>action.save_changes</source>
                 <target>Zapisz zmiany</target>
+            </trans-unit>
+            <trans-unit id="action.save_bug">
+                <source>action.save_bug</source>
+                <target>Zgłoś buga</target>
             </trans-unit>
             <trans-unit id="action.cancel_editing">
                 <source>action.cancel_editing</source>
@@ -368,6 +372,10 @@
             <trans-unit id="auth.register.text2">
                 <source>auth.register.text2</source>
                 <target>.</target>
+            </trans-unit>
+            <trans-unit id="project_delete_bugs">
+                <source>project_delete_bugs</source>
+                <target>Usunięte zostaną również przypisane do projektu bugi!</target>
             </trans-unit>
         </body>
     </file>

@@ -9,7 +9,7 @@
             {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
             {{ form_start(form, { method: 'post', action: url('bug_add') }) }}
             {{ form_widget(form) }}
-            <input type="submit" value="{{ 'action.save'|trans }}" class="button is-primary button__add"/>
+            <input type="submit" value="{{ 'action.save_bug'|trans }}" class="button is-primary button__add"/>
             {{ form_end(form) }}
             <a href="{{ url('bug_index') }}" title="{{ 'label.back_to_list'|trans }}"
                class="button is-warning is-outlined button__back">
