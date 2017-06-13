@@ -168,7 +168,8 @@ class BugController extends BaseController{
             ['types_repository' => new TypeRepository($app['db']),
                 'projects_repository' => new ProjectRepository($app['db']),
                 'statuses_repository' => new StatusRepository($app['db']),
-                'priorities_repository' => new PriorityRepository($app['db'])]
+                'priorities_repository' => new PriorityRepository($app['db']),
+                'user_id' => $this->getUserId($app)]
         )->getForm();
         $form->handleRequest($request);
 
