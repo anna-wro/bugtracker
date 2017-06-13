@@ -142,7 +142,7 @@ class BugType extends AbstractType
             [
                 'label' => 'label.bug_project',
                 'required' => true,
-                'choices' => $this->prepareOptionsForChoices($options['projects_repository']),
+                'choices' => $this->prepareAvailableProjects($options['projects_repository']),
                 'choice_translation_domain' => 'messages',
                 'constraints' => [
                     new Assert\NotNull(),
@@ -223,6 +223,20 @@ class BugType extends AbstractType
 
         foreach ($types as $type) {
             $choices[$type['name']] = $type['id'];
+        }
+
+        return $choices;
+    }
+
+    protected function prepareAvailableProjects($repository)
+    {
+        // FIXME: Skąd wziąć id?
+        $id = 1;
+        $projects = $repository->findOptionsForUser($id);
+        $choices = [];
+        
+        foreach ($projects as $project) {
+            $choices[$project['name']] = $project['id'];
         }
 
         return $choices;

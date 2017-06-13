@@ -88,6 +88,31 @@ class ProjectRepository
     }
 
     /**
+     * Find one record.
+     * @param $id
+     * @return array|mixed Result
+     * @internal param string $id Element id
+     */
+    public function findOptionsForUser($id){
+
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        $queryBuilder->select(
+            'p.id',
+            'p.name',
+            'p.description',
+            'p.start_date',
+            'p.end_date',
+            'p.user_id'
+        )->from('pr_projects', 'p')
+            ->where('p.user_id = :id')
+            ->setParameter(':id', $id, \PDO::PARAM_INT);
+
+        return $queryBuilder->execute()->fetchAll();
+
+    }
+
+    /**
      * Save record.
      *
      * @param array $project Project
