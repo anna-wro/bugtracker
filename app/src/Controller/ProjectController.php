@@ -26,7 +26,8 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  *
  * @package Controller
  */
-class ProjectController extends BaseController {
+class ProjectController extends BaseController
+{
     /**
      * Routing settings.
      *
@@ -123,7 +124,9 @@ class ProjectController extends BaseController {
         $project = [];
 
         $form = $app['form.factory']->createBuilder(ProjectType::class, $project,
-            ['project_repository' => new ProjectRepository($app['db'])])->getForm();
+            ['project_repository' => new ProjectRepository($app['db']),
+                'user_id' => $this->getUserId($app)])
+            ->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -237,7 +240,7 @@ class ProjectController extends BaseController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bugRepository ->deleteAllFromProject($id);
+            $bugRepository->deleteAllFromProject($id);
             $projectRepository->delete($form->getData());
 
             $app['session']->getFlashBag()->add(

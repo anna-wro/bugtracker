@@ -256,4 +256,38 @@ class BugRepository
     {
         return $this->db->delete('pr_bugs', ['id' => $bug['id']]);
     }
+
+    /**
+     * Find for uniqueness.
+     *
+     * @param string          $name Element name
+     * @param int|string|null $id   Element id
+     *
+     * @return array Result
+     */
+    public function findForUniqueness($name, $id = null)
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->where('b.name = :name')
+            ->orWhere('b.name = :nameUpper')
+            ->orWhere('b.name = :nameLower')
+            ->setParameters(
+                array(
+                    ':name'=> $name,
+                    ':nameUpper' =>strtoupper($name),
+                    ':nameLower' =>strtolower($name),
+                ),
+                array(
+                    \PDO::PARAM_STR,
+                    \PDO::PARAM_STR,
+                    \PDO::PARAM_STR)
+            );
+
+        if ($id) {
+            $queryBuilder->andWhere('b.id <> :id')
+                ->setParameter(':id', $id, \PDO::PARAM_INT);
+        }
+
+        return $queryBuilder->execute()->fetchAll();
+    }
 }

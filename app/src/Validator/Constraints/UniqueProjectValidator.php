@@ -25,7 +25,8 @@ class UniqueProjectValidator extends ConstraintValidator
 
         $result = $constraint->repository->findForUniqueness(
             $value,
-            $constraint->elementId
+            $constraint->elementId,
+            $constraint->userId
         );
 
         if ($result && count($result)) {

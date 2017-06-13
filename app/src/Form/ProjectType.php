@@ -51,6 +51,7 @@ class ProjectType extends AbstractType
                             'groups' => ['project-default'],
                             'repository' => isset($options['project_repository']) ? $options['project_repository'] : null,
                             'elementId' => isset($options['data']['id']) ? $options['data']['id'] : null,
+                            'userId' => isset($options['user_id']) ? $options['user_id'] : null,
                         ]
                     ),
                 ],
@@ -128,6 +129,7 @@ class ProjectType extends AbstractType
             [
                 'validation_groups' => 'project-default',
                 'project_repository' => null,
+                'user_id' => null,
             ]
         );
     }

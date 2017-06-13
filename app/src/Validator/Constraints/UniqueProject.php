@@ -33,4 +33,11 @@ class UniqueProject extends Constraint
      * @var null|\Repository\ProjectRepository $repository
      */
     public $repository = null;
+
+    /**
+     * User id.
+     *
+     * @var int|string|null $userId
+     */
+    public $userId = null;
 }

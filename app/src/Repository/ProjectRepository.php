@@ -192,16 +192,33 @@ class ProjectRepository
     /**
      * Find for uniqueness.
      *
-     * @param string          $name Element name
-     * @param int|string|null $id   Element id
+     * @param string $name Element name
+     * @param int|string|null $id Element id
      *
+     * @param null $userId
      * @return array Result
      */
-    public function findForUniqueness($name, $id = null)
+    public function findForUniqueness($name, $id = null, $userId = null)
     {
         $queryBuilder = $this->queryAll();
         $queryBuilder->where('p.name = :name')
-            ->setParameter(':name', $name, \PDO::PARAM_STR);
+            ->orWhere('p.name = :nameUpper')
+            ->orWhere('p.name = :nameLower')
+            ->andWhere('p.user_id = :userId')
+            ->setParameters(
+                array(
+                    ':name'=> $name,
+                    ':nameUpper' =>strtoupper($name),
+                    ':nameLower' =>strtolower($name),
+                    ':userId'=> $userId,
+                ),
+                array(
+                    \PDO::PARAM_STR,
+                    \PDO::PARAM_STR,
+                    \PDO::PARAM_STR,
+                    \PDO::PARAM_INT)
+            );
+
         if ($id) {
             $queryBuilder->andWhere('p.id <> :id')
                 ->setParameter(':id', $id, \PDO::PARAM_INT);
