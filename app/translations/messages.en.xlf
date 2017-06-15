@@ -375,8 +375,14 @@
                 <source>project_delete_bugs</source>
                 <target>All reported bugs from this project will also be deleted!</target>
             </trans-unit>
-
+            <trans-unit id="label.sort_asc">
+                <source>label.sort_asc</source>
+                <target>Sort in ascending order</target>
+            </trans-unit>
+            <trans-unit id="label.sort_desc">
+                <source>label.sort_desc</source>
+                <target>Sort in descending order</target>
+            </trans-unit>
         </body>
-
     </file>
 </xliff>

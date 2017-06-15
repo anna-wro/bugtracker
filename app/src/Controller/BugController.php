@@ -35,7 +35,13 @@ class BugController extends BaseController {
         $controller->get('/', [$this, 'indexAction'])->bind('bug_index');
         $controller->get('/{sortBy}/{sortOrder}', [$this, 'indexAction'])
             ->assert('sortBy', '[a-zA-Z]+')
-            ->assert('sortOrder', '[ascde]{3,4}');
+            ->assert('sortOrder', '[ascde]{3,4}')
+            ->bind('bug_index_sorted');
+        $controller->get('/{sortBy}/{sortOrder}/page/{page}', [$this, 'indexAction'])
+            ->assert('sortBy', '[a-zA-Z]+')
+            ->assert('sortOrder', '[ascde]{3,4}')
+            ->value('page', 1)
+            ->bind('bug_index_paginated');
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
             ->bind('bug_index_paginated');
@@ -66,7 +72,9 @@ class BugController extends BaseController {
      * @param \Silex\Application $app Silex application
      * @param int $page Current page number
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     * @param null $sortBy
+     * @param null $sortOrder
+     * @return Response HTTP Response
      */
     public function indexAction(Application $app, $page = 1, $sortBy = null, $sortOrder = null)
     {
@@ -92,7 +100,9 @@ class BugController extends BaseController {
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
-                'projects' => $projectRepository->findAll()]
+                'projects' => $projectRepository->findAll(),
+                'sortBy' => $sortBy,
+                'sortOrder' => $sortOrder]
         );
     }
 

@@ -377,6 +377,14 @@
                 <source>project_delete_bugs</source>
                 <target>Usunięte zostaną również przypisane do projektu bugi!</target>
             </trans-unit>
+            <trans-unit id="label.sort_asc">
+                <source>label.sort_asc</source>
+                <target>Sortuj rosnąco</target>
+            </trans-unit>
+            <trans-unit id="label.sort_desc">
+                <source>label.sort_desc</source>
+                <target>Sortuj malejąco</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

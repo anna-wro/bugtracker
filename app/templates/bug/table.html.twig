@@ -7,7 +7,28 @@
                 <th>{{ 'label.bug_name'|trans }}</th>
                 <th>{{ 'label.bug_type'|trans }}</th>
                 <th>{{ 'label.bug_priority'|trans }}</th>
-                <th>{{ 'label.bug_status'|trans }}</th>
+                <th>{{ 'label.bug_status'|trans }}
+                    <span class="icon is-small">
+                        {% if sortBy == 'status' %}
+                            {% if sortOrder == 'asc' %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'status', 'sortOrder' : 'desc'}) }}"
+                                   class="fa fa-sort-asc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_desc'|trans }}"> </a>
+                            {% else %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'status', 'sortOrder' : 'asc'}) }}"
+                                   class="fa fa-sort-desc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_asc'|trans }}"> </a>
+                            {% endif %}
+                            {% else %}
+                            <a href="{{ url('bug_index_sorted',
+                            {'sortBy': 'status', 'sortOrder' : 'asc'}) }}"
+                               class="fa fa-sort sort-icon"
+                               title="{{ 'label.sort_asc'|trans }}">  </a>
+                        {% endif %}
+                  </span>
+                </th>
                 <th class="action-column"></th>
                 <th class="action-column"></th>
                 <th class="action-column"></th>

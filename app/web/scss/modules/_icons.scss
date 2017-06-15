@@ -45,3 +45,14 @@
 .change-status {
   padding-right: 8px;
 }
+
+.sort-icon {
+  color: $grey-lighter;
+  &:hover {
+    color: $grey;
+  }
+}
+
+.sort-icon--active {
+  color: $turquoise;
+}
