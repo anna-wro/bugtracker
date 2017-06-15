@@ -35,7 +35,7 @@ class BugController extends BaseController {
         $controller->get('/', [$this, 'indexAction'])->bind('bug_index');
         $controller->get('/{sortBy}/{sortOrder}', [$this, 'indexAction'])
             ->assert('sortBy', '[a-zA-Z]+')
-            ->assert('sortOrder', '[ascde]{3}');
+            ->assert('sortOrder', '[ascde]{3,4}');
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
             ->bind('bug_index_paginated');
