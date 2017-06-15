@@ -220,7 +220,7 @@ class BugRepository
             ->setParameter(':id', $id, \PDO::PARAM_INT);
 
         if ($sortBy) {
-            if ($sortBy != 'name') $sortBy .= '_id';
+            if ($sortBy != 'name' && $sortBy != 'id') $sortBy .= '_id';
             $queryBuilder->addOrderBy('b.'.$sortBy, $sortOrder);
 //
 //            TODO: Fix or remove

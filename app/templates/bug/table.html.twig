@@ -3,10 +3,90 @@
         <table class="table">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>{{ 'label.bug_name'|trans }}</th>
-                <th>{{ 'label.bug_type'|trans }}</th>
-                <th>{{ 'label.bug_priority'|trans }}</th>
+                <th>ID
+                    <span class="icon is-small">
+                        {% if sortBy == 'id' %}
+                            {% if sortOrder == 'asc' %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'id', 'sortOrder' : 'desc'}) }}"
+                                   class="fa fa-sort-asc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_desc'|trans }}"> </a>
+                            {% else %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'id', 'sortOrder' : 'asc'}) }}"
+                                   class="fa fa-sort-desc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_asc'|trans }}"> </a>
+                            {% endif %}
+                            {% else %}
+                            <a href="{{ url('bug_index_sorted',
+                            {'sortBy': 'id', 'sortOrder' : 'desc'}) }}"
+                               class="fa fa-sort sort-icon"
+                               title="{{ 'label.sort_asc'|trans }}">  </a>
+                        {% endif %}
+                  </span></th>
+                <th>{{ 'label.bug_name'|trans }}
+                    <span class="icon is-small">
+                        {% if sortBy == 'name' %}
+                            {% if sortOrder == 'asc' %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'name', 'sortOrder' : 'desc'}) }}"
+                                   class="fa fa-sort-asc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_desc'|trans }}"> </a>
+                            {% else %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'name', 'sortOrder' : 'asc'}) }}"
+                                   class="fa fa-sort-desc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_asc'|trans }}"> </a>
+                            {% endif %}
+                            {% else %}
+                            <a href="{{ url('bug_index_sorted',
+                            {'sortBy': 'name', 'sortOrder' : 'asc'}) }}"
+                               class="fa fa-sort sort-icon"
+                               title="{{ 'label.sort_asc'|trans }}">  </a>
+                        {% endif %}
+                  </span></th>
+                <th>{{ 'label.bug_type'|trans }}
+                    <span class="icon is-small">
+                        {% if sortBy == 'type' %}
+                            {% if sortOrder == 'asc' %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'type', 'sortOrder' : 'desc'}) }}"
+                                   class="fa fa-sort-asc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_desc'|trans }}"> </a>
+                            {% else %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'type', 'sortOrder' : 'asc'}) }}"
+                                   class="fa fa-sort-desc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_asc'|trans }}"> </a>
+                            {% endif %}
+                            {% else %}
+                            <a href="{{ url('bug_index_sorted',
+                            {'sortBy': 'type', 'sortOrder' : 'asc'}) }}"
+                               class="fa fa-sort sort-icon"
+                               title="{{ 'label.sort_asc'|trans }}">  </a>
+                        {% endif %}
+                  </span></th>
+                <th>{{ 'label.bug_priority'|trans }}
+                    <span class="icon is-small">
+                        {% if sortBy == 'priority' %}
+                            {% if sortOrder == 'asc' %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'priority', 'sortOrder' : 'desc'}) }}"
+                                   class="fa fa-sort-asc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_desc'|trans }}"> </a>
+                            {% else %}
+                                <a href="{{ url('bug_index_sorted',
+                                {'sortBy': 'priority', 'sortOrder' : 'asc'}) }}"
+                                   class="fa fa-sort-desc sort-icon sort-icon--active"
+                                   title="{{ 'label.sort_asc'|trans }}"> </a>
+                            {% endif %}
+                            {% else %}
+                            <a href="{{ url('bug_index_sorted',
+                            {'sortBy': 'priority', 'sortOrder' : 'asc'}) }}"
+                               class="fa fa-sort sort-icon"
+                               title="{{ 'label.sort_asc'|trans }}">  </a>
+                        {% endif %}
+                  </span></th>
                 <th>{{ 'label.bug_status'|trans }}
                     <span class="icon is-small">
                         {% if sortBy == 'status' %}

@@ -85,7 +85,7 @@ class BugController extends BaseController {
         $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
 
-        $sortOptions = array('name', 'type', 'priority', 'status');
+        $sortOptions = array('id', 'name', 'type', 'priority', 'status');
         if(!($sortOrder == 'asc' || $sortOrder == 'desc')) {
             $sortOrder = 'asc';
         }
