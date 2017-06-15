@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @package Controller
  */
 
-class BugController extends BaseController{
+class BugController extends BaseController {
 
     /**
      * {@inheritdoc}
@@ -33,6 +33,9 @@ class BugController extends BaseController{
     {
         $controller = $app['controllers_factory'];
         $controller->get('/', [$this, 'indexAction'])->bind('bug_index');
+        $controller->get('/{sortBy}/{sortOrder}', [$this, 'indexAction'])
+            ->assert('sortBy', '[a-zA-Z]+')
+            ->assert('sortOrder', '[ascde]{3}');
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
             ->bind('bug_index_paginated');
@@ -65,7 +68,7 @@ class BugController extends BaseController{
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
-    public function indexAction(Application $app, $page = 1)
+    public function indexAction(Application $app, $page = 1, $sortBy = null, $sortOrder = null)
     {
         $id = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
@@ -73,6 +76,14 @@ class BugController extends BaseController{
         $statusRepository = new StatusRepository($app['db']);
         $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
+
+//        if($sortBy != null) {
+//            dump($sortBy);
+//        }
+//
+//        if($sortOrder != null) {
+//            dump($sortOrder);
+//        }
 
         return $app['twig']->render(
             'bug/index.html.twig',
@@ -83,6 +94,8 @@ class BugController extends BaseController{
                 'projects' => $projectRepository->findAll()]
         );
     }
+
+
 
     /**
      * View action.
@@ -166,10 +179,12 @@ class BugController extends BaseController{
             BugType::class,
             $bug,
             ['types_repository' => new TypeRepository($app['db']),
+                'bug_repository' => new BugRepository($app['db']),
                 'projects_repository' => new ProjectRepository($app['db']),
                 'statuses_repository' => new StatusRepository($app['db']),
                 'priorities_repository' => new PriorityRepository($app['db']),
-                'user_id' => $this->getUserId($app)]
+                'user_id' => $this->getUserId($app),
+                ]
         )->getForm();
         $form->handleRequest($request);
 

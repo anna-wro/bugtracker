@@ -198,7 +198,7 @@ class ProjectRepository
      * @param null $userId
      * @return array Result
      */
-    public function findForUniqueness($name, $id = null, $userId = null)
+    public function findForUniqueness($name, $id = null, $userId)
     {
         $queryBuilder = $this->queryAll();
         $queryBuilder->where('p.name = :name')

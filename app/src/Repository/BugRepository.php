@@ -260,33 +260,45 @@ class BugRepository
     /**
      * Find for uniqueness.
      *
-     * @param string          $name Element name
-     * @param int|string|null $id   Element id
+     * @param string $name Element name
+     * @param int|string|null $id Element id
      *
+     * @param null $userId
+     * @param $projectId
      * @return array Result
      */
-    public function findForUniqueness($name, $id = null)
+    public function findForUniqueness($name, $id = null, $userId, $projectId = null)
     {
         $queryBuilder = $this->queryAll();
         $queryBuilder->where('b.name = :name')
             ->orWhere('b.name = :nameUpper')
             ->orWhere('b.name = :nameLower')
+            ->andWhere('b.user_id = :userId')
             ->setParameters(
                 array(
                     ':name'=> $name,
                     ':nameUpper' =>strtoupper($name),
                     ':nameLower' =>strtolower($name),
+                    ':userId'=> $userId,
                 ),
                 array(
                     \PDO::PARAM_STR,
                     \PDO::PARAM_STR,
-                    \PDO::PARAM_STR)
+                    \PDO::PARAM_STR,
+                    \PDO::PARAM_INT)
             );
 
         if ($id) {
             $queryBuilder->andWhere('b.id <> :id')
                 ->setParameter(':id', $id, \PDO::PARAM_INT);
         }
+
+        if ($projectId) {
+            $queryBuilder->andWhere('b.project_id <> :projectId')
+                ->setParameter(':projectId', $projectId, \PDO::PARAM_INT);
+        }
+
+        dump($projectId);
 
         return $queryBuilder->execute()->fetchAll();
     }

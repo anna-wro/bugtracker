@@ -47,13 +47,6 @@ class BugType extends AbstractType
                             'max' => 45,
                         ]
                     ),
-                    new CustomAssert\UniqueBug(
-                        [
-                            'groups' => ['bug-default'],
-                            'repository' => isset($options['bug_repository']) ? $options['bug_repository'] : null,
-                            'elementId' => isset($options['data']['id']) ? $options['data']['id'] : null,
-                        ]
-                    ),
                 ],
             ]
         );
@@ -189,7 +182,10 @@ class BugType extends AbstractType
                 ],
             ]
         );
+
     }
+
+
 
     /**
      * {@inheritdoc}
@@ -213,6 +209,7 @@ class BugType extends AbstractType
                 'priorities_repository' => null,
                 'statuses_repository' => null,
                 'user_id' => null,
+                'project_id' => null
             ]
         );
     }
