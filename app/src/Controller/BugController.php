@@ -77,17 +77,18 @@ class BugController extends BaseController {
         $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
 
-//        if($sortBy != null) {
-//            dump($sortBy);
-//        }
-//
-//        if($sortOrder != null) {
-//            dump($sortOrder);
-//        }
+        $sortOptions = array('name', 'type', 'priority', 'status');
+        if(!($sortOrder == 'asc' || $sortOrder == 'desc')) {
+            $sortOrder = 'asc';
+        }
+        if (!in_array($sortBy, $sortOptions)){
+            $sortBy = null;
+            $sortOrder = null;
+        }
 
         return $app['twig']->render(
             'bug/index.html.twig',
-            ['paginator' => $bugRepository->findAllPaginated($page, $id),
+            ['paginator' => $bugRepository->findAllPaginated($page, $id, $sortBy, $sortOrder),
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
