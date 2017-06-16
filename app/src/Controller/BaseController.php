@@ -46,8 +46,8 @@ abstract class BaseController implements ControllerProviderInterface
             $sortOrder = 'asc';
         }
         if (!in_array($sortBy, $sortOptions)) {
-            $sortOrder = 'asc';
-            $sortBy = 'status';
+            $sortOrder = null;
+            $sortBy = null;
         }
         return array($sortOrder, $sortBy);
     }

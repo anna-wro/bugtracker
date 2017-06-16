@@ -92,9 +92,7 @@ class BugController extends BaseController {
         $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
 
-        $sortValues = $this->checkOrderOptions($sortOrder, $sortBy);
-        $sortOrder = $sortValues[0];
-        $sortBy = $sortValues[1];
+        list($sortOrder, $sortBy) = $this->checkOrderOptions($sortOrder, $sortBy);
 
         return $app['twig']->render(
             'bug/index.html.twig',

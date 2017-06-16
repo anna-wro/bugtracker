@@ -205,6 +205,7 @@ class BugRepository
         )->from('pr_bugs', 'b');
     }
 
+
     /**
      * Query all records from chosen user
      *
@@ -250,6 +251,40 @@ class BugRepository
         }
 
         return $queryBuilder;
+    }
+
+    /**
+     * Bugs to do in a project
+     *
+     * @param $projectId
+     * @param null $type
+     * @return
+     */
+
+    public function countBugs($projectId, $type = null)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        $queryBuilder->select(
+            'COUNT(b.id) AS bugsToDo'
+        )->from('pr_bugs', 'b')
+            ->where('b.project_id = :id')
+            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+
+        switch ($type) {
+            case 'todo':
+                $queryBuilder->andWhere('b.status_id = 1');
+                break;
+            case 'done':
+                $queryBuilder->andWhere('b.status_id = 2');
+                break;
+            default:
+                break;
+        }
+
+        $result = $queryBuilder->execute()->fetch();
+
+       return $result['bugsToDo'];
     }
 
     /**

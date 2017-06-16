@@ -22,6 +22,7 @@
            class="list-name">
             {{ 'title.project_bugs'|trans({'%name%': project.name}) }}</a>
     </h1>
+    {% include 'default/_progress_bar.html.twig'%}
     {% include 'bug/table.html.twig' with {
     type: 'project_bugs'
     } %}
