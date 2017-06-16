@@ -17,3 +17,41 @@ table, .single-bug {
 .priority-dot {
  margin-left: 10px;
 }
+
+th {
+  position: relative;
+
+}
+
+.sort:hover:after {
+  color: $black;
+}
+
+.sort:after {
+  content: "\f0dc";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  color: $grey-lighter;
+  font-size: 16px;
+  padding-right: 0.5em;
+  position: absolute;
+  top: 7px;
+  right: 20px;
+}
+
+.icon-small-space .sort:after {
+  right: 0;
+}
+
+.sort--active:after {
+  color: $turquoise;
+}
+
+.sort-asc:after {
+  content: "\f0de";
+}
+
+.sort-desc:after {
+  content: "\f0dd";
+}
