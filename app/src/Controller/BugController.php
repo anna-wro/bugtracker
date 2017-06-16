@@ -65,8 +65,7 @@ class BugController extends BaseController {
             ->assert('sortBy', '[a-zA-Z]+')
             ->assert('sortOrder', '[ascde]{3,4}')
             ->assert('type', '[a-zA-Z_]*')
-            ->assert('id', '[1-9]\d*')
-            ->bind('bug_change_status');
+            ->assert('id', '[1-9]\d*');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
