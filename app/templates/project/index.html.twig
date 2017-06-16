@@ -14,8 +14,10 @@
         title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
  {% endblock %}
 {% block body %}
-    <h1 class="title is-1 list-name">
-        {{ 'title.projects_list'|trans }}
+    <h1 class="title is-1">
+        <a href="{{ url('project_index') }}"
+           class="list-name">
+            {{ 'title.projects_list'|trans }}</a>
     </h1>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         {% if paginator.data|length %}

@@ -17,8 +17,12 @@
         title=" {{ 'title.project_bugs'|trans({'%name%': project.name}) }}"> {{ 'title.project_bugs'|trans({'%name%': project.name}) }}</a>
  {% endblock %}
 {% block body %}
-    <h1 class="title is-1 list-name">
-        {{ 'title.project_bugs'|trans({'%name%': project.name}) }}
+    <h1 class="title is-1">
+        <a href="{{ url('bug_index') }}"
+          class="list-name">
+            {{ 'title.project_bugs'|trans({'%name%': project.name}) }}</a>
     </h1>
-    {% include 'bug/table.html.twig' %}
+    {% include 'bug/table.html.twig' with {
+        type: 'project_bugs'
+    } %}
 {% endblock %}

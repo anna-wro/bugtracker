@@ -13,6 +13,10 @@ h1 {
   color: $turquoise;
 }
 
+.list-name:hover {
+  color: $priority-1;
+}
+
 ::selection {
   background: $turquoise;
   color: $white;

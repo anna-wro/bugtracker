@@ -49,6 +49,11 @@ class ProjectController extends BaseController
         $controller->get('/{id}/bugs', [$this, 'bugsAction'])
             ->assert('id', '[1-9]\d*')
             ->bind('project_bugs');
+        $controller->get('/{id}/bugs/{sortBy}/{sortOrder}', [$this, 'bugsAction'])
+            ->assert('id', '[1-9]\d*')
+            ->assert('sortBy', '[a-zA-Z]+')
+            ->assert('sortOrder', '[ascde]{3,4}')
+            ->bind('project_bugs_sorted');
         $controller->match('/{id}/edit', [$this, 'editAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
@@ -86,9 +91,11 @@ class ProjectController extends BaseController
      * @param \Silex\Application $app Silex application
      * @param $id
      * @param int $page
+     * @param null $sortBy
+     * @param null $sortOrder
      * @return
      */
-    public function bugsAction(Application $app, $id, $page = 1)
+    public function bugsAction(Application $app, $id, $page = 1, $sortBy = null, $sortOrder = null)
     {
         $userId = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
@@ -96,15 +103,27 @@ class ProjectController extends BaseController
         $statusRepository = new StatusRepository($app['db']);
         $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
+
+        $sortOptions = array('id', 'name', 'type', 'priority', 'status');
+        if(!($sortOrder == 'asc' || $sortOrder == 'desc')) {
+            $sortOrder = 'asc';
+        }
+        if (!in_array($sortBy, $sortOptions)){
+            $sortBy = null;
+            $sortOrder = null;
+        }
+
         return $app['twig']->render(
             'project/bugs.html.twig',
             ['bug' => $bugRepository->findAllFromProject($id, $userId),
                 'projectId' => $id,
-                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $userId, $page),
+                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $userId, $page, $sortBy, $sortOrder),
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
-                'project' => $projectRepository->findOneById($id)]
+                'project' => $projectRepository->findOneById($id),
+                'sortBy' => $sortBy,
+                'sortOrder' => $sortOrder]
         );
     }
 

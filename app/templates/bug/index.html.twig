@@ -16,8 +16,12 @@
  {% endblock %}
 
 {% block body %}
-    <h1 class="title is-1 list-name">
-        {{ 'title.bugs_list'|trans }}
+    <h1 class="title is-1">
+        <a href="{{ url('bug_index') }}"
+           title=" {{ 'title.bugs_list'|trans }}" class="list-name">
+            {{ 'title.bugs_list'|trans }}</a>
     </h1>
-    {% include 'bug/table.html.twig' %}
+    {% include 'bug/table.html.twig' with {
+        type: 'all_bugs'
+    } %}
 {% endblock %}
