@@ -55,8 +55,16 @@ class BugController extends BaseController {
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
             ->bind('bug_edit');
-        $controller->post('/{id}/change', [$this, 'changeStatusAction'])
+        $controller->post('/{id}/{type}/change', [$this, 'changeStatusAction'])
             ->method('POST')
+            ->assert('type', '[a-zA-Z_]*')
+            ->assert('id', '[1-9]\d*')
+            ->bind('bug_change_status');
+        $controller->post('/{id}/{type}/{sortBy}/{sortOrder}/change', [$this, 'changeStatusAction'])
+            ->method('POST')
+            ->assert('sortBy', '[a-zA-Z]+')
+            ->assert('sortOrder', '[ascde]{3,4}')
+            ->assert('type', '[a-zA-Z_]*')
             ->assert('id', '[1-9]\d*')
             ->bind('bug_change_status');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
@@ -145,12 +153,11 @@ class BugController extends BaseController {
      *
      * @param \Silex\Application $app Silex application
      * @param int $id Record id
-     *
-     * @param Response $response
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @internal param Response $response
      */
 
-    public function changeStatusAction(Application $app, $id)
+    public function changeStatusAction(Application $app, $id, $type)
     {
         $bugRepository = new BugRepository($app['db']);
         $bugToChange = $bugRepository->findOneById($id);
@@ -164,11 +171,19 @@ class BugController extends BaseController {
                 ]
             );
 
+            if($type=='project_bugs') {
+                return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bugToChange['project_id']]), 301);
+            }
+
             return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
         $bugToChange['status_id'] = ($bugToChange['status_id'] == 1 ? 2 : 1);
         $bugRepository->save($bugToChange);
+
+        if($type=='project_bugs') {
+            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bugToChange['project_id']]), 301);
+        }
 
         return $app->redirect($app['url_generator']->generate('bug_index'), 301);
     }

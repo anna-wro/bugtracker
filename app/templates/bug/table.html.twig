@@ -32,7 +32,7 @@
                     </td>
                     <td>
                         <span class="tag is-medium">
-                            <form action="{{ url('bug_change_status', {'id': bug.id}) }}"
+                            <form action="{{ url('bug_change_status', {'id': bug.id, 'type':type}) }}"
                                   method="post">
                                 {% if bug.status_id == 1 %}
                                     <input type="submit" value="▢"
