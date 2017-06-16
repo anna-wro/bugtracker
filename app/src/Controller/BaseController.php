@@ -30,12 +30,25 @@ abstract class BaseController implements ControllerProviderInterface
         $token = $app['security.token_storage']->getToken();
         if (null !== $token) {
             $user = $token->getUser();
-            if($user == 'anon.') return -1;
+            if ($user == 'anon.') return -1;
 
             $username = $user->getUsername();
             $userRepository = new UserRepository($app['db']);
             $userData = $userRepository->getUserByLogin($username);
             return $userData['id'];
         }
+    }
+
+    public function checkOrderOptions($sortOrder = null, $sortBy = null)
+    {
+        $sortOptions = array('id', 'name', 'type', 'priority', 'status');
+        if (!($sortOrder == 'asc' || $sortOrder == 'desc')) {
+            $sortOrder = 'asc';
+        }
+        if (!in_array($sortBy, $sortOptions)) {
+            $sortOrder = 'asc';
+            $sortBy = 'status';
+        }
+        return array($sortOrder, $sortBy);
     }
 }

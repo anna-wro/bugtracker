@@ -131,12 +131,12 @@ class BugRepository
 
         if ($sortBy) {
             if ($sortBy != 'name' && $sortBy != 'id') $sortBy .= '_id';
-            $queryBuilder->addOrderBy('b.'.$sortBy, $sortOrder);
+            $queryBuilder->addOrderBy('b.' . $sortBy, $sortOrder);
         } else {
             $queryBuilder->addOrderBy('b.status_id', 'asc');
+            $queryBuilder->addOrderBy('b.end_date', 'desc');
             $queryBuilder->addOrderBy('b.priority_id', 'asc');
         }
-
         return $queryBuilder;
 
     }
@@ -236,7 +236,7 @@ class BugRepository
 
         if ($sortBy) {
             if ($sortBy != 'name' && $sortBy != 'id') $sortBy .= '_id';
-            $queryBuilder->addOrderBy('b.'.$sortBy, $sortOrder);
+            $queryBuilder->addOrderBy('b.' . $sortBy, $sortOrder);
 //
 //            TODO: Fix or remove
 //            $queryBuilder->addOrderBy('b.:sortBy, :sortOrder')
@@ -245,6 +245,7 @@ class BugRepository
 //            dump($queryBuilder);
         } else {
             $queryBuilder->addOrderBy('b.status_id', 'asc');
+            $queryBuilder->addOrderBy('b.end_date', 'desc');
             $queryBuilder->addOrderBy('b.priority_id', 'asc');
         }
 
@@ -261,6 +262,13 @@ class BugRepository
 
     public function save($bug)
     {
+        if ($bug['status_id'] == 2) {
+            $today = new \DateTime();
+            $formattedDate = $today->format('Y-m-d');
+            $bug['end_date'] = $formattedDate;
+        } else {
+            $bug['end_date'] = null;
+        }
 
         try {
             if (isset($bug['id']) && ctype_digit((string)$bug['id'])) {

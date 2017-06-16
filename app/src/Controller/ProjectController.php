@@ -104,14 +104,9 @@ class ProjectController extends BaseController
         $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
 
-        $sortOptions = array('id', 'name', 'type', 'priority', 'status');
-        if(!($sortOrder == 'asc' || $sortOrder == 'desc')) {
-            $sortOrder = 'asc';
-        }
-        if (!in_array($sortBy, $sortOptions)){
-            $sortBy = null;
-            $sortOrder = null;
-        }
+        $sortValues = $this->checkOrderOptions($sortOrder, $sortBy);
+        $sortOrder = $sortValues[0];
+        $sortBy = $sortValues[1];
 
         return $app['twig']->render(
             'project/bugs.html.twig',
