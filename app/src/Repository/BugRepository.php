@@ -132,6 +132,9 @@ class BugRepository
         if ($sortBy) {
             if ($sortBy != 'name' && $sortBy != 'id') $sortBy .= '_id';
             $queryBuilder->addOrderBy('b.'.$sortBy, $sortOrder);
+        } else {
+            $queryBuilder->addOrderBy('b.status_id', 'asc');
+            $queryBuilder->addOrderBy('b.priority_id', 'asc');
         }
 
         return $queryBuilder;
@@ -240,6 +243,9 @@ class BugRepository
 //                ->setParameter(':sortBy', $sortBy, \PDO::PARAM_STR)
 //                ->setParameter(':sortOrder', $sortOrder, \PDO::PARAM_STR);
 //            dump($queryBuilder);
+        } else {
+            $queryBuilder->addOrderBy('b.status_id', 'asc');
+            $queryBuilder->addOrderBy('b.priority_id', 'asc');
         }
 
         return $queryBuilder;

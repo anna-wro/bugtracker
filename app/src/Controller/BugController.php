@@ -177,6 +177,14 @@ class BugController extends BaseController {
             return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
+        $app['session']->getFlashBag()->add(
+            'messages',
+            [
+                'type' => 'success',
+                'message' => 'message.status_changed',
+            ]
+        );
+
         $bugToChange['status_id'] = ($bugToChange['status_id'] == 1 ? 2 : 1);
         $bugRepository->save($bugToChange);
 

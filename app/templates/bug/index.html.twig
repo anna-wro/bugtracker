@@ -24,4 +24,8 @@
     {% include 'bug/table.html.twig' with {
         type: 'all_bugs'
     } %}
+    {% include 'default/_paginator.html.twig' with {
+    paginator: paginator,
+    route_name: 'bug_index_paginated'
+    } %}
 {% endblock %}

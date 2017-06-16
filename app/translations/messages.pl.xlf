@@ -385,6 +385,10 @@
                 <source>label.sort_desc</source>
                 <target>Sortuj malejąco</target>
             </trans-unit>
+            <trans-unit id="message.status_changed">
+                <source>message.status_changed</source>
+                <target>Status błędu został zmieniony</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -77,10 +77,6 @@
        title="{{ 'label.bug_add'|trans }}">
         {{ 'label.bug_add'|trans }}
     </a>
-    {% include 'default/_paginator.html.twig' with {
-    paginator: paginator,
-    route_name: 'bug_index_paginated',
-    } %}
 {% else %}
 
 {% endif %}
