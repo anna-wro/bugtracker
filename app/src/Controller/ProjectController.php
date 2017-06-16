@@ -117,8 +117,8 @@ class ProjectController extends BaseController
                 'project' => $projectRepository->findOneById($id),
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,
-                'bugsAll' => $bugRepository->countBugs($id),
-                'bugsDone' => $bugRepository->countBugs($id, 'done')]
+                'bugsAll' => $bugRepository->countBugs($userId, $id),
+                'bugsDone' => $bugRepository->countBugs($userId, $id, 'done')]
         );
     }
 

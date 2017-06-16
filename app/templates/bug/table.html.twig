@@ -15,7 +15,8 @@
                         {{ bug.id }}
                     </td>
                     <td class="has-text-dark">
-                        <b>{{ bug.name }}</b>
+                        <a href="{{ url('bug_view', {'id': bug.id}) }}"
+                           title="{{ 'label.more'|trans }}"><b>{{ bug.name }}</b></a>
                     </td>
                     <td>
                         <span class="tag is-medium">

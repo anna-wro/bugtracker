@@ -16,12 +16,13 @@
  {% endblock %}
 
 {% block body %}
-    <h1 class="title is-1">
-        <a href="{{ url('bug_index') }}"
-           title=" {{ 'title.bugs_list'|trans }}" class="list-name">
-            {{ 'title.bugs_list'|trans }}</a>
+<a href="{{ url('bug_index') }}" title=" {{ 'title.bugs_list'|trans }}">
+    <h1 class="title is-1 list-name">
+        {{ 'title.bugs_list'|trans }}
     </h1>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% include 'default/_progress_bar.html.twig' %}
+        </a>
         {% include 'bug/table.html.twig' with {
         type: 'all_bugs'
         } %}

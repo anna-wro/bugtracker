@@ -41,7 +41,8 @@
                             {{ project.id }}
                         </td>
                         <td>
-                            {{ project.name }}
+                            <a href="{{ url('project_bugs', {'id': project.id}) }}"
+                               title="{{ 'label.view'|trans }}"><b>{{ project.name }}</b></a>
                         </td>
                         <td>
                             {{ project.description }}

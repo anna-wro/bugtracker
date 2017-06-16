@@ -387,6 +387,10 @@
                 <source>message.status_changed</source>
                 <target>The status was successfully changed</target>
             </trans-unit>
+            <trans-unit id="title.progress_bar">
+                <source>title.progress_bar</source>
+                <target>Done: %done% out of %all% bugs</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

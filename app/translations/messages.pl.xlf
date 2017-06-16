@@ -389,6 +389,10 @@
                 <source>message.status_changed</source>
                 <target>Status błędu został zmieniony</target>
             </trans-unit>
+            <trans-unit id="title.progress_bar">
+                <source>title.progress_bar</source>
+                <target>Gotowe: %done% na %all% zgłoszonych bugów</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

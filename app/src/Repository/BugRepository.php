@@ -261,15 +261,20 @@ class BugRepository
      * @return
      */
 
-    public function countBugs($projectId, $type = null)
+    public function countBugs($userId, $projectId = null, $type = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
         $queryBuilder->select(
-            'COUNT(b.id) AS bugsToDo'
+            'COUNT(b.id) AS bugs'
         )->from('pr_bugs', 'b')
-            ->where('b.project_id = :id')
-            ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+            ->where('b.user_id = :userId')
+            ->setParameter(':userId', $userId, \PDO::PARAM_INT);;
+
+        if ($projectId) {
+            $queryBuilder->andWhere('b.project_id = :id')
+                ->setParameter(':id', $projectId, \PDO::PARAM_INT);
+        }
 
         switch ($type) {
             case 'todo':
@@ -284,7 +289,7 @@ class BugRepository
 
         $result = $queryBuilder->execute()->fetch();
 
-       return $result['bugsToDo'];
+        return $result['bugs'];
     }
 
     /**

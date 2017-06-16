@@ -102,7 +102,9 @@ class BugController extends BaseController {
                 'priorities' => $priorityRepository->findAll(),
                 'projects' => $projectRepository->findAll(),
                 'sortBy' => $sortBy,
-                'sortOrder' => $sortOrder]
+                'sortOrder' => $sortOrder,
+                'bugsAll' => $bugRepository->countBugs($id),
+                'bugsDone' => $bugRepository->countBugs($id, null, 'done')]
         );
     }
 
