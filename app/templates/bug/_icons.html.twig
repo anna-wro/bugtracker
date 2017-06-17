@@ -1,0 +1,21 @@
+{% if type == 'priority' %}
+    <span class="tag is-a-tag dot priority-dot
+{% if display == 'single' %} dot--single {% endif %}
+                        {% if priority == 1 %} is-priority
+                        {% elseif priority == 3 %} is-urgent
+                        {% elseif priority == 2 %} is-important
+                        {% else %} is-wasting-space {% endif %}">
+                            {{ priority }}
+                        </span>
+{% endif %}
+
+{% if type == 'status' %}
+    <span class="tag is-a-tag dot
+    {% if display == 'single' %} dot--single {% endif %}
+                        {% if status == 1 %}
+                             {% if priority == 1 %} is-danger
+                             {% else %} is-warning
+                             {% endif %}
+                        {% else %} is-success {% endif %} status-dot">.
+                        </span>
+{% endif %}

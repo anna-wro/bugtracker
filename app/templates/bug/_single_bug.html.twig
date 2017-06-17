@@ -13,7 +13,13 @@
         <p class="single-line"><b>{{ 'label.bug_end_date'|trans }}</b>: {{ bug.end_date }}</p>
     {% endif %}
     <p class="single-line"><b>{{ 'label.bug_type'|trans }}</b>: {{ types[bug.type_id-1].name |trans }}</p>
-    <p class="single-line"><b>{{ 'label.bug_priority'|trans }}</b>: {{ priorities[bug.priority_id-1].name |trans }}</p>
+    <p class="single-line"><b>{{ 'label.bug_priority'|trans }}</b>:
+        {% include 'bug/_icons.html.twig' with {
+            type: 'priority',
+            display: 'single',
+            priority: bug.priority_id
+        } %}
+        {{ priorities[bug.priority_id-1].name |trans }}</p>
     {% if action == 'view' %}
         {% if bug.reproduction %}
             <p class="single-line"><b>{{ 'label.bug_reprodution'|trans }}</b>:</p>
@@ -24,6 +30,13 @@
             <p>{{ bug.expected_result }}</p>
         {% endif %}
     {% endif %}
-    <p class="single-line"><b>{{ 'label.bug_status'|trans }}</b>: {{ statuses[bug.status_id-1].name |trans }}</p>
+    <p class="single-line"><b>{{ 'label.bug_status'|trans }}</b>:
+        {% include 'bug/_icons.html.twig' with {
+        type: 'status',
+        display: 'single',
+        status: bug.status_id,
+        priority: bug.priority_id
+        } %}
+        {{ statuses[bug.status_id-1].name |trans }}</p>
 
 </blockquote>

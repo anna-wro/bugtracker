@@ -23,13 +23,11 @@
                             {{ types[bug.type_id-1].name |trans }}</span>
                     </td>
                     <td>
-                        <span class="tag is-a-tag priority-dot
-                        {% if bug.priority_id == 1 %} is-priority
-                        {% elseif bug.priority_id == 3 %} is-urgent
-                        {% elseif bug.priority_id == 2 %} is-important
-                        {% else %} is-wasting-space {% endif %}">
-                            {{ bug.priority_id }}
-                        </span>
+                        {% include 'bug/_icons.html.twig' with {
+                        type: 'priority',
+                        display: 'multiple',
+                        priority: bug.priority_id
+                        } %}
                     </td>
                     <td>
                         <span class="tag is-medium">

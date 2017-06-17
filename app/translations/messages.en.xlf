@@ -204,7 +204,7 @@
             </trans-unit>
             <trans-unit id="title.bug_delete">
                 <source>title.bug_delete</source>
-                <target>Delete bug %id%</target>
+                <target>Delete bug #%id%</target>
             </trans-unit>
             <trans-unit id="bug_delete">
                 <source>bug_delete</source>
@@ -249,19 +249,19 @@
             </trans-unit>
             <trans-unit id="priority_1">
                 <source>priority_1</source>
-                <target>1 - important and urgent</target>
+                <target>Important and urgent</target>
             </trans-unit>
             <trans-unit id="priority_2">
                 <source>priority_2</source>
-                <target>2 - important, but not urgent</target>
+                <target>Important, but not urgent</target>
             </trans-unit>
             <trans-unit id="priority_3">
                 <source>priority_3</source>
-                <target>3 - urgent, but not important</target>
+                <target>Urgent, but not important</target>
             </trans-unit>
             <trans-unit id="priority_4">
                 <source>priority_4</source>
-                <target>4 - neither urgent nor important</target>
+                <target>Neither urgent nor important</target>
             </trans-unit>
             <trans-unit id="type_1">
                 <source>type_1</source>

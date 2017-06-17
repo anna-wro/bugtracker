@@ -45,3 +45,14 @@
 .change-status {
   padding-right: 8px;
 }
+
+.dot--single {
+  margin-right: 12px;
+}
+
+.status-dot.is-warning,
+.status-dot.is-danger,
+.status-dot.is-success {
+  padding: 0 14px;
+  color: transparent;
+}
