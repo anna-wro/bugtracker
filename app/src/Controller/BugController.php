@@ -203,6 +203,7 @@ class BugController extends BaseController {
     {
         $bug = [];
 
+
         $form = $app['form.factory']->createBuilder(
             BugType::class,
             $bug,
@@ -212,6 +213,7 @@ class BugController extends BaseController {
                 'statuses_repository' => new StatusRepository($app['db']),
                 'priorities_repository' => new PriorityRepository($app['db']),
                 'user_id' => $this->getUserId($app),
+                'locale' => $request->getLocale(),
                 ]
         )->getForm();
         $form->handleRequest($request);

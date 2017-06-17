@@ -1,4 +1,3 @@
-'use strict';
 
 const notificationContainer = document.querySelector('.notification-container');
 
@@ -8,3 +7,6 @@ notificationContainer.addEventListener('click', (e) => {
         notification.style.display = 'none';
     }
 });
+
+const input = document.querySelector('#bug_type_start_date');
+$('input').dateDropper();

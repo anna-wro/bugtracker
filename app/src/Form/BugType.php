@@ -82,6 +82,14 @@ class BugType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
                 'input' => 'string',
+                'format' => 'dd.MM.yyyy',
+                'html5' => false,
+                'attr' => [
+                    'data-large-default' => 'true',
+                    'data-large-mode' => 'true',
+                    'data-min-year' => '2016',
+                   'data-lang' => $options['locale'],
+                ],
                 'data' => $formattedDate,
                 'constraints' => [
                     new Assert\Date(),
@@ -209,7 +217,8 @@ class BugType extends AbstractType
                 'priorities_repository' => null,
                 'statuses_repository' => null,
                 'user_id' => null,
-                'project_id' => null
+                'project_id' => null,
+                'locale' => null,
             ]
         );
     }
