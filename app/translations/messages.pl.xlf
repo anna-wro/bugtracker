@@ -202,12 +202,11 @@
             </trans-unit>
             <trans-unit id="title.bug_delete">
                 <source>title.bug_delete</source>
-                <target>Usuń element</target>
+                <target>Usuń element #%id%</target>
             </trans-unit>
             <trans-unit id="bug_delete">
                 <source>bug_delete</source>
-                <target>Czy na pewno chcesz usunąć
-                    bug %id%: %name%?
+                <target>Czy na pewno chcesz usunąć to zgłoszenie błędu?
                 </target>
             </trans-unit>
             <trans-unit id="label.bug_start_date">
@@ -263,7 +262,7 @@
             </trans-unit>
             <trans-unit id="title.bug_edit">
                 <source>title.bug_edit</source>
-                <target>Edycja zgłoszenia błędu</target>
+                <target>Edycja błędu #%id%</target>
             </trans-unit>
             <trans-unit id="type_1">
                 <source>type_1</source>
@@ -392,6 +391,14 @@
             <trans-unit id="title.progress_bar">
                 <source>title.progress_bar</source>
                 <target>Gotowe: %done% na %all% zgłoszonych bugów</target>
+            </trans-unit>
+            <trans-unit id="yes">
+                <source>yes</source>
+                <target>Tak</target>
+            </trans-unit>
+            <trans-unit id="no">
+                <source>no</source>
+                <target>Nie</target>
             </trans-unit>
         </body>
     </file>

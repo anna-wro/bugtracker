@@ -5,7 +5,7 @@
 {% block body %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="column is-6-desktop is-offset-3-desktop">
-            <h1 class="title is-3 form-name">{{ 'label.project_add'|trans }}</h1>
+            <h1 class="title is-1 form-name">{{ 'label.project_add'|trans }}</h1>
             {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
             {{ form_start(form, { method: 'post', action: url('project_add') }) }}
             {{ form_widget(form) }}

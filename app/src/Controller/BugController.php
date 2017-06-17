@@ -275,9 +275,11 @@ class BugController extends BaseController {
             BugType::class,
             $bug,
             ['types_repository' => new TypeRepository($app['db']),
+                'bug_repository' => new BugRepository($app['db']),
                 'projects_repository' => new ProjectRepository($app['db']),
                 'statuses_repository' => new StatusRepository($app['db']),
                 'priorities_repository' => new PriorityRepository($app['db']),
+                'user_id' => $this->getUserId($app),
                 'locale' => $request->getLocale(),]
         )->getForm();
 

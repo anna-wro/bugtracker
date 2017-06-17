@@ -5,12 +5,12 @@ footer {
   font-size: 14px;
   & svg:hover {
     fill: $purple;
-    height: 200px;
+    height: 140px;
   }
 }
 
 .footer {
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   &__link:hover {
     color: $purple;
   }
@@ -22,11 +22,11 @@ html, body {
 
 .page-wrap {
   min-height: 100%;
-  margin-bottom: -200px;
+  margin-bottom: -140px;
 }
 
 .page-wrap:after {
   content: "";
-  height: 200px;
+  height: 140px;
   display: block;
 }

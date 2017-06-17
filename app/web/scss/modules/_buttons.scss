@@ -17,3 +17,19 @@
     background: #00c6b8;
   }
 }
+
+
+.form-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.form-button {
+  padding-left: 25px;
+  padding-right: 25px;
+  &:first-child {
+    margin-right: 25px;
+  }
+}

@@ -148,7 +148,7 @@
             </trans-unit>
             <trans-unit id="title.bug_edit">
                 <source>title.bug_edit</source>
-                <target>Edit bug</target>
+                <target>Edit bug #%id%</target>
             </trans-unit>
             <trans-unit id="label.bug_add">
                 <source>label.bug_add</source>
@@ -204,12 +204,12 @@
             </trans-unit>
             <trans-unit id="title.bug_delete">
                 <source>title.bug_delete</source>
-                <target>Delete bug</target>
+                <target>Delete bug %id%</target>
             </trans-unit>
             <trans-unit id="bug_delete">
                 <source>bug_delete</source>
                 <target>Do you really want to delete
-                    bug %id% (%name%)?
+                    this bug?
                 </target>
             </trans-unit>
             <trans-unit id="label.bug_start_date">
@@ -390,6 +390,14 @@
             <trans-unit id="title.progress_bar">
                 <source>title.progress_bar</source>
                 <target>Done: %done% out of %all% bugs</target>
+            </trans-unit>
+            <trans-unit id="yes">
+                <source>yes</source>
+                <target>Yes</target>
+            </trans-unit>
+            <trans-unit id="no">
+                <source>no</source>
+                <target>No</target>
             </trans-unit>
         </body>
     </file>
