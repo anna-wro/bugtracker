@@ -8,7 +8,7 @@
         <div class="column is-8-desktop is-offset-2-desktop">
 
             <h1 class="title is-1 form-name">{{ 'title.bug_delete'|trans({'%id%': bug.id, '%name%': bug.name}) }}</h1>
-            <div class="notification">
+            <div class="notification notification--bug">
                 {% include 'bug/_single_bug.html.twig' with {
                 'bug': bug,
                 'action': 'delete',
@@ -17,11 +17,11 @@
                 'priorities': priorities,
                 'project': project
                 } %}
-                <p class="text has-text-centered is-spaced"> {{ 'bug_delete'|trans({'%id%': bug.id, '%name%': bug.name}) }}
-                </p>
-
             </div>
-
+            <div class="content form-question">
+                <p class="text has-text-centered is-spaced">{{ 'bug_delete'|trans({'%id%': bug.id, '%name%': bug.name}) }}
+                </p>
+            </div>
             {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}    {{ form_start(form, { method: 'post', action: url('bug_delete', {'id': bug.id}) }) }}
             {{ form_widget(form) }}
             <div class="form-buttons is-centered">
