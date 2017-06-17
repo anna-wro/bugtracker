@@ -10,3 +10,10 @@
 .button--modal {
   margin: 20px 10px;
 }
+
+.button.is-primary {
+  background: $turquoise;
+  &:hover {
+    background: #00c6b8;
+  }
+}

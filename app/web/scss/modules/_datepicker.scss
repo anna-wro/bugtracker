@@ -1,10 +1,12 @@
+@import '../helpers/index';
+
 div.datedropper.bugtracker {
   border-radius: 8px;
   width: 180px;
 }
 div.datedropper.bugtracker .picker {
   border-radius: 8px;
-  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.6);
 }
 div.datedropper.bugtracker .pick-l {
   border-bottom-left-radius: 8px;
@@ -15,13 +17,13 @@ div.datedropper.bugtracker .pick-submit,
 div.datedropper.bugtracker .pick-lg-b .pick-sl:before,
 div.datedropper.bugtracker .pick-m,
 div.datedropper.bugtracker .pick-lg-h {
-  background-color: #00D1B2;
+  background-color: $turquoise;
 }
 div.datedropper.bugtracker .pick-y.pick-jump,
 div.datedropper.bugtracker .pick li span,
 div.datedropper.bugtracker .pick-lg-b .pick-wke,
 div.datedropper.bugtracker .pick-btn {
-  color: #00D1B2;
+  color: $turquoise;
 }
 div.datedropper.bugtracker .picker,
 div.datedropper.bugtracker .pick-l {

@@ -1,0 +1,11 @@
+@import '../helpers/index';
+
+.progress::-webkit-progress-value {
+  background-color: $priority-2;
+}
+.progress::-moz-progress-bar {
+  background-color: $priority-2;
+}
+.progress::-webkit-progress-bar {
+  background-color: #F5F5F5;
+}

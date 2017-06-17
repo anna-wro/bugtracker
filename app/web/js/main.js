@@ -1,4 +1,3 @@
-
 const notificationContainer = document.querySelector('.notification-container');
 
 notificationContainer.addEventListener('click', (e) => {
