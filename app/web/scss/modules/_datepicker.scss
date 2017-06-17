@@ -1,0 +1,60 @@
+div.datedropper.bugtracker {
+  border-radius: 8px;
+  width: 180px;
+}
+div.datedropper.bugtracker .picker {
+  border-radius: 8px;
+  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.28);
+}
+div.datedropper.bugtracker .pick-l {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+div.datedropper.bugtracker:before,
+div.datedropper.bugtracker .pick-submit,
+div.datedropper.bugtracker .pick-lg-b .pick-sl:before,
+div.datedropper.bugtracker .pick-m,
+div.datedropper.bugtracker .pick-lg-h {
+  background-color: #00D1B2;
+}
+div.datedropper.bugtracker .pick-y.pick-jump,
+div.datedropper.bugtracker .pick li span,
+div.datedropper.bugtracker .pick-lg-b .pick-wke,
+div.datedropper.bugtracker .pick-btn {
+  color: #00D1B2;
+}
+div.datedropper.bugtracker .picker,
+div.datedropper.bugtracker .pick-l {
+  background-color: #FFF;
+}
+div.datedropper.bugtracker .picker,
+div.datedropper.bugtracker .pick-arw,
+div.datedropper.bugtracker .pick-l {
+  color: #363636;
+}
+div.datedropper.bugtracker .pick-m,
+div.datedropper.bugtracker .pick-m .pick-arw,
+div.datedropper.bugtracker .pick-lg-h,
+div.datedropper.bugtracker .pick-lg-b .pick-sl,
+div.datedropper.bugtracker .pick-submit {
+  color: #FFF;
+}
+div.datedropper.bugtracker.picker-tiny:before,
+div.datedropper.bugtracker.picker-tiny .pick-m {
+  background-color: #FFF;
+}
+div.datedropper.bugtracker.picker-tiny .pick-m,
+div.datedropper.bugtracker.picker-tiny .pick-m .pick-arw {
+  color: #363636;
+}
+div.datedropper.bugtracker.picker-lkd .pick-submit {
+  background-color: #FFF;
+  color: #363636;
+}
+
+#bug_type_start_date,
+#bug_type_end_date,
+#project_type_start_date,
+#project_type_end_date {
+  cursor: pointer;
+}

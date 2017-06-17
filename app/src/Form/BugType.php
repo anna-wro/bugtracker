@@ -88,7 +88,10 @@ class BugType extends AbstractType
                     'data-large-default' => 'true',
                     'data-large-mode' => 'true',
                     'data-min-year' => '2016',
-                   'data-lang' => $options['locale'],
+                    'data-lang' => $options['locale'],
+                    'data-format' => 'd.m.Y',
+                    'data-lock' => 'to',
+                    'data-theme' => "bugtracker"
                 ],
                 'data' => $formattedDate,
                 'constraints' => [

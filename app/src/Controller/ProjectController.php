@@ -139,7 +139,8 @@ class ProjectController extends BaseController
 
         $form = $app['form.factory']->createBuilder(ProjectType::class, $project,
             ['project_repository' => new ProjectRepository($app['db']),
-                'user_id' => $this->getUserId($app)])
+                'user_id' => $this->getUserId($app),
+                'locale' => $request->getLocale(),])
             ->getForm();
         $form->handleRequest($request);
 
@@ -197,7 +198,8 @@ class ProjectController extends BaseController
         }
 
         $form = $app['form.factory']->createBuilder(ProjectType::class, $project,
-            ['project_repository' => new ProjectRepository($app['db'])])->getForm();
+            ['project_repository' => new ProjectRepository($app['db']),
+                'locale' => $request->getLocale(),])->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

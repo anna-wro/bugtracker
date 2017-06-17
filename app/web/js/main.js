@@ -8,5 +8,7 @@ notificationContainer.addEventListener('click', (e) => {
     }
 });
 
-const input = document.querySelector('#bug_type_start_date');
-$('input').dateDropper();
+$('#bug_type_start_date').dateDropper();
+$('#bug_type_end_date').dateDropper();
+$('#project_type_start_date').dateDropper();
+$('#project_type_end_date').dateDropper();

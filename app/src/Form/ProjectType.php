@@ -89,6 +89,15 @@ class ProjectType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
                 'input' => 'string',
+                'format' => 'dd.MM.yyyy',
+                'html5' => false,
+                'attr' => [
+                    'data-large-default' => 'true',
+                    'data-large-mode' => 'true',
+                    'data-lang' => $options['locale'],
+                    'data-format' => 'd.m.Y',
+                    'data-theme' => "bugtracker"
+                ],
                 'data' => $formattedDate,
                 'constraints' => [
                     new Assert\Date(),
@@ -103,6 +112,15 @@ class ProjectType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
                 'input' => 'string',
+                'format' => 'dd.MM.yyyy',
+                'html5' => false,
+                'attr' => [
+                    'data-large-default' => 'true',
+                    'data-large-mode' => 'true',
+                    'data-lang' => $options['locale'],
+                    'data-format' => 'd.m.Y',
+                    'data-theme' => "bugtracker"
+                ],
                 'constraints' => [
                     new Assert\Date(),
                     new Assert\GreaterThan('start_date')
@@ -130,6 +148,7 @@ class ProjectType extends AbstractType
                 'validation_groups' => 'project-default',
                 'project_repository' => null,
                 'user_id' => null,
+                'locale' => null,
             ]
         );
     }
