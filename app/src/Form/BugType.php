@@ -174,6 +174,7 @@ class BugType extends AbstractType
                 'required' => true,
                 'choices' => $this->prepareOptionsForChoices($options['priorities_repository']),
                 'choice_translation_domain' => 'messages',
+                'data' => 4,
                 'constraints' => [
                     new Assert\NotNull(),
                 ],

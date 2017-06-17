@@ -28,9 +28,9 @@ h1 {
 }
 
 .bug__number {
-
-  text-align: right;
-  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .single-bug__category {

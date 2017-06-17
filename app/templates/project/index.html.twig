@@ -45,7 +45,7 @@
                                title="{{ 'label.view'|trans }}"><b>{{ project.name }}</b></a>
                         </td>
                         <td class="description-column">
-                            {{ project.description|length > 170 ? project.description|slice(0, 170) ~ '...' : project.description  }}
+                            {{ project.description|length > 160 ? project.description|slice(0, 160) ~ '...' : project.description  }}
                         </td>
                         <td>
                             {% if  project.start_date != '0000-00-00' %}

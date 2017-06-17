@@ -206,7 +206,7 @@
             </trans-unit>
             <trans-unit id="bug_delete">
                 <source>bug_delete</source>
-                <target>Czy na pewno chcesz usunąć to zgłoszenie błędu?
+                <target>Czy na pewno chcesz to usunąć?
                 </target>
             </trans-unit>
             <trans-unit id="label.bug_start_date">

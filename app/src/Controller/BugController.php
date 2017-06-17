@@ -321,6 +321,10 @@ class BugController extends BaseController {
     {
         $bugRepository = new BugRepository($app['db']);
         $bug = $bugRepository->findOneById($id);
+        $typeRepository = new TypeRepository($app['db']);
+        $statusRepository = new StatusRepository($app['db']);
+        $priorityRepository = new PriorityRepository($app['db']);
+        $projectRepository = new ProjectRepository($app['db']);
 
         if (!$bug) {
             $app['session']->getFlashBag()->add(
@@ -359,6 +363,11 @@ class BugController extends BaseController {
             [
                 'bug' => $bug,
                 'form' => $form->createView(),
+                'bugId' => $id,
+                'types' => $typeRepository->findAll(),
+                'statuses' => $statusRepository->findAll(),
+                'priorities' => $priorityRepository->findAll(),
+                'project' => $projectRepository->findOneById($bug['project_id'])
             ]
         );
     }

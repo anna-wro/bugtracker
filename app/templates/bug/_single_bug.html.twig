@@ -1,0 +1,29 @@
+<blockquote>
+    {% if action != 'view' %}
+        <h2 class="title is-4 has-text-centered">{{ bug.name }}</h2>
+    {% endif %}
+    {% if bug.description %}
+        <p>{{ bug.description }}</p>
+    {% endif %}
+    <p class="single-line"><b>{{ 'label.bug_project'|trans }}</b>: {{ project.name }}</p>
+    {% if bug.start_date %}
+        <p class="single-line"><b>{{ 'label.bug_start_date'|trans }}</b>: {{ bug.start_date }}</p>
+    {% endif %}
+    {% if bug.end_date %}
+        <p class="single-line"><b>{{ 'label.bug_end_date'|trans }}</b>: {{ bug.end_date }}</p>
+    {% endif %}
+    <p class="single-line"><b>{{ 'label.bug_type'|trans }}</b>: {{ types[bug.type_id-1].name |trans }}</p>
+    <p class="single-line"><b>{{ 'label.bug_priority'|trans }}</b>: {{ priorities[bug.priority_id-1].name |trans }}</p>
+    {% if action == 'view' %}
+        {% if bug.reproduction %}
+            <p><b>{{ 'label.bug_reprodution'|trans }}</b>:</p>
+            <p>{{ bug.reproduction }}</p>
+        {% endif %}
+        {% if bug.expected_result %}
+            <p><b>{{ 'label.bug_expected_result'|trans }}</b>:</p>
+            <p>{{ bug.expected_result }}</p>
+        {% endif %}
+    {% endif %}
+    <p class="single-line"><b>{{ 'label.bug_status'|trans }}</b>: {{ statuses[bug.status_id-1].name |trans }}</p>
+
+</blockquote>

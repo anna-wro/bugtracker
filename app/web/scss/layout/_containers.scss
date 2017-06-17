@@ -4,3 +4,11 @@
 .notification:not(:last-child) {
   margin-bottom: 0;
 }
+
+.notification.is-primary {
+  background: $turquoise;
+}
+
+.single-line {
+  margin-top: 12px;
+}
