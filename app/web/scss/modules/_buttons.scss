@@ -25,6 +25,21 @@
   margin-bottom: 50px;
 }
 
+.form-buttons--back {
+  margin: 5% auto;
+}
+
+.form-buttons--edit {
+  margin: 60px auto;
+  .form-button:first-of-type {
+    margin-right: 30px;
+  }
+}
+
+.form-buttons--delete-project {
+  margin: 10% auto;
+}
+
 .form-button {
   padding-left: 25px;
   padding-right: 25px;

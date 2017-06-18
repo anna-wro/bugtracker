@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ 'title.project_delete'|trans({'%id%': project.id, '%name%': project.name}) }}{% endblock %}
-
+{% block nav_links %}
+    <a class="nav-item nav-item__name">
+        {{ 'title.app'|trans }}
+    </a>
+    <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('project_index') }}"
+       title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
+    <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
+       title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+{% endblock %}
 {% block body %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="column is-8-desktop is-offset-2-desktop">
@@ -14,13 +22,14 @@
                 </p>
                 {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}    {{ form_start(form, { method: 'post', action: url('project_delete', {'id': project.id}) }) }}
                 {{ form_widget(form) }}
-                <input type="submit" value="{{ 'action.delete'|trans }}" class="button is-danger button__delete"/>
-                {{ form_end(form) }}
-                <a href="{{ url('project_index') }}" title="{{ 'label.back_to_list'|trans }}"
-                   class="button is-primary is-outlined button__back">
-                    {{ 'label.back_to_list'|trans }}
+            <div class="form-buttons form-buttons--delete-project is-centered">
+                <input type="submit" value="{{ 'yes'|trans|upper }}" class="button is-danger form-button"/>
+                <a href="{{ global.request.headers.get('referer') }}" title="{{ 'label.back_to_list'|trans }}"
+                   class="button is-primary form-button">
+                    {{ 'no'|trans|upper }}
                 </a>
             </div>
+        </div>
     {% else %}
         {% include 'auth/login_required.html.twig' %}
     {% endif %}

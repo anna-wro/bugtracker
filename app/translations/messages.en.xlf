@@ -76,7 +76,7 @@
             </trans-unit>
             <trans-unit id="label.project_add">
                 <source>label.project_add</source>
-                <target>Add new project</target>
+                <target>Add a new project</target>
             </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>

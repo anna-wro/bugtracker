@@ -25,9 +25,9 @@
             {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}    {{ form_start(form, { method: 'post', action: url('bug_delete', {'id': bug.id}) }) }}
             {{ form_widget(form) }}
             <div class="form-buttons is-centered">
-                <input type="submit" value="{{ 'yes'|trans|upper }}" class="button is-danger is-medium form-button"/>
-                <a href="{{ url('project_bugs', {'id': bug.project_id}) }}" title="{{ 'label.back_to_list'|trans }}"
-                   class="button is-primary is-medium form-button">
+                <input type="submit" value="{{ 'yes'|trans|upper }}" class="button is-danger form-button"/>
+                <a href="{{ global.request.headers.get('referer') }}" title="{{ 'label.back_to_list'|trans }}"
+                   class="button is-primary form-button">
                     {{ 'no'|trans|upper }}
                 </a>
             </div>

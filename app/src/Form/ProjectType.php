@@ -115,11 +115,14 @@ class ProjectType extends AbstractType
                 'format' => 'dd.MM.yyyy',
                 'html5' => false,
                 'attr' => [
+                    'class' => 'is-1-2',
                     'data-large-default' => 'true',
                     'data-large-mode' => 'true',
                     'data-lang' => $options['locale'],
                     'data-format' => 'd.m.Y',
-                    'data-theme' => "bugtracker"
+                    'data-theme' => "bugtracker",
+                    'data-min-year' => "2000",
+                    'data-init-set' => 'false',
                 ],
                 'constraints' => [
                     new Assert\Date(),
