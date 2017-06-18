@@ -1,10 +1,10 @@
 {% if type == 'priority' %}
-    <span class="tag is-a-tag dot priority-dot
+    <span class="tag is-a-tag priority-dot
 {% if display == 'single' %} dot--single {% endif %}
                         {% if priority == 1 %} is-priority
                         {% elseif priority == 3 %} is-urgent
                         {% elseif priority == 2 %} is-important
-                        {% else %} is-wasting-space {% endif %}">
+                        {% else %} is-wasting-space {% endif %} dot">
                             {{ priority }}
                         </span>
 {% endif %}
@@ -16,6 +16,32 @@
                              {% if priority == 1 %} is-danger
                              {% else %} is-warning
                              {% endif %}
-                        {% else %} is-success {% endif %} status-dot">.
+                        {% else %} is-success {% endif %} status-dot">
                         </span>
+{% endif %}
+
+{% if type == 'type' %}
+    <i class="type-dot dot fa
+    {% if bug_type == '1' %}{# functional #}
+        fa-cogs
+    {% elseif bug_type =='2' %}{# security #}
+        fa-shield
+    {% elseif bug_type =='3' %}{# usability #}
+        fa-hand-pointer-o
+    {% elseif bug_type =='4' %}{# accessibility #}
+        fa-asl-interpreting
+    {% elseif bug_type =='5' %}{# text #}
+        fa-file-text
+    {% elseif bug_type =='6' %}{# visual #}
+        fa-eyedropper
+    {% elseif bug_type =='7' %}{# user input data #}
+        fa-i-cursor
+    {% elseif bug_type =='8' %}{# suggestion #}
+        fa-at
+    {% elseif bug_type =='9' %}{# feature #}
+        fa-star
+    {% else %}
+        fa-terminal
+    {% endif %}
+    " aria-hidden="true"></i>
 {% endif %}

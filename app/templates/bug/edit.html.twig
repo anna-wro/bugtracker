@@ -6,18 +6,19 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
         <div class="column is-6-desktop is-offset-3-desktop">
-        <h1 class="title is-1 form-name">{{ 'title.bug_edit'|trans({'%id%': bug.id}) }}</h1>
-        {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
-        {{ form_start(form, { method: 'post', action: url('bug_edit', {'id': bug.id}) }) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="{{ 'action.save_changes'|trans }}" class="button is-info is-outlined button__edit"/>
-        {{ form_end(form) }}
-        <a href="{{ url('project_bugs', {'id': bug.project_id}) }}" title="{{ 'action.cancel_editing'|trans }}"
-           class="button is-primary is-outlined button__back">
-            <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
-            {{ 'label.back_to_list'|trans }}
-        </a>
-        <div>
+            <h1 class="title is-1 form-name">{{ 'title.bug_edit'|trans({'%id%': bug.id}) }}</h1>
+            {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
+            {{ form_start(form, { method: 'post', action: url('bug_edit', {'id': bug.id}) }) }}
+            {{ form_widget(form) }}
+            <input type="submit" value="{{ 'action.save_changes'|trans }}"
+                   class="button is-info is-outlined button__edit"/>
+            {{ form_end(form) }}
+            <a href="{{ url('project_bugs', {'id': bug.project_id}) }}" title="{{ 'action.cancel_editing'|trans }}"
+               class="button is-primary is-outlined button__back">
+                <span class="fa fa-hand-o-left icon-back" aria-hidden="true"></span>
+                {{ 'label.back_to_list'|trans }}
+            </a>
+        </div>
     {% else %}
         {% include 'auth/login_required.html.twig' %}
     {% endif %}

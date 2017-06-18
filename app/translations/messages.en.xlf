@@ -274,26 +274,30 @@
             </trans-unit>
             <trans-unit id="type_4">
                 <source>type_4</source>
-                <target>Text</target>
+                <target>Accessibility</target>
             </trans-unit>
             <trans-unit id="type_5">
                 <source>type_5</source>
-                <target>Visual</target>
+                <target>Text</target>
             </trans-unit>
             <trans-unit id="type_6">
                 <source>type_6</source>
-                <target>User input data</target>
+                <target>Visual</target>
             </trans-unit>
             <trans-unit id="type_7">
                 <source>type_7</source>
-                <target>Suggestion</target>
+                <target>User input data</target>
             </trans-unit>
             <trans-unit id="type_8">
                 <source>type_8</source>
-                <target>New feature</target>
+                <target>Suggestion</target>
             </trans-unit>
             <trans-unit id="type_9">
                 <source>type_9</source>
+                <target>Feature</target>
+            </trans-unit>
+            <trans-unit id="type_10">
+                <source>type_10</source>
                 <target>Other</target>
             </trans-unit>
             <trans-unit id="title.project_bugs">

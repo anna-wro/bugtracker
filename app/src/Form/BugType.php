@@ -58,15 +58,19 @@ class BugType extends AbstractType
             TextareaType::class,
             [
                 'label' => 'label.project_description',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'max_length' => 1024,
                     'placeholder' => 'placeholder.bug_desc',
                 ],
                 'constraints' => [
+                    new Assert\NotBlank(
+                        ['groups' => ['bug-default']]
+                    ),
                     new Assert\Length(
                         [
                             'groups' => ['bug-default'],
+                            'min' => 10,
                             'max' => 1024,
                         ]
                     ),

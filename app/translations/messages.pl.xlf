@@ -275,26 +275,30 @@
             </trans-unit>
             <trans-unit id="type_4">
                 <source>type_4</source>
-                <target>Tekstowy</target>
+                <target>Dostępność</target>
             </trans-unit>
             <trans-unit id="type_5">
                 <source>type_5</source>
-                <target>Wizualny</target>
+                <target>Tekstowy</target>
             </trans-unit>
             <trans-unit id="type_6">
                 <source>type_6</source>
-                <target>Wprowadzane dane</target>
+                <target>Wizualny</target>
             </trans-unit>
             <trans-unit id="type_7">
                 <source>type_7</source>
-                <target>Sugestia</target>
-            </trans-unit>
-            <trans-unit id="type_9">
-                <source>type_9</source>
-                <target>Inny błąd</target>
+                <target>Wprowadzane dane</target>
             </trans-unit>
             <trans-unit id="type_8">
                 <source>type_8</source>
+                <target>Sugestia</target>
+            </trans-unit>
+            <trans-unit id="type_10">
+                <source>type_10</source>
+                <target>Inny błąd</target>
+            </trans-unit>
+            <trans-unit id="type_9">
+                <source>type_9</source>
                 <target>Nowa funkcja</target>
             </trans-unit>
             <trans-unit id="title.project_bugs">

@@ -39,7 +39,13 @@
             <tr>
                 <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_type'|trans }}:</b></p>
                 </td>
-                <td><p class="single-line">{{ types[bug.type_id-1].name |trans }}</p></td>
+                <td><p class="single-line">
+                        {% include 'bug/_icons.html.twig' with {
+                        type: 'type',
+                        display: 'single',
+                        bug_type: bug.type_id
+                        } %}
+                        {{ types[bug.type_id-1].name |trans }}</p></td>
             </tr>
             <tr>
                 <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_priority'|trans }}:</b></p>
@@ -65,8 +71,7 @@
             {% if action == 'view' %}
                 {% if bug.reproduction %}
                     <tr>
-                        <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_reprodution'|trans }}
-                                    :</b>
+                        <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_reprodution'|trans }}:</b>
                             </p>
                         </td>
                         <td><p class="single-line">{{ bug.reproduction }}</p></td>
@@ -75,8 +80,7 @@
                 {% if bug.expected_result %}
                     <tr>
                         <td class="single-bug__category"><p class="single-line">
-                                <b>{{ 'label.bug_expected_result'|trans }}
-                                    :</b></p>
+                                <b>{{ 'label.bug_expected_result'|trans }}:</b></p>
                         </td>
                         <td><p class="single-line">{{ bug.expected_result }}</p></td>
                     </tr>
