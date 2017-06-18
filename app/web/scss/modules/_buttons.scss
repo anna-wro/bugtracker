@@ -18,7 +18,6 @@
   }
 }
 
-
 .form-buttons {
   display: flex;
   align-items: center;
@@ -31,5 +30,42 @@
   padding-right: 25px;
   &:first-child {
     margin-right: 25px;
+  }
+}
+
+.action-buttons {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  z-index: z('action-buttons');
+}
+
+.action-button {
+  font-size: 18px;
+}
+
+.notification a.action-button {
+  color: $yellow;
+  background: transparent;
+  padding: 11px;
+  text-decoration: none;
+  &:hover {
+    background: $yellow;
+    color: $white;
+  }
+}
+
+.notification a.action-button.action-button--edit {
+  position: absolute;
+  right: 35px;
+  top: 0;
+}
+
+.notification a.action-button.action-button--delete {
+  color: $red;
+  padding: 12px;
+  &:hover {
+    color: $white;
+    background: $red;
   }
 }

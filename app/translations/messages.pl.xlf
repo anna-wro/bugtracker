@@ -211,8 +211,7 @@
             </trans-unit>
             <trans-unit id="label.bug_start_date">
                 <source>label.bug_start_date</source>
-                <target>Zgłoszony
-                </target>
+                <target>Zgłoszony</target>
             </trans-unit>
             <trans-unit id="placeholder.bug_desc">
                 <source>placeholder.bug_desc</source>
@@ -221,8 +220,7 @@
             </trans-unit>
             <trans-unit id="label.bug_reprodution">
                 <source>label.bug_reprodution</source>
-                <target>Odtworzenie błędu
-                </target>
+                <target>Odtworzenie błędu</target>
             </trans-unit>
             <trans-unit id="placeholder.repr">
                 <source>placeholder.repr</source>
@@ -231,8 +229,7 @@
             </trans-unit>
             <trans-unit id="label.bug_expected_result">
                 <source>label.bug_expected_result</source>
-                <target>Oczekiwany efekt
-                </target>
+                <target>Oczekiwany efekt</target>
             </trans-unit>
             <trans-unit id="placeholder.expected">
                 <source>placeholder.expected</source>
@@ -292,9 +289,13 @@
                 <source>type_7</source>
                 <target>Sugestia</target>
             </trans-unit>
+            <trans-unit id="type_9">
+                <source>type_9</source>
+                <target>Inny błąd</target>
+            </trans-unit>
             <trans-unit id="type_8">
                 <source>type_8</source>
-                <target>Inny błąd</target>
+                <target>Nowa funkcja</target>
             </trans-unit>
             <trans-unit id="title.project_bugs">
                 <source>title.project_bugs</source>

@@ -5,38 +5,83 @@
     {% if bug.description %}
         <p class="single-bug__desc">{{ bug.description }}</p>
     {% endif %}
-    <p class="single-line"><b>{{ 'label.bug_project'|trans }}</b>: {{ project.name }}</p>
-    {% if bug.start_date %}
-        <p class="single-line"><b>{{ 'label.bug_start_date'|trans }}</b>: {{ bug.start_date }}</p>
-    {% endif %}
-    {% if bug.end_date %}
-        <p class="single-line"><b>{{ 'label.bug_end_date'|trans }}</b>: {{ bug.end_date }}</p>
-    {% endif %}
-    <p class="single-line"><b>{{ 'label.bug_type'|trans }}</b>: {{ types[bug.type_id-1].name |trans }}</p>
-    <p class="single-line"><b>{{ 'label.bug_priority'|trans }}</b>:
-        {% include 'bug/_icons.html.twig' with {
-            type: 'priority',
-            display: 'single',
-            priority: bug.priority_id
-        } %}
-        {{ priorities[bug.priority_id-1].name |trans }}</p>
-    {% if action == 'view' %}
-        {% if bug.reproduction %}
-            <p class="single-line"><b>{{ 'label.bug_reprodution'|trans }}</b>:</p>
-            <p>{{ bug.reproduction }}</p>
-        {% endif %}
-        {% if bug.expected_result %}
-            <p class="single-line"><b>{{ 'label.bug_expected_result'|trans }}</b>:</p>
-            <p>{{ bug.expected_result }}</p>
-        {% endif %}
-    {% endif %}
-    <p class="single-line"><b>{{ 'label.bug_status'|trans }}</b>:
-        {% include 'bug/_icons.html.twig' with {
-        type: 'status',
-        display: 'single',
-        status: bug.status_id,
-        priority: bug.priority_id
-        } %}
-        {{ statuses[bug.status_id-1].name |trans }}</p>
-
+    <div class="table-container">
+        <table class="single-bug-table">
+            {% if action == 'view' %}
+                <div class="action-buttons">
+                    <a href="{{ url('bug_edit', {'id': bug.id}) }}" class="fa fa-pencil tag action-button action-button--edit"
+                       title="{{ 'label.edit'|trans }}">
+                    </a>
+                    <a href="{{ url('bug_delete', {'id': bug.id}) }}" class="fa fa-times tag action-button action-button--delete"
+                       title="{{ 'label.delete'|trans }}">
+                    </a>
+                </div>
+            {% endif %}
+            <tr>
+                <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_project'|trans }}:</b></p></td>
+                <td><p class="single-line">{{ project.name }}</p></td>
+            </tr>
+            {% if bug.start_date %}
+                <tr>
+                    <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_start_date'|trans }}:</b>
+                        </p>
+                    </td>
+                    <td><p class="single-line">{{ bug.start_date }}</p></td>
+                </tr>
+            {% endif %}
+            {% if bug.end_date %}
+                <tr>
+                    <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_end_date'|trans }}:</b></p>
+                    </td>
+                    <td><p class="single-line">{{ bug.end_date }}</p></td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_type'|trans }}:</b></p>
+                </td>
+                <td><p class="single-line">{{ types[bug.type_id-1].name |trans }}</p></td>
+            </tr>
+            <tr>
+                <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_priority'|trans }}:</b></p>
+                </td>
+                <td><p class="single-line">{% include 'bug/_icons.html.twig' with {
+                        type: 'priority',
+                        display: 'single',
+                        priority: bug.priority_id
+                        } %}
+                        {{ priorities[bug.priority_id-1].name |trans }}</p></td>
+            </tr>
+            <tr>
+                <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_status'|trans }}:</b></p>
+                </td>
+                <td><p class="single-line">{% include 'bug/_icons.html.twig' with {
+                        type: 'status',
+                        display: 'single',
+                        status: bug.status_id,
+                        priority: bug.priority_id
+                        } %}
+                        {{ statuses[bug.status_id-1].name |trans }}</p></td>
+            </tr>
+            {% if action == 'view' %}
+                {% if bug.reproduction %}
+                    <tr>
+                        <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_reprodution'|trans }}
+                                    :</b>
+                            </p>
+                        </td>
+                        <td><p class="single-line">{{ bug.reproduction }}</p></td>
+                    </tr>
+                {% endif %}
+                {% if bug.expected_result %}
+                    <tr>
+                        <td class="single-bug__category"><p class="single-line">
+                                <b>{{ 'label.bug_expected_result'|trans }}
+                                    :</b></p>
+                        </td>
+                        <td><p class="single-line">{{ bug.expected_result }}</p></td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </table>
+    </div>
 </blockquote>

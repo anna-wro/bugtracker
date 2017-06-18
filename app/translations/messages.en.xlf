@@ -214,8 +214,7 @@
             </trans-unit>
             <trans-unit id="label.bug_start_date">
                 <source>label.bug_start_date</source>
-                <target>Reported
-                </target>
+                <target>Reported</target>
             </trans-unit>
             <trans-unit id="label.bug_end_date">
                 <source>label.bug_end_date</source>
@@ -224,8 +223,7 @@
             </trans-unit>
             <trans-unit id="label.bug_reprodution">
                 <source>label.bug_reprodution</source>
-                <target>Reproduction
-                </target>
+                <target>Reproduction</target>
             </trans-unit>
             <trans-unit id="placeholder.repr">
                 <source>placeholder.repr</source>
@@ -239,8 +237,7 @@
             </trans-unit>
             <trans-unit id="label.bug_expected_result">
                 <source>label.bug_expected_result</source>
-                <target>Expected result
-                </target>
+                <target>Expected result</target>
             </trans-unit>
             <trans-unit id="placeholder.expected">
                 <source>placeholder.expected</source>
@@ -293,6 +290,10 @@
             </trans-unit>
             <trans-unit id="type_8">
                 <source>type_8</source>
+                <target>New feature</target>
+            </trans-unit>
+            <trans-unit id="type_9">
+                <source>type_9</source>
                 <target>Other</target>
             </trans-unit>
             <trans-unit id="title.project_bugs">
