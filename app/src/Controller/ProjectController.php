@@ -50,6 +50,10 @@ class ProjectController extends BaseController
         $controller->get('/{id}/bugs', [$this, 'bugsAction'])
             ->assert('id', '[1-9]\d*')
             ->bind('project_bugs');
+        $controller->get('/{id}/bugs/{statusFilter}', [$this, 'bugsAction'])
+            ->assert('id', '[1-9]\d*')
+            ->assert('statusFilter', '[a-z]+')
+            ->bind('project_bugs_filter');
         $controller->get('/{id}/bugs/page/{page}', [$this, 'bugsAction'])
             ->value('page', 1)
             ->bind('project_bugs_paginated');
@@ -102,9 +106,10 @@ class ProjectController extends BaseController
      * @param int $page
      * @param null $sortBy
      * @param null $sortOrder
+     * @param null $statusFilter
      * @return
      */
-    public function bugsAction(Application $app, $id, $page = 1, $sortBy = null, $sortOrder = null)
+    public function bugsAction(Application $app, $id, $page = 1, $sortBy = null, $sortOrder = null, $statusFilter = null)
     {
         $userId = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
@@ -119,7 +124,7 @@ class ProjectController extends BaseController
             'project/bugs.html.twig',
             ['bug' => $bugRepository->findAllFromProject($id, $userId),
                 'projectId' => $id,
-                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $userId, $page, $sortBy, $sortOrder),
+                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $userId, $page, $sortBy, $sortOrder, $statusFilter),
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
@@ -127,6 +132,7 @@ class ProjectController extends BaseController
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,
                 'user' => $userId,
+                'statusFilter' => $statusFilter,
                 'bugsAll' => $bugRepository->countBugs($userId, $id),
                 'bugsDone' => $bugRepository->countBugs($userId, $id, 'done')]
         );

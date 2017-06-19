@@ -147,7 +147,10 @@ class BugController extends BaseController {
      *
      * @param \Silex\Application $app Silex application
      * @param int $id Record id
+     * @param $type
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @internal param null $sortBy
+     * @internal param null $sortOrder
      * @internal param Response $response
      */
 
