@@ -3,23 +3,61 @@
 #}
 <nav class="pagination is-centered">
     {% if paginator.page > 1 %}
-    {% set previous = (paginator.page - 1) %}
-    <a class="pagination-previous" href="{{ url(route_name, {'page': previous}) }}"
-       title="{{ 'label.nav.prev'|trans }}">
-        <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
+        {% set previous = (paginator.page - 1) %}
+        {% if (route_name == 'project_bugs_paginated' or route_name == 'project_bugs_sorted_paginated') %}
+            {% if sortBy %}
+                <a class="pagination-previous"
+                   href="{{ url(route_name, {'sortBy': sortBy, 'sortOrder': sortOrder, 'id': id, 'page': previous}) }}"
+                   title="{{ 'label.nav.prev'|trans }}">
+                    <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
+            {% else %}
+                <a class="pagination-previous" href="{{ url(route_name, {'id': id, 'page': previous}) }}"
+                   title="{{ 'label.nav.prev'|trans }}">
+                    <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
+            {% endif %}
+        {% elseif sortBy %}
+            <a class="pagination-previous"
+               href="{{ url(route_name, {'sortBy': sortBy, 'sortOrder': sortOrder, 'page': previous}) }}"
+               title="{{ 'label.nav.prev'|trans }}">
+                <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
+        {% else %}
+            <a class="pagination-previous" href="{{ url(route_name, {'page': previous}) }}"
+               title="{{ 'label.nav.prev'|trans }}">
+                <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
+        {% endif %}
     {% else %}
-    <a class="pagination-previous is-disabled" href="#"
-       title="{{ 'label.nav.prev'|trans }}" disabled>
-        <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
+        <a class="pagination-previous is-disabled" href="#"
+           title="{{ 'label.nav.prev'|trans }}" disabled>
+            <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
     {% endif %}
     {% if paginator.page < paginator.pages_number %}
-    {% set next = (paginator.page + 1) %}
-    <a class="pagination-next" href="{{ url(route_name, {'page': next}) }}" title="{{ 'label.nav.next'|trans }}">
-        {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
-    </a>
+        {% set next = (paginator.page + 1) %}
+        {% if (route_name == 'project_bugs_paginated' or route_name == 'project_bugs_sorted_paginated') %}
+            {% if sortBy %}
+                <a class="pagination-next" href="{{ url(route_name, {'sortBy':sortBy, 'sortOrder': sortOrder, 'id': id, 'page': next}) }}"
+                   title="{{ 'label.nav.next'|trans }}">
+                    {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
+                </a>
+            {% else %}
+                <a class="pagination-next" href="{{ url(route_name, {'id': id, 'page': next}) }}"
+                   title="{{ 'label.nav.next'|trans }}">
+                    {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
+                </a>
+            {% endif %}
+        {% elseif sortBy %}
+            <a class="pagination-next" href="{{ url(route_name, {'sortBy':sortBy, 'sortOrder': sortOrder, 'page': next}) }}"
+               title="{{ 'label.nav.next'|trans }}">
+                {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
+            </a>
+        {% else %}
+            <a class="pagination-next" href="{{ url(route_name, {'page': next}) }}"
+               title="{{ 'label.nav.next'|trans }}">
+                {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
+            </a>
+        {% endif %}
     {% else %}
-    <a class="pagination-next is-disabled" href="#" title="{{ 'label.nav.next'|trans }}" disabled>
-        {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
-    </a>
+        <a class="pagination-next is-disabled" href="#" title="{{ 'label.nav.next'|trans }}" disabled>
+            {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
+        </a>
     {% endif %}
 </nav>

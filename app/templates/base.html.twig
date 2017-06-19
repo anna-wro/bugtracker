@@ -33,9 +33,9 @@
                     <a class="nav-item nav-item__name">
                         {{ 'title.app'|trans }}
                     </a>
-                    <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
+                    <a class="nav-item is-tab" href="{{ url('project_index') }}"
                        title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
-                    <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('bug_index') }}"
+                    <a class="nav-item is-tab is-active" href="{{ url('bug_index') }}"
                        title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
                 {% endblock %}
             </div>
@@ -45,10 +45,10 @@
       <span></span>
     </span>
             <div class="nav-right nav-menu">
-                {# TODO: Add proper links#}
-                <a class="nav-item is-tab is-hidden-tablet is-active">Home</a>
-                <a class="nav-item is-tab is-hidden-tablet">Project</a>
-                <a class="nav-item is-tab is-hidden-tablet">Bugs</a>
+                <a class="nav-item is-tab is-hidden-tablet" href="{{ url('project_index') }}"
+                   title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
+                <a class="nav-item is-tab is-hidden-tablet" href="{{ url('bug_index') }}"
+                   title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
                 <a class="nav-item is-tab">
                     {{ 'action.profile'|trans }}
                 </a>

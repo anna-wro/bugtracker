@@ -5,7 +5,6 @@
 {% endblock %}
  {% block nav_links %}
      <a class="nav-item nav-item__name">
-         {# TODO: Main page - login/register -> update url #}
          {{ 'title.app'|trans }}
      </a>
      <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
@@ -26,14 +25,19 @@
     {% include 'bug/table.html.twig' with {
     type: 'project_bugs'
     } %}
-    {% include 'default/_paginator.html.twig' with {
-    paginator: paginator,
-    route_name: 'bug_index_paginated',
-    } %}
-    {# FIXME: Twig error runtime#}
-    {#{% include 'default/_paginator.html.twig' with {#}
-    {#paginator: paginator,#}
-    {#route_name: 'project_bugs',#}
-    {#'projectId': project.id,#}
-    {#} %}#}
+    {% if sortBy %}
+        {% include 'default/_paginator.html.twig' with {
+        paginator: paginator,
+        route_name: 'project_bugs_sorted_paginated',
+        id: project.id,
+        sortBy: sortBy,
+        sortOrder: sortOrder
+        } %}
+    {% else %}
+        {% include 'default/_paginator.html.twig' with {
+        paginator: paginator,
+        route_name: 'project_bugs_paginated',
+        id: project.id,
+        } %}
+    {% endif %}
 {% endblock %}

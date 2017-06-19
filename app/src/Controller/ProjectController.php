@@ -39,7 +39,8 @@ class ProjectController extends BaseController
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
-        $controller->get('/', [$this, 'indexAction'])->bind('project_index');
+        $controller->get('/', [$this, 'indexAction'])
+            ->bind('project_index');
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
             ->bind('project_index_paginated');
@@ -49,11 +50,19 @@ class ProjectController extends BaseController
         $controller->get('/{id}/bugs', [$this, 'bugsAction'])
             ->assert('id', '[1-9]\d*')
             ->bind('project_bugs');
+        $controller->get('/{id}/bugs/page/{page}', [$this, 'bugsAction'])
+            ->value('page', 1)
+            ->bind('project_bugs_paginated');
         $controller->get('/{id}/bugs/{sortBy}/{sortOrder}', [$this, 'bugsAction'])
             ->assert('id', '[1-9]\d*')
             ->assert('sortBy', '[a-zA-Z]+')
             ->assert('sortOrder', '[ascde]{3,4}')
             ->bind('project_bugs_sorted');
+        $controller->get('/{id}/bugs/{sortBy}/{sortOrder}/page/{page}', [$this, 'bugsAction'])
+            ->assert('id', '[1-9]\d*')
+            ->assert('sortBy', '[a-zA-Z]+')
+            ->assert('sortOrder', '[ascde]{3,4}')
+            ->bind('project_bugs_sorted_paginated');
         $controller->match('/{id}/edit', [$this, 'editAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
@@ -117,6 +126,7 @@ class ProjectController extends BaseController
                 'project' => $projectRepository->findOneById($id),
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,
+                'user' => $userId,
                 'bugsAll' => $bugRepository->countBugs($userId, $id),
                 'bugsDone' => $bugRepository->countBugs($userId, $id, 'done')]
         );
