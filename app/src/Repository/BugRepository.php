@@ -102,11 +102,13 @@ class BugRepository
      * @param $userId
      * @param $sortBy
      * @param $sortOrder
+     * @param null $status
+     * @param null $priority
      * @return array|mixed Result
      * @internal param string $id Project id
      */
 
-    public function findAllFromProject($projectId, $userId, $sortBy = null, $sortOrder = null, $statusFilter = null)
+    public function findAllFromProject($projectId, $userId, $sortBy = null, $sortOrder = null, $status = null, $priority = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
@@ -129,8 +131,21 @@ class BugRepository
             ->andWhere('b.user_id = :userId')
             ->setParameter(':userId', $userId, \PDO::PARAM_INT);
 
-        if($statusFilter){
-            switch($statusFilter) {
+        if ($priority) {
+            switch ($priority) {
+                case 'all':
+                    break;
+                case 'important':
+                    $queryBuilder->andWhere('b.priority_id = 1')->orWhere('b.priority_id = 2');
+                    break;
+                case 'urgent':
+                    $queryBuilder->andWhere('b.priority_id = 1')->orWhere('b.priority_id = 3');
+                    break;
+            }
+        }
+
+        if ($status) {
+            switch ($status) {
                 case 'all':
                     break;
                 case 'open':
@@ -150,6 +165,7 @@ class BugRepository
             $queryBuilder->addOrderBy('b.end_date', 'desc');
             $queryBuilder->addOrderBy('b.priority_id', 'asc');
         }
+
         return $queryBuilder;
 
     }
@@ -177,21 +193,22 @@ class BugRepository
      * @param int $page Current page number
      * @param null $sortBy
      * @param null $sortOrder
-     * @param null $statusFilter
+     * @param null $status
+     * @param null $priority
      * @return array Result
+     * @internal param null $statusFilter
      */
 
-    public function findAllPaginatedFromProject($projectId, $userId, $page = 1, $sortBy = null, $sortOrder = null, $statusFilter = null)
+    public function findAllPaginatedFromProject($projectId, $userId, $page = 1, $sortBy = null, $sortOrder = null, $status = null, $priority = null)
     {
         $countQueryBuilder = $this->findAllFromProject($projectId, $userId)
             ->select('COUNT(DISTINCT b.id) AS total_results')
             ->setMaxResults(1);
-
-        $paginator = new Paginator($this->findAllFromProject($projectId, $userId, $sortBy, $sortOrder, $statusFilter), $countQueryBuilder);
+        $paginator = new Paginator($this->findAllFromProject($projectId, $userId, $sortBy, $sortOrder, $status, $priority), $countQueryBuilder);
         $paginator->setCurrentPage($page);
         $paginator->setMaxPerPage(self::NUM_ITEMS);
 
-        return $paginator->getCurrentPageResults();
+      return $paginator->getCurrentPageResults();
     }
 
     /**
@@ -229,7 +246,7 @@ class BugRepository
      * @param null $statusFilter
      * @return \Doctrine\DBAL\Query\QueryBuilder Result
      */
-    protected function queryAllFromUser($id, $sortBy = null, $sortOrder = null, $statusFilter = null)
+    protected function queryAllFromUser($id, $sortBy = null, $sortOrder = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
@@ -389,8 +406,6 @@ class BugRepository
             $queryBuilder->andWhere('b.project_id <> :projectId')
                 ->setParameter(':projectId', $projectId, \PDO::PARAM_INT);
         }
-
-        dump($projectId);
 
         return $queryBuilder->execute()->fetchAll();
     }
