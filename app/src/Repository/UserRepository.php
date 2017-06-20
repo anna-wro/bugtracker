@@ -128,4 +128,53 @@ class UserRepository
             return $roles;
         }
     }
+
+    /**
+     * @param $data
+     * @return int
+     */
+    public function save($data)
+    {
+        return $this->db->insert('pr_users', $data);
+    }
+
+    /**
+     * @return \Doctrine\DBAL\Query\QueryBuilder
+     */
+    protected function queryAll()
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        return $queryBuilder->select('u.id', 'u.login')
+            ->from('pr_users', 'u');
+    }
+
+    /**
+     * @param $login
+     * @param null $id
+     * @return array
+     */
+    public function findForUniqueness($login, $id = null)
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->where('u.login = :login')
+            ->orWhere('u.login = :loginUpper')
+            ->orWhere('u.login = :loginLower')
+            ->setParameters(
+                array(
+                    ':login'=> $login,
+                    ':loginUpper' =>strtoupper($login),
+                    ':loginLower' =>strtolower($login),
+                ),
+                array(
+                    \PDO::PARAM_STR,
+                    \PDO::PARAM_STR,
+                    \PDO::PARAM_STR)
+            );
+        if ($id) {
+            $queryBuilder->andWhere('u.id <> :id')
+                ->setParameter(':id', $id, \PDO::PARAM_INT);
+        }
+        return $queryBuilder->execute()->fetchAll();
+    }
 }

@@ -99,7 +99,9 @@ class BugType extends AbstractType
                 ],
                 'data' => $formattedDate,
                 'constraints' => [
-                    new Assert\Date(),
+                    new Assert\Date([
+                        'groups' => ['bug-default']
+                    ]),
                 ],
             ]
         );
@@ -153,7 +155,9 @@ class BugType extends AbstractType
                 'choices' => $this->prepareAvailableProjects($options['projects_repository'], ($options['user_id'])),
                 'choice_translation_domain' => 'messages',
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotNull(
+                        ['groups' => ['bug-default']]
+                    ),
                 ],
             ]
         );
@@ -166,7 +170,9 @@ class BugType extends AbstractType
                 'choices' => $this->prepareOptionsForChoices($options['types_repository']),
                 'choice_translation_domain' => 'messages',
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotNull(
+                        ['groups' => ['bug-default']]
+                    ),
                 ],
             ]
         );
@@ -180,7 +186,9 @@ class BugType extends AbstractType
                 'choice_translation_domain' => 'messages',
                 'data' => 4,
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotNull(
+                        ['groups' => ['bug-default'],]
+                    ),
                 ],
             ]
         );
@@ -194,13 +202,14 @@ class BugType extends AbstractType
                 'choice_translation_domain' => 'messages',
                 'data' => 1,
                 'constraints' => [
-                    new Assert\NotNull(),
+                    new Assert\NotNull(
+                        ['groups' => ['bug-default']]
+                    ),
                 ],
             ]
         );
 
     }
-
 
 
     /**

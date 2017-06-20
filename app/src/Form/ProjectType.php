@@ -71,8 +71,7 @@ class ProjectType extends AbstractType
                     'placeholder' => 'placeholder.desc',
                 ],
                 'constraints' => [
-                    new Assert\Length(
-                        [
+                    new Assert\Length([
                             'groups' => ['project-default'],
                             'max' => 1024,
                         ]
@@ -100,7 +99,9 @@ class ProjectType extends AbstractType
                 ],
                 'data' => $formattedDate,
                 'constraints' => [
-                    new Assert\Date(),
+                    new Assert\Date([
+                        'groups' => ['project-default'],
+                    ]),
                 ],
             ]
         );
@@ -125,8 +126,9 @@ class ProjectType extends AbstractType
                     'data-init-set' => 'false',
                 ],
                 'constraints' => [
-                    new Assert\Date(),
-                    new Assert\GreaterThan('start_date')
+                    new Assert\Date([
+                        'groups' => ['project-default'],
+                    ]),
                 ],
             ]
         );

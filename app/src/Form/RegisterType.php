@@ -1,23 +1,25 @@
 <?php
 /**
- * Login form.
+ * Register form.
  */
 
 namespace Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Validator\Constraints as CustomAssert;
 
 /**
  * Class LoginType
  *
  * @package Form
  */
-class LoginType extends AbstractType
+class RegisterType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -35,14 +37,18 @@ class LoginType extends AbstractType
 
                 ],
                 'constraints' => [
-                    new Assert\NotBlank([
-                        'groups' => ['login-default'],
-                    ]),
+                    new Assert\NotBlank(['groups' => ['registration']]),
                     new Assert\Length(
                         [
-                            'groups' => ['login-default'],
                             'min' => 8,
                             'max' => 32,
+                            'groups' => ['registration'],
+                        ]
+                    ),
+                    new CustomAssert\UniqueValue(
+                        [
+                            'groups' => ['registration'],
+                            'repository' => isset($options['user_repository']) ? $options['user_repository'] : null,
                         ]
                     ),
                 ],
@@ -50,21 +56,18 @@ class LoginType extends AbstractType
         );
         $builder->add(
             'password',
-            PasswordType::class,
+            RepeatedType::class,
             [
-                'label' => 'label.password',
+                'type' => PasswordType::class,
+                'invalid_message' => 'label.The password fields must match.',
+                'options' => array('attr' => array('class' => 'password-field')),
                 'required' => true,
-                'attr' => [
-                    'max_length' => 32,
-
-                ],
+                'first_options'  => array('label' => 'label.password'),
+                'second_options' => array('label' => 'label.repeat.password'),
                 'constraints' => [
-                    new Assert\NotBlank([
-                        'groups' => ['login-default'],
-                    ]),
+                    new Assert\NotBlank(),
                     new Assert\Length(
                         [
-                            'groups' => ['login-default'],
                             'min' => 8,
                             'max' => 32,
                         ]
@@ -82,14 +85,13 @@ class LoginType extends AbstractType
         return 'login_type';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             [
-                'validation_groups' => 'login-default',
+                'validation_groups' => array('registration'),
+                'user_repository' => null,
+
             ]
         );
     }
