@@ -6,6 +6,14 @@
                 <source>message.duplicate_project</source>
                 <target>A project with this name already exists</target>
             </trans-unit>
+            <trans-unit id='message.username_taken'>
+                <source>message.username_taken</source>
+                <target>This username is already taken</target>
+            </trans-unit>
+            <trans-unit id='message.password_not_repeated'>
+                <source>message.password_not_repeated</source>
+                <target>The password fields must match.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

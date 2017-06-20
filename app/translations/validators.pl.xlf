@@ -6,6 +6,14 @@
             <source>message.duplicate_project</source>
             <target>Projekt o takiej nazwie już istnieje</target>
         </trans-unit>
+            <trans-unit id='message.username_taken'>
+                <source>message.username_taken</source>
+                <target>Użytkownik o takiej nazwie już istnieje</target>
+            </trans-unit>
+            <trans-unit id='message.password_not_repeated'>
+                <source>message.password_not_repeated</source>
+                <target>Hasła nie są identyczne</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

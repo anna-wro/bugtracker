@@ -240,6 +240,18 @@
                 <source>label.view_all</source>
                 <target>Zobacz wszystkie bugi z tego projektu</target>
             </trans-unit>
+            <trans-unit id="title.auth_register">
+                <source>title.auth_register</source>
+                <target>Zarejestruj się</target>
+            </trans-unit>
+            <trans-unit id="message.user_successfully_added">
+                <source>message.user_successfully_added</source>
+                <target>Konto zostało pomyślnie założone</target>
+            </trans-unit>
+            <trans-unit id="label.repeat.password">
+                <source>label.repeat.password</source>
+                <target>Powtórz hasło</target>
+            </trans-unit>
             <trans-unit id="label.cancel">
                 <source>label.cancel</source>
                 <target>anuluj

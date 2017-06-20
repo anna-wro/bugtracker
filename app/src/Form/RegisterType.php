@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Validator\Constraints as CustomAssert;
 
 /**
- * Class LoginType
+ * Class RegisterType
  *
  * @package Form
  */
@@ -37,10 +37,11 @@ class RegisterType extends AbstractType
 
                 ],
                 'constraints' => [
-                    new Assert\NotBlank(['groups' => ['registration']]),
+                    new Assert\NotBlank(
+                        ['groups' => ['registration']]),
                     new Assert\Length(
                         [
-                            'min' => 8,
+                            'min' => 4,
                             'max' => 32,
                             'groups' => ['registration'],
                         ]
@@ -48,6 +49,7 @@ class RegisterType extends AbstractType
                     new CustomAssert\UniqueValue(
                         [
                             'groups' => ['registration'],
+                            'message' => 'message.username_taken',
                             'repository' => isset($options['user_repository']) ? $options['user_repository'] : null,
                         ]
                     ),
@@ -59,15 +61,18 @@ class RegisterType extends AbstractType
             RepeatedType::class,
             [
                 'type' => PasswordType::class,
-                'invalid_message' => 'label.The password fields must match.',
+                'invalid_message' => 'message.password_not_repeated',
                 'options' => array('attr' => array('class' => 'password-field')),
                 'required' => true,
                 'first_options'  => array('label' => 'label.password'),
                 'second_options' => array('label' => 'label.repeat.password'),
                 'constraints' => [
-                    new Assert\NotBlank(),
+                    new Assert\NotBlank([
+                        'groups' => ['registration'],
+                    ]),
                     new Assert\Length(
                         [
+                            'groups' => ['registration'],
                             'min' => 8,
                             'max' => 32,
                         ]
@@ -82,7 +87,7 @@ class RegisterType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'login_type';
+        return 'register_type';
     }
 
     public function configureOptions(OptionsResolver $resolver)

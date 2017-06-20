@@ -198,6 +198,18 @@
                 <source>label.view_all</source>
                 <target>See all bugs from this project</target>
             </trans-unit>
+            <trans-unit id="label.repeat.password">
+                <source>label.repeat.password</source>
+                <target>Repeat password</target>
+            </trans-unit>
+            <trans-unit id="title.auth_register">
+                <source>title.auth_register</source>
+                <target>Create new account</target>
+            </trans-unit>
+            <trans-unit id="message.user_successfully_added">
+                <source>message.user_successfully_added</source>
+                <target>You've just created a new account</target>
+            </trans-unit>
             <trans-unit id="status_1">
                 <source>status_1</source>
                 <target>Open</target>

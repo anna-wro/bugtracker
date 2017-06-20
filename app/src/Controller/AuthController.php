@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  *
  * @package Controller
  */
-class AuthController extends BaseController
+class AuthController implements ControllerProviderInterface
 {
     /**
      * {@inheritdoc}

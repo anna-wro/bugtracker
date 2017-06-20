@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'title.auth_login'|trans }}{% endblock %}
+{% block title %}{{ 'title.auth_register'|trans }}{% endblock %}
 
 {% block body %}
     {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
-    <h1 class="title is-2 form-name">{{ 'title.auth_login'|trans }}</h1>
+    <h1 class="title is-2 form-name">{{ 'title.auth_register'|trans }}</h1>
 
     {% if error is defined and error|length %}
         {% include 'default/_single_alert_message.html.twig' with {
@@ -16,11 +16,9 @@
     {% endif %}
 
     <div class="column is-6-desktop is-offset-3-desktop">
-        {{ form_start(form, { method: 'post', action: path('auth_login_check') }) }}
+        {{ form_start(form, { method: 'post', action: url('auth_register') }) }}
         {{ form_widget(form) }}
-        <input type="submit" value="{{ 'action.login'|trans }}" class="button button--login is-primary is-medium" />
+        <input type="submit" value="{{ 'auth.register.label'|trans }}" class="button button--login is-primary is-medium" />
         {{ form_end(form) }}
-        <p>{{ 'auth.register.text'|trans }} <a class="is-link" href="{{ url('auth_register') }}" title="{{ 'auth.register.label'|trans }}">
-                {{ 'auth.register.label'|trans }}</a>{{ 'auth.register.text2'|trans }}</p>
     </div>
 {% endblock %}
