@@ -104,11 +104,12 @@ class BugRepository
      * @param $sortOrder
      * @param null $status
      * @param null $priority
+     * @param null $category
      * @return array|mixed Result
      * @internal param string $id Project id
      */
 
-    public function findAllFromProject($projectId, $userId, $sortBy = null, $sortOrder = null, $status = null, $priority = null)
+    public function findAllFromProject($projectId, $userId, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
@@ -157,6 +158,28 @@ class BugRepository
             }
         }
 
+        if ($category) {
+            switch ($category) {
+                case 'all':
+                    break;
+                case 'front-end':
+                    $queryBuilder->andWhere('b.type_id = 3')
+                    ->orWhere('b.type_id = 4')
+                    ->orWhere('b.type_id = 5')
+                    ->orWhere('b.type_id = 6');
+                    break;
+                case 'back-end':
+                    $queryBuilder->andWhere('b.type_id = 1')
+                        ->orWhere('b.type_id = 2')
+                        ->orWhere('b.type_id = 7');
+                case 'dyzur':
+                    $queryBuilder->andWhere('b.id = 94')
+                        ->orWhere('b.id = 104')
+                        ->orWhere('b.id = 105');
+                    break;
+            }
+        }
+
         if ($sortBy) {
             if ($sortBy != 'name' && $sortBy != 'id') $sortBy .= '_id';
             $queryBuilder->addOrderBy('b.' . $sortBy, $sortOrder);
@@ -195,16 +218,17 @@ class BugRepository
      * @param null $sortOrder
      * @param null $status
      * @param null $priority
+     * @param null $category
      * @return array Result
      * @internal param null $statusFilter
      */
 
-    public function findAllPaginatedFromProject($projectId, $userId, $page = 1, $sortBy = null, $sortOrder = null, $status = null, $priority = null)
+    public function findAllPaginatedFromProject($projectId, $userId, $page = 1, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
     {
         $countQueryBuilder = $this->findAllFromProject($projectId, $userId)
             ->select('COUNT(DISTINCT b.id) AS total_results')
             ->setMaxResults(1);
-        $paginator = new Paginator($this->findAllFromProject($projectId, $userId, $sortBy, $sortOrder, $status, $priority), $countQueryBuilder);
+        $paginator = new Paginator($this->findAllFromProject($projectId, $userId, $sortBy, $sortOrder, $status, $priority, $category), $countQueryBuilder);
         $paginator->setCurrentPage($page);
         $paginator->setMaxPerPage(self::NUM_ITEMS);
 

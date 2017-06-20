@@ -22,28 +22,11 @@
         </h1>
         {% include 'default/_progress_bar.html.twig' %}
     </a>
-    <div class="form-buttons filters">
-    <a href="{{ path('project_bugs', {'id': project.id, 'status': 'open'}) }}" class="tag button is-medium is-light
-{% if status == 'open' %} is-selected {%  endif %}
-">
-        Open
-    </a>
-        <a href="{{ path('project_bugs', {'id': project.id, 'status': 'closed'}) }}" class="tag button is-medium is-light
-{% if status == 'closed' %} is-selected {%  endif %}
-">
-            Closed
-        </a>
-    <a href="{{ path('project_bugs', {'id': project.id, 'priority': 'important'}) }}" class="tag button is-medium is-light
-{% if priority == 'important' %} is-selected {%  endif %}">
-        Important
-    </a>
-        <a href="{{ url('project_bugs', {'id': project.id, 'priority': 'urgent'}) }}" class="tag button is-medium is-light
-{% if priority == 'urgent' %} is-selected {%  endif %}">
-            Urgent
-        </a>
-    </div>
+    {% include 'bug/_filters.html.twig' with {
+    type: 'project_bugs'
+    } %}
     {#<a href="{{ url('project_bugs_filter', {'id': project.id, 'priorityFilter': '4'}) }}">#}
-        {#priority4#}
+    {#priority4#}
     {#</a>#}
     {% include 'bug/table.html.twig' with {
     type: 'project_bugs'
