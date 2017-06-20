@@ -175,7 +175,8 @@ class BugRepository
                 case 'dyzur':
                     $queryBuilder->andWhere('b.id = 94')
                         ->orWhere('b.id = 104')
-                        ->orWhere('b.id = 105');
+                        ->orWhere('b.id = 105')
+                        ->orWhere('b.id = 108');
                     break;
             }
         }

@@ -18,6 +18,14 @@
                         <a href="{{ url('bug_view', {'id': bug.id}) }}"
                            title="{{ 'label.more'|trans }}"><b>{{ bug.name }}</b></a>
                     </td>
+                    {% if type == 'all_bugs' %}
+                        <td>
+                            {# FIXME: Jak tu wyświetlić nazwę, nie ID? #}
+                            <a href="{{ url('project_bugs',{'id': bug.project_id}) }}"
+                            title="{{ 'label.view_all'|trans }}" class="has-text-grey">
+                            {{ bug.project_id }}</a>
+                        </td>
+                    {% endif %}
                     <td>
                         <span class="tag is-medium">
                             {{ types[bug.type_id-1].name |trans }}</span>

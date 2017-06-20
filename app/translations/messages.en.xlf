@@ -194,6 +194,10 @@
                 <source>label.bug_project</source>
                 <target>Project</target>
             </trans-unit>
+            <trans-unit id="label.view_all">
+                <source>label.view_all</source>
+                <target>See all bugs from this project</target>
+            </trans-unit>
             <trans-unit id="status_1">
                 <source>status_1</source>
                 <target>Open</target>

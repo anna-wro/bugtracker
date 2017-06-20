@@ -236,6 +236,10 @@
                 <target>Jak powinno być?
                 </target>
             </trans-unit>
+            <trans-unit id="label.view_all">
+                <source>label.view_all</source>
+                <target>Zobacz wszystkie bugi z tego projektu</target>
+            </trans-unit>
             <trans-unit id="label.cancel">
                 <source>label.cancel</source>
                 <target>anuluj

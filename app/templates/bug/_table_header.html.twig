@@ -1,107 +1,109 @@
 <tr>
-<th class="icon-small-space">ID
-    {% if sortBy == 'id' %}
-        {% if sortOrder == 'asc' %}
-            <a href="{{ url('bug_index_sorted',
-            {'sortBy': 'id', 'sortOrder' : 'desc'}) }}"
-               class="sort sort-asc sort--active"
-               title="{{ 'label.sort_desc'|trans }}"> </a>
+    <th class="icon-small-space">ID
+        {% if sortBy == 'id' %}
+            {% if sortOrder == 'asc' %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'id', 'sortOrder' : 'desc'}) }}"
+                   class="sort sort-asc sort--active"
+                   title="{{ 'label.sort_desc'|trans }}"> </a>
+            {% else %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'id', 'sortOrder' : 'asc'}) }}"
+                   class="sort sort-desc sort--active"
+                   title="{{ 'label.sort_asc'|trans }}"> </a>
+            {% endif %}
         {% else %}
             <a href="{{ url('bug_index_sorted',
-            {'sortBy': 'id', 'sortOrder' : 'asc'}) }}"
-               class="sort sort-desc sort--active"
+            {'sortBy': 'id', 'sortOrder' : 'desc'}) }}"
+               class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
-    {% else %}
-        <a href="{{ url('bug_index_sorted',
-        {'sortBy': 'id', 'sortOrder' : 'desc'}) }}"
-           class="sort"
-           title="{{ 'label.sort_asc'|trans }}"> </a>
-    {% endif %}
-</th>
-<th>{{ 'label.bug_name'|trans }}
+    </th>
+    <th>{{ 'label.bug_name'|trans }}
 
-    {% if sortBy == 'name' %}
-        {% if sortOrder == 'asc' %}
-            <a href="{{ url('bug_index_sorted',
-            {'sortBy': 'name', 'sortOrder' : 'desc'}) }}"
-               class="sort sort-asc sort--active"
-               title="{{ 'label.sort_desc'|trans }}"> </a>
+        {% if sortBy == 'name' %}
+            {% if sortOrder == 'asc' %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'name', 'sortOrder' : 'desc'}) }}"
+                   class="sort sort-asc sort--active"
+                   title="{{ 'label.sort_desc'|trans }}"> </a>
+            {% else %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'name', 'sortOrder' : 'asc'}) }}"
+                   class="sort sort-desc sort--active"
+                   title="{{ 'label.sort_asc'|trans }}"> </a>
+            {% endif %}
         {% else %}
             <a href="{{ url('bug_index_sorted',
             {'sortBy': 'name', 'sortOrder' : 'asc'}) }}"
-               class="sort sort-desc sort--active"
+               class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
-    {% else %}
-        <a href="{{ url('bug_index_sorted',
-        {'sortBy': 'name', 'sortOrder' : 'asc'}) }}"
-           class="sort"
-           title="{{ 'label.sort_asc'|trans }}"> </a>
-    {% endif %}
-</th>
-<th>{{ 'label.bug_type'|trans }}
+    </th>
+    <th>{{ 'label.bug_project'|trans }}
+    </th>
+    <th>{{ 'label.bug_type'|trans }}
 
-    {% if sortBy == 'type' %}
-        {% if sortOrder == 'asc' %}
-            <a href="{{ url('bug_index_sorted',
-            {'sortBy': 'type', 'sortOrder' : 'desc'}) }}"
-               class="sort sort-asc sort--active"
-               title="{{ 'label.sort_desc'|trans }}"> </a>
+        {% if sortBy == 'type' %}
+            {% if sortOrder == 'asc' %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'type', 'sortOrder' : 'desc'}) }}"
+                   class="sort sort-asc sort--active"
+                   title="{{ 'label.sort_desc'|trans }}"> </a>
+            {% else %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'type', 'sortOrder' : 'asc'}) }}"
+                   class="sort sort-desc sort--active"
+                   title="{{ 'label.sort_asc'|trans }}"> </a>
+            {% endif %}
         {% else %}
             <a href="{{ url('bug_index_sorted',
             {'sortBy': 'type', 'sortOrder' : 'asc'}) }}"
-               class="sort sort-desc sort--active"
+               class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
-    {% else %}
-        <a href="{{ url('bug_index_sorted',
-        {'sortBy': 'type', 'sortOrder' : 'asc'}) }}"
-           class="sort"
-           title="{{ 'label.sort_asc'|trans }}"> </a>
-    {% endif %}
-</th>
-<th class="icon-small-space">{{ 'label.bug_priority'|trans }}
-    {% if sortBy == 'priority' %}
-        {% if sortOrder == 'asc' %}
-            <a href="{{ url('bug_index_sorted',
-            {'sortBy': 'priority', 'sortOrder' : 'desc'}) }}"
-               class="sort sort-asc sort--active"
-               title="{{ 'label.sort_desc'|trans }}"> </a>
+    </th>
+    <th class="icon-small-space">{{ 'label.bug_priority'|trans }}
+        {% if sortBy == 'priority' %}
+            {% if sortOrder == 'asc' %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'priority', 'sortOrder' : 'desc'}) }}"
+                   class="sort sort-asc sort--active"
+                   title="{{ 'label.sort_desc'|trans }}"> </a>
+            {% else %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'priority', 'sortOrder' : 'asc'}) }}"
+                   class="sort sort-desc sort--active"
+                   title="{{ 'label.sort_asc'|trans }}"> </a>
+            {% endif %}
         {% else %}
             <a href="{{ url('bug_index_sorted',
             {'sortBy': 'priority', 'sortOrder' : 'asc'}) }}"
-               class="sort sort-desc sort--active"
+               class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
-    {% else %}
-        <a href="{{ url('bug_index_sorted',
-        {'sortBy': 'priority', 'sortOrder' : 'asc'}) }}"
-           class="sort"
-           title="{{ 'label.sort_asc'|trans }}"> </a>
-    {% endif %}
-</th>
-<th>{{ 'label.bug_status'|trans }}
-    {% if sortBy == 'status' %}
-        {% if sortOrder == 'asc' %}
-            <a href="{{ url('bug_index_sorted',
-            {'sortBy': 'status', 'sortOrder' : 'desc'}) }}"
-               class="sort sort-asc sort--active"
-               title="{{ 'label.sort_desc'|trans }}"> </a>
+    </th>
+    <th>{{ 'label.bug_status'|trans }}
+        {% if sortBy == 'status' %}
+            {% if sortOrder == 'asc' %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'status', 'sortOrder' : 'desc'}) }}"
+                   class="sort sort-asc sort--active"
+                   title="{{ 'label.sort_desc'|trans }}"> </a>
+            {% else %}
+                <a href="{{ url('bug_index_sorted',
+                {'sortBy': 'status', 'sortOrder' : 'asc'}) }}"
+                   class="sort sort-desc sort--active"
+                   title="{{ 'label.sort_asc'|trans }}"> </a>
+            {% endif %}
         {% else %}
             <a href="{{ url('bug_index_sorted',
             {'sortBy': 'status', 'sortOrder' : 'asc'}) }}"
-               class="sort sort-desc sort--active"
+               class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
-    {% else %}
-        <a href="{{ url('bug_index_sorted',
-        {'sortBy': 'status', 'sortOrder' : 'asc'}) }}"
-           class="sort"
-           title="{{ 'label.sort_asc'|trans }}"> </a>
-    {% endif %}
-</th>
-<th class="action-column"></th>
-<th class="action-column"></th>
-<th class="action-column"></th>
+    </th>
+    <th class="action-column"></th>
+    <th class="action-column"></th>
+    <th class="action-column"></th>
 </tr>
