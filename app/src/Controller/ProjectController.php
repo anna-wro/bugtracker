@@ -98,14 +98,15 @@ class ProjectController extends BaseController
      * Bugs action.
      *
      * @param \Silex\Application $app Silex application
+     * @param Request $request
      * @param $id
      * @param int $page
      * @param null $sortBy
      * @param null $sortOrder
-     * @param string $status
-     * @param null $priority
-     * @param null $category
      * @return
+     * @internal param string $status
+     * @internal param null $priority
+     * @internal param null $category
      * @internal param null $statusFilter
      */
     public function bugsAction(Application $app, Request $request, $id, $page = 1, $sortBy = null, $sortOrder = null)

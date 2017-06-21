@@ -23,8 +23,8 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Controller
  */
-
-class BugController extends BaseController {
+class BugController extends BaseController
+{
 
     /**
      * {@inheritdoc}
@@ -116,7 +116,6 @@ class BugController extends BaseController {
     }
 
 
-
     /**
      * View action.
      *
@@ -153,6 +152,7 @@ class BugController extends BaseController {
      * Change status action
      *
      * @param \Silex\Application $app Silex application
+     * @param Request $request
      * @param int $id Record id
      * @param $type
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -161,8 +161,14 @@ class BugController extends BaseController {
      * @internal param Response $response
      */
 
-    public function changeStatusAction(Application $app, $id, $type)
+    public function changeStatusAction(Application $app, Request $request, $id, $type)
     {
+        $priority = $request->get('priority', null);
+        $status = $request->get('status', null);
+        $category = $request->get('category', null);
+        $sortBy = $request->get('sortBy', null);
+        $sortOrder = $request->get('sortOrder', null);
+
         $bugRepository = new BugRepository($app['db']);
         $bugToChange = $bugRepository->findOneById($id);
 
@@ -175,11 +181,41 @@ class BugController extends BaseController {
                 ]
             );
 
-            if($type=='project_bugs') {
-                return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bugToChange['project_id']]), 301);
+            if ($type == 'project_bugs') {
+                if ($sortBy) {
+                    return $app->redirect($app['url_generator']->generate('project_bugs_sorted',
+                        ['id' => $bugToChange['project_id'],
+                            'sortBy' => $sortBy,
+                            'sortOrder' => $sortOrder,
+                            'priority' => $priority,
+                            'status' => $status,
+                            'category' => $category
+                        ]), 301);
+                }
+                return $app->redirect($app['url_generator']->generate('project_bugs',
+                    ['id' => $bugToChange['project_id'],
+                        'priority' => $priority,
+                        'status' => $status,
+                        'category' => $category
+                    ]), 301);
             }
 
-            return $app->redirect($app['url_generator']->generate('bug_index'));
+            if ($sortBy) {
+                return $app->redirect($app['url_generator']->generate('bug_index_sorted',
+                    [
+                        'sortBy' => $sortBy,
+                        'sortOrder' => $sortOrder,
+                        'priority' => $priority,
+                        'status' => $status,
+                        'category' => $category
+                    ]));
+            }
+            return $app->redirect($app['url_generator']->generate('bug_index',
+                [
+                    'priority' => $priority,
+                    'status' => $status,
+                    'category' => $category
+                ]));
         }
 
         $app['session']->getFlashBag()->add(
@@ -193,11 +229,42 @@ class BugController extends BaseController {
         $bugToChange['status_id'] = ($bugToChange['status_id'] == 1 ? 2 : 1);
         $bugRepository->save($bugToChange);
 
-        if($type=='project_bugs') {
-            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bugToChange['project_id']]), 301);
-        }
+        if ($type == 'project_bugs') {
+            if ($sortBy) {
+                return $app->redirect($app['url_generator']->generate('project_bugs_sorted',
+                    [
+                        'id' => $bugToChange['project_id'],
+                        'sortBy' => $sortBy,
+                        'sortOrder' => $sortOrder,
+                        'priority' => $priority,
+                        'status' => $status,
+                        'category' => $category]), 301);
+            }
+            return $app->redirect($app['url_generator']->generate('project_bugs',
+                [
+                    'id' => $bugToChange['project_id'],
+                    'priority' => $priority,
+                    'status' => $status,
+                    'category' => $category]), 301);
 
-        return $app->redirect($app['url_generator']->generate('bug_index'), 301);
+        }
+        if ($sortBy) {
+            return $app->redirect($app['url_generator']->generate('bug_index_sorted',
+                [
+                    'sortBy' => $sortBy,
+                    'sortOrder' => $sortOrder,
+                    'priority' => $priority,
+                    'status' => $status,
+                    'category' => $category
+                ]), 301);
+        }
+        return $app->redirect($app['url_generator']->generate('bug_index',
+            [
+                'priority' => $priority,
+                'status' => $status,
+                'category' => $category
+            ]), 301);
+
     }
 
 
@@ -224,7 +291,7 @@ class BugController extends BaseController {
                 'priorities_repository' => new PriorityRepository($app['db']),
                 'user_id' => $this->getUserId($app),
                 'locale' => $request->getLocale(),
-                ]
+            ]
         )->getForm();
         $form->handleRequest($request);
 

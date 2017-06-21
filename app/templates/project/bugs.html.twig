@@ -22,14 +22,22 @@
         </h1>
         {% include 'default/_progress_bar.html.twig' %}
     </a>
-    {% include 'bug/_filters.html.twig' with {
-    type: 'project_bugs'
-    } %}
-    {#<a href="{{ url('project_bugs_filter', {'id': project.id, 'priorityFilter': '4'}) }}">#}
-    {#priority4#}
-    {#</a>#}
+    {% if sortBy %}
+        {% include 'bug/_filters.html.twig' with {
+        type: 'project_bugs_sorted',
+        sortBy: sortBy,
+        sortOrder: sortOrder
+        } %}
+    {% else %}
+        {% include 'bug/_filters.html.twig' with {
+        type: 'project_bugs'
+        } %}
+    {% endif %}
     {% include 'bug/table.html.twig' with {
-    type: 'project_bugs'
+    type: 'project_bugs',
+    priority: priority,
+    status: status,
+    category: category,
     } %}
     {% if sortBy %}
         {% include 'default/_paginator.html.twig' with {
@@ -37,13 +45,19 @@
         route_name: 'project_bugs_sorted_paginated',
         id: project.id,
         sortBy: sortBy,
-        sortOrder: sortOrder
+        sortOrder: sortOrder,
+        priority: priority,
+        status: status,
+        category: category,
         } %}
     {% else %}
         {% include 'default/_paginator.html.twig' with {
         paginator: paginator,
         route_name: 'project_bugs_paginated',
         id: project.id,
+        priority: priority,
+        status: status,
+        category: category,
         } %}
     {% endif %}
 {% endblock %}

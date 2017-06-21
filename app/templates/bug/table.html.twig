@@ -3,9 +3,17 @@
         <table class="table">
             <thead>
             {% if type == 'project_bugs' %}
-                {% include 'project/_table_header.html.twig' %}
+                {% include 'project/_table_header.html.twig' with {
+                priority: priority,
+                status: status,
+                category: category,
+                } %}
             {% else %}
-                {% include 'bug/_table_header.html.twig' %}
+                {% include 'bug/_table_header.html.twig' with {
+                priority: priority,
+                status: status,
+                category: category,
+                } %}
             {% endif %}
             </thead>
             <tbody>
@@ -22,8 +30,8 @@
                         <td>
 
                             <a href="{{ url('project_bugs',{'id': bug.project_id}) }}"
-                            title="{{ 'label.view_all'|trans }}" class="has-text-grey">
-                            {{ bug.project_id }}</a>
+                               title="{{ 'label.view_all'|trans }}" class="has-text-grey">
+                                {{ bug.project_id }}</a>
                         </td>
                     {% endif %}
                     <td>
@@ -39,7 +47,7 @@
                     </td>
                     <td>
                         <span class="tag is-medium">
-                            <form action="{{ url('bug_change_status', {'id': bug.id, 'type':type, 'sortBy':sortBy, 'sortOrder':sortOrder}) }}"
+                            <form action="{{ url('bug_change_status', {'id': bug.id, 'type':type, 'sortBy':sortBy, 'sortOrder':sortOrder, 'status': status, 'priority': priority, 'category': category}) }}"
                                   method="post">
                                 {% if bug.status_id == 1 %}
                                     <input type="submit" value="▢"

@@ -39,6 +39,47 @@
             No filters
         </a>
     </div>
+{% elseif type == 'project_bugs_sorted' %}
+
+    <div class="form-buttons filters">
+        <a href="{{ path('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': priority, 'status': 'open', 'category': category}) }}"
+           class="tag button is-medium is-light
+{% if status == 'open' %} is-selected {% endif %}
+">
+            Open
+        </a>
+        <a href="{{ path('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': priority, 'status': 'closed', 'category': category}) }}"
+           class="tag button is-medium is-light
+{% if status == 'closed' %} is-selected {% endif %}
+">
+            Closed
+        </a>
+        <a href="{{ path('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': 'important', 'status': status, 'category': category}) }}"
+           class="tag button is-medium is-light
+{% if priority == 'important' %} is-selected {% endif %}">
+            Important
+        </a>
+        <a href="{{ url('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': 'urgent', 'status': status, 'category': category}) }}"
+           class="tag button is-medium is-light
+{% if priority == 'urgent' %} is-selected {% endif %}">
+            Urgent
+        </a>
+        <a href="{{ url('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': priority, 'status': status, 'category': 'front-end'}) }}"
+           class="tag button is-medium is-light
+{% if category == 'front-end' %} is-selected {% endif %}">
+            Front-end
+        </a>
+        <a href="{{ url('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': priority, 'status': status, 'category': 'back-end'}) }}"
+           class="tag button is-medium is-light
+{% if category == 'back-end' %} is-selected {% endif %}">
+            Back-end
+        </a>
+
+        <a href="{{ url('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': null, 'status': null, 'category': null}) }}"
+           class="tag button is-medium is-light is-outlined">
+            No filters
+        </a>
+    </div>
 {% elseif type == 'all_bugs' %}
     <div class="form-buttons filters">
         <a href="{{ path('bug_index', {'priority': priority, 'status': 'open', 'category': category}) }}"
@@ -75,6 +116,46 @@
         </a>
 
         <a href="{{ url('bug_index', {'priority': null, 'status': null, 'category': null}) }}"
+           class="tag button is-medium is-light is-outlined">
+            No filters
+        </a>
+    </div>
+{% elseif type == 'all_bugs_sorted' %}
+    <div class="form-buttons filters">
+        <a href="{{ path('bug_index_sorted', {'priority': priority, 'sortBy': sortBy, 'sortOrder': sortOrder, 'status': 'open', 'category': category}) }}"
+           class="tag button is-medium is-light
+{% if status == 'open' %} is-selected {% endif %}
+">
+            Open
+        </a>
+        <a href="{{ path('bug_index_sorted', {'priority': priority, 'sortBy': sortBy, 'sortOrder': sortOrder, 'status': 'closed', 'category': category}) }}"
+           class="tag button is-medium is-light
+{% if status == 'closed' %} is-selected {% endif %}
+">
+            Closed
+        </a>
+        <a href="{{ path('bug_index_sorted', {'priority': 'important', 'sortBy': sortBy, 'sortOrder': sortOrder, 'status': status, 'category': category}) }}"
+           class="tag button is-medium is-light
+{% if priority == 'important' %} is-selected {% endif %}">
+            Important
+        </a>
+        <a href="{{ url('bug_index_sorted', {'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': 'urgent', 'status': status, 'category': category}) }}"
+           class="tag button is-medium is-light
+{% if priority == 'urgent' %} is-selected {% endif %}">
+            Urgent
+        </a>
+        <a href="{{ url('bug_index_sorted', {'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': priority, 'status': status, 'category': 'front-end'}) }}"
+           class="tag button is-medium is-light
+{% if category == 'front-end' %} is-selected {% endif %}">
+            Front-end
+        </a>
+        <a href="{{ url('bug_index_sorted', {'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': priority, 'status': status, 'category': 'back-end'}) }}"
+           class="tag button is-medium is-light
+{% if category == 'back-end' %} is-selected {% endif %}">
+            Back-end
+        </a>
+
+        <a href="{{ url('bug_index_sorted', {'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': null, 'status': null, 'category': null}) }}"
            class="tag button is-medium is-light is-outlined">
             No filters
         </a>

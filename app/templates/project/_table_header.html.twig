@@ -3,18 +3,18 @@
         {% if sortBy == 'id' %}
             {% if sortOrder == 'asc' %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'id', 'sortOrder' : 'desc'}) }}"
+                {'id': project.id, 'sortBy': 'id', 'sortOrder' : 'desc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-asc sort--active"
                    title="{{ 'label.sort_desc'|trans }}"> </a>
             {% else %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'id', 'sortOrder' : 'asc'}) }}"
+                {'id': project.id, 'sortBy': 'id', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-desc sort--active"
                    title="{{ 'label.sort_asc'|trans }}"> </a>
             {% endif %}
         {% else %}
             <a href="{{ url('project_bugs_sorted',
-            {'id': project.id, 'sortBy': 'id', 'sortOrder' : 'desc'}) }}"
+            {'id': project.id, 'sortBy': 'id', 'sortOrder' : 'desc', 'status': status, 'priority': priority, 'category':category}) }}"
                class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
@@ -24,18 +24,18 @@
         {% if sortBy == 'name' %}
             {% if sortOrder == 'asc' %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'name', 'sortOrder' : 'desc'}) }}"
+                {'id': project.id, 'sortBy': 'name', 'sortOrder' : 'desc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-asc sort--active"
                    title="{{ 'label.sort_desc'|trans }}"> </a>
             {% else %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'name', 'sortOrder' : 'asc'}) }}"
+                {'id': project.id, 'sortBy': 'name', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-desc sort--active"
                    title="{{ 'label.sort_asc'|trans }}"> </a>
             {% endif %}
         {% else %}
             <a href="{{ url('project_bugs_sorted',
-            {'id': project.id, 'sortBy': 'name', 'sortOrder' : 'asc'}) }}"
+            {'id': project.id, 'sortBy': 'name', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
@@ -45,18 +45,18 @@
         {% if sortBy == 'type' %}
             {% if sortOrder == 'asc' %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'type', 'sortOrder' : 'desc'}) }}"
+                {'id': project.id, 'sortBy': 'type', 'sortOrder' : 'desc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-asc sort--active"
                    title="{{ 'label.sort_desc'|trans }}"> </a>
             {% else %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'type', 'sortOrder' : 'asc'}) }}"
+                {'id': project.id, 'sortBy': 'type', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-desc sort--active"
                    title="{{ 'label.sort_asc'|trans }}"> </a>
             {% endif %}
         {% else %}
             <a href="{{ url('project_bugs_sorted',
-            {'id': project.id, 'sortBy': 'type', 'sortOrder' : 'asc'}) }}"
+            {'id': project.id, 'sortBy': 'type', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
@@ -65,18 +65,18 @@
         {% if sortBy == 'priority' %}
             {% if sortOrder == 'asc' %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'priority', 'sortOrder' : 'desc'}) }}"
+                {'id': project.id, 'sortBy': 'priority', 'sortOrder' : 'desc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-asc sort--active"
                    title="{{ 'label.sort_desc'|trans }}"> </a>
             {% else %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'priority', 'sortOrder' : 'asc'}) }}"
+                {'id': project.id, 'sortBy': 'priority', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-desc sort--active"
                    title="{{ 'label.sort_asc'|trans }}"> </a>
             {% endif %}
         {% else %}
             <a href="{{ url('project_bugs_sorted',
-            {'id': project.id, 'sortBy': 'priority', 'sortOrder' : 'asc'}) }}"
+            {'id': project.id, 'sortBy': 'priority', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
@@ -85,18 +85,18 @@
         {% if sortBy == 'status' %}
             {% if sortOrder == 'asc' %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'status', 'sortOrder' : 'desc'}) }}"
+                {'id': project.id, 'sortBy': 'status', 'sortOrder' : 'desc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-asc sort--active"
                    title="{{ 'label.sort_desc'|trans }}"> </a>
             {% else %}
                 <a href="{{ url('project_bugs_sorted',
-                {'id': project.id, 'sortBy': 'status', 'sortOrder' : 'asc'}) }}"
+                {'id': project.id, 'sortBy': 'status', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                    class="sort sort-desc sort--active"
                    title="{{ 'label.sort_asc'|trans }}"> </a>
             {% endif %}
         {% else %}
             <a href="{{ url('project_bugs_sorted',
-            {'id': project.id, 'sortBy': 'status', 'sortOrder' : 'asc'}) }}"
+            {'id': project.id, 'sortBy': 'status', 'sortOrder' : 'asc', 'status': status, 'priority': priority, 'category':category}) }}"
                class="sort"
                title="{{ 'label.sort_asc'|trans }}"> </a>
         {% endif %}
