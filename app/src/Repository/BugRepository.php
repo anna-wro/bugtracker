@@ -164,20 +164,14 @@ class BugRepository
                     break;
                 case 'front-end':
                     $queryBuilder->andWhere('b.type_id = 3')
-                    ->orWhere('b.type_id = 4')
-                    ->orWhere('b.type_id = 5')
-                    ->orWhere('b.type_id = 6');
+                        ->orWhere('b.type_id = 4')
+                        ->orWhere('b.type_id = 5')
+                        ->orWhere('b.type_id = 6');
                     break;
                 case 'back-end':
                     $queryBuilder->andWhere('b.type_id = 1')
                         ->orWhere('b.type_id = 2')
                         ->orWhere('b.type_id = 7');
-                case 'dyzur':
-                    $queryBuilder->andWhere('b.id = 94')
-                        ->orWhere('b.id = 104')
-                        ->orWhere('b.id = 105')
-                        ->orWhere('b.id = 108')
-                        ->orWhere('b.id = 111');
                     break;
             }
         }
@@ -234,7 +228,7 @@ class BugRepository
         $paginator->setCurrentPage($page);
         $paginator->setMaxPerPage(self::NUM_ITEMS);
 
-      return $paginator->getCurrentPageResults();
+        return $paginator->getCurrentPageResults();
     }
 
     /**

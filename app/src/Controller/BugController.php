@@ -168,7 +168,6 @@ class BugController extends BaseController {
                 ]
             );
 
-            // FIXME: Zmiana statusu a obecne sortowanie
             if($type=='project_bugs') {
                 return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bugToChange['project_id']]), 301);
             }

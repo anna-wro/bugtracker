@@ -108,19 +108,11 @@ class ProjectController extends BaseController
      * @return
      * @internal param null $statusFilter
      */
-    public function bugsAction(Application $app, $id, $page = 1, $sortBy = null, $sortOrder = null, $status = 'all', $priority = null, $category = null)
+    public function bugsAction(Application $app, Request $request, $id, $page = 1, $sortBy = null, $sortOrder = null)
     {
-        if (isset($_GET['status']) && $_GET['status'] != ""){
-            $status = $_GET['status'];
-        }
-
-        if (isset($_GET['priority']) && $_GET['priority'] != ""){
-            $priority = $_GET['priority'];
-        }
-
-        if (isset($_GET['category']) && $_GET['category'] != ""){
-            $category = $_GET['category'];
-        }
+        $priority = $request->get('priority', null);
+        $status = $request->get('status', null);
+        $category = $request->get('category', null);
 
         $userId = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);

@@ -1,35 +1,36 @@
 {% if type == 'project_bugs' %}
 
     <div class="form-buttons filters">
-        <a href="{{ path('project_bugs', {'id': project.id, 'status': 'open'}) }}" class="tag button is-medium is-light
+        <a href="{{ path('project_bugs', {'id': project.id, 'priority': priority, 'status': 'open', 'category': category}) }}" class="tag button is-medium is-light
 {% if status == 'open' %} is-selected {% endif %}
 ">
             Open
         </a>
-        <a href="{{ path('project_bugs', {'id': project.id, 'status': 'closed'}) }}" class="tag button is-medium is-light
+        <a href="{{ path('project_bugs', {'id': project.id, 'priority': priority, 'status': 'closed', 'category': category}) }}" class="tag button is-medium is-light
 {% if status == 'closed' %} is-selected {% endif %}
 ">
             Closed
         </a>
-        <a href="{{ path('project_bugs', {'id': project.id, 'priority': 'important'}) }}" class="tag button is-medium is-light
+        <a href="{{ path('project_bugs', {'id': project.id, 'priority': 'important', 'status': status, 'category': category}) }}" class="tag button is-medium is-light
 {% if priority == 'important' %} is-selected {% endif %}">
             Important
         </a>
-        <a href="{{ url('project_bugs', {'id': project.id, 'priority': 'urgent'}) }}" class="tag button is-medium is-light
+        <a href="{{ url('project_bugs', {'id': project.id, 'priority': 'urgent', 'status': status, 'category': category}) }}" class="tag button is-medium is-light
 {% if priority == 'urgent' %} is-selected {% endif %}">
             Urgent
         </a>
-        <a href="{{ url('project_bugs', {'id': project.id, 'category': 'front-end'}) }}" class="tag button is-medium is-light
+        <a href="{{ url('project_bugs', {'id': project.id, 'priority': priority, 'status': status, 'category': 'front-end'}) }}" class="tag button is-medium is-light
 {% if category == 'front-end' %} is-selected {% endif %}">
             Front-end
         </a>
-        <a href="{{ url('project_bugs', {'id': project.id, 'category': 'back-end'}) }}" class="tag button is-medium is-light
+        <a href="{{ url('project_bugs', {'id': project.id, 'priority': priority, 'status': status, 'category': 'back-end'}) }}" class="tag button is-medium is-light
 {% if category == 'back-end' %} is-selected {% endif %}">
             Back-end
         </a>
-        <a href="{{ url('project_bugs', {'id': project.id, 'category': 'dyzur'}) }}" class="tag button is-medium is-light
+
+        <a href="{{ url('project_bugs', {'id': project.id, 'priority': null, 'status': null, 'category': null}) }}" class="tag button is-medium is-light
 {% if category == 'back-end' %} is-selected {% endif %}">
-            Dyżur - pytania
+            No filters
         </a>
     </div>
 {% endif %}

@@ -8,6 +8,7 @@ namespace Controller;
 use Repository\UserRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
+use Symfony\Component\Security\Core\User\User;
 
 
 /**
@@ -30,7 +31,7 @@ abstract class BaseController implements ControllerProviderInterface
         $token = $app['security.token_storage']->getToken();
         if (null !== $token) {
             $user = $token->getUser();
-            if ($user == 'anon.') return -1;
+            if (!($user instanceof User)) return null;
 
             $username = $user->getUsername();
             $userRepository = new UserRepository($app['db']);

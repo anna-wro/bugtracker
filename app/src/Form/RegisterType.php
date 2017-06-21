@@ -73,7 +73,7 @@ class RegisterType extends AbstractType
                     new Assert\Length(
                         [
                             'groups' => ['registration'],
-                            'min' => 8,
+                            'min' => 6,
                             'max' => 32,
                         ]
                     ),

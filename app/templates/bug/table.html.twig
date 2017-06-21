@@ -20,7 +20,7 @@
                     </td>
                     {% if type == 'all_bugs' %}
                         <td>
-                            {# FIXME: Jak tu wyświetlić nazwę, nie ID? #}
+
                             <a href="{{ url('project_bugs',{'id': bug.project_id}) }}"
                             title="{{ 'label.view_all'|trans }}" class="has-text-grey">
                             {{ bug.project_id }}</a>
