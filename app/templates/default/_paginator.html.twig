@@ -7,21 +7,21 @@
         {% if (route_name == 'project_bugs_paginated' or route_name == 'project_bugs_sorted_paginated') %}
             {% if sortBy %}
                 <a class="pagination-previous"
-                   href="{{ url(route_name, {'sortBy': sortBy, 'sortOrder': sortOrder, 'id': id, 'page': previous}) }}"
+                   href="{{ url(route_name, {'sortBy': sortBy, 'sortOrder': sortOrder, 'id': id, 'page': previous,  'priority': priority, 'status': status, 'category': category}) }}"
                    title="{{ 'label.nav.prev'|trans }}">
                     <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
             {% else %}
-                <a class="pagination-previous" href="{{ url(route_name, {'id': id, 'page': previous}) }}"
+                <a class="pagination-previous" href="{{ url(route_name, {'id': id, 'page': previous, 'priority': priority, 'status': status, 'category': category}) }}"
                    title="{{ 'label.nav.prev'|trans }}">
                     <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
             {% endif %}
         {% elseif sortBy %}
             <a class="pagination-previous"
-               href="{{ url(route_name, {'sortBy': sortBy, 'sortOrder': sortOrder, 'page': previous}) }}"
+               href="{{ url(route_name, {'sortBy': sortBy, 'sortOrder': sortOrder, 'page': previous, 'priority': priority, 'status': status, 'category': category}) }}"
                title="{{ 'label.nav.prev'|trans }}">
                 <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
         {% else %}
-            <a class="pagination-previous" href="{{ url(route_name, {'page': previous}) }}"
+            <a class="pagination-previous" href="{{ url(route_name, {'page': previous, 'priority': priority, 'status': status, 'category': category}) }}"
                title="{{ 'label.nav.prev'|trans }}">
                 <span aria-hidden="true">&larr;</span>{{ 'label.nav.prev'|trans }}</a>
         {% endif %}
@@ -34,23 +34,23 @@
         {% set next = (paginator.page + 1) %}
         {% if (route_name == 'project_bugs_paginated' or route_name == 'project_bugs_sorted_paginated') %}
             {% if sortBy %}
-                <a class="pagination-next" href="{{ url(route_name, {'sortBy':sortBy, 'sortOrder': sortOrder, 'id': id, 'page': next}) }}"
+                <a class="pagination-next" href="{{ url(route_name, {'sortBy':sortBy, 'sortOrder': sortOrder, 'id': id, 'page': next, 'priority': priority, 'status': status, 'category': category}) }}"
                    title="{{ 'label.nav.next'|trans }}">
                     {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
                 </a>
             {% else %}
-                <a class="pagination-next" href="{{ url(route_name, {'id': id, 'page': next}) }}"
+                <a class="pagination-next" href="{{ url(route_name, {'id': id, 'page': next, 'priority': priority, 'status': status, 'category': category}) }}"
                    title="{{ 'label.nav.next'|trans }}">
                     {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
                 </a>
             {% endif %}
         {% elseif sortBy %}
-            <a class="pagination-next" href="{{ url(route_name, {'sortBy':sortBy, 'sortOrder': sortOrder, 'page': next}) }}"
+            <a class="pagination-next" href="{{ url(route_name, {'sortBy':sortBy, 'sortOrder': sortOrder, 'page': next, 'priority': priority, 'status': status, 'category': category}) }}"
                title="{{ 'label.nav.next'|trans }}">
                 {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
             </a>
         {% else %}
-            <a class="pagination-next" href="{{ url(route_name, {'page': next}) }}"
+            <a class="pagination-next" href="{{ url(route_name, {'page': next, 'priority': priority, 'status': status, 'category': category}) }}"
                title="{{ 'label.nav.next'|trans }}">
                 {{ 'label.nav.next'|trans }}<span aria-hidden="true">&rarr;</span>
             </a>

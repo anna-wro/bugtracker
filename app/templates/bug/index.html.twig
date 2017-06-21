@@ -22,13 +22,25 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         {% include 'default/_progress_bar.html.twig' %}
         </a>
+        {% include 'bug/_filters.html.twig' with {
+        type: 'all_bugs'
+        } %}
         {% include 'bug/table.html.twig' with {
         type: 'all_bugs'
         } %}
-        {% include 'default/_paginator.html.twig' with {
-        paginator: paginator,
-        route_name: 'bug_index_paginated'
-        } %}
+        {% if sortBy %}
+            {% include 'default/_paginator.html.twig' with {
+            paginator: paginator,
+            route_name: 'bug_index_sorted_paginated',
+            sortBy: sortBy,
+            sortOrder: sortOrder
+            } %}
+        {% else %}
+            {% include 'default/_paginator.html.twig' with {
+            paginator: paginator,
+            route_name: 'bug_index_paginated'
+            } %}
+        {% endif %}
     {% else %}
         {% include 'auth/login_required.html.twig' %}
     {% endif %}

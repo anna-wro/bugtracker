@@ -84,3 +84,11 @@
     background: $red;
   }
 }
+
+.button.is-light.is-outlined {
+  color: $grey-lighter;
+}
+
+.button.is-light.is-active, .button.is-light:active {
+  box-shadow: none;
+}

@@ -41,7 +41,7 @@ class BugController extends BaseController {
             ->assert('sortBy', '[a-zA-Z]+')
             ->assert('sortOrder', '[ascde]{3,4}')
             ->value('page', 1)
-            ->bind('bug_index_paginated');
+            ->bind('bug_index_sorted_paginated');
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
             ->bind('bug_index_paginated');
@@ -77,14 +77,18 @@ class BugController extends BaseController {
      * Index action.
      *
      * @param \Silex\Application $app Silex application
+     * @param Request $request
      * @param int $page Current page number
      *
      * @param null $sortBy
      * @param null $sortOrder
      * @return Response HTTP Response
      */
-    public function indexAction(Application $app, $page = 1, $sortBy = null, $sortOrder = null)
+    public function indexAction(Application $app, Request $request, $page = 1, $sortBy = null, $sortOrder = null)
     {
+        $priority = $request->get('priority', null);
+        $status = $request->get('status', null);
+        $category = $request->get('category', null);
         $id = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
         $typeRepository = new TypeRepository($app['db']);
@@ -96,13 +100,16 @@ class BugController extends BaseController {
 
         return $app['twig']->render(
             'bug/index.html.twig',
-            ['paginator' => $bugRepository->findAllPaginated($page, $id, $sortBy, $sortOrder),
+            ['paginator' => $bugRepository->findAllPaginated($page, $id, $sortBy, $sortOrder, $status, $priority, $category),
                 'types' => $typeRepository->findAll(),
                 'statuses' => $statusRepository->findAll(),
                 'priorities' => $priorityRepository->findAll(),
                 'projects' => $projectRepository->findAll(),
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,
+                'priority' => $priority,
+                'status' => $status,
+                'category' => $category,
                 'bugsAll' => $bugRepository->countBugs($id),
                 'bugsDone' => $bugRepository->countBugs($id, null, 'done')]
         );

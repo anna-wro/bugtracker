@@ -61,16 +61,19 @@ class BugRepository
      * @param int $userId User ID
      * @param $sortBy
      * @param $sortOrder
+     * @param null $status
+     * @param null $priority
+     * @param null $category
      * @return array Result
      */
 
-    public function findAllPaginated($page = 1, $userId, $sortBy = null, $sortOrder = null)
+    public function findAllPaginated($page = 1, $userId, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
     {
         $countQueryBuilder = $this->queryAllFromUser($userId)
             ->select('COUNT(DISTINCT b.id) AS total_results')
             ->setMaxResults(1);
 
-        $paginator = new Paginator($this->queryAllFromUser($userId, $sortBy, $sortOrder), $countQueryBuilder);
+        $paginator = new Paginator($this->queryAllFromUser($userId, $sortBy, $sortOrder, $status, $priority, $category), $countQueryBuilder);
         $paginator->setCurrentPage($page);
         $paginator->setMaxPerPage(self::NUM_ITEMS);
 
@@ -263,10 +266,13 @@ class BugRepository
      * @param $id
      * @param null $sortBy
      * @param null $sortOrder
-     * @param null $statusFilter
+     * @param null $status
+     * @param null $priority
+     * @param null $category
      * @return \Doctrine\DBAL\Query\QueryBuilder Result
+     * @internal param null $statusFilter
      */
-    protected function queryAllFromUser($id, $sortBy = null, $sortOrder = null)
+    protected function queryAllFromUser($id, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
@@ -286,6 +292,50 @@ class BugRepository
         )->from('pr_bugs', 'b')
             ->where('b.user_id = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
+
+        if ($priority) {
+            switch ($priority) {
+                case 'all':
+                    break;
+                case 'important':
+                    $queryBuilder->andWhere('b.priority_id = 1')->orWhere('b.priority_id = 2');
+                    break;
+                case 'urgent':
+                    $queryBuilder->andWhere('b.priority_id = 1')->orWhere('b.priority_id = 3');
+                    break;
+            }
+        }
+
+        if ($status) {
+            switch ($status) {
+                case 'all':
+                    break;
+                case 'open':
+                    $queryBuilder->andWhere('b.status_id = 1');
+                    break;
+                case 'closed':
+                    $queryBuilder->andWhere('b.status_id = 2');
+                    break;
+            }
+        }
+
+        if ($category) {
+            switch ($category) {
+                case 'all':
+                    break;
+                case 'front-end':
+                    $queryBuilder->andWhere('b.type_id = 3')
+                        ->orWhere('b.type_id = 4')
+                        ->orWhere('b.type_id = 5')
+                        ->orWhere('b.type_id = 6');
+                    break;
+                case 'back-end':
+                    $queryBuilder->andWhere('b.type_id = 1')
+                        ->orWhere('b.type_id = 2')
+                        ->orWhere('b.type_id = 7');
+                    break;
+            }
+        }
 
         if ($sortBy) {
             if ($sortBy != 'name' && $sortBy != 'id') $sortBy .= '_id';
