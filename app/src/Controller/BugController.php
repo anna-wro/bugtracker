@@ -91,20 +91,12 @@ class BugController extends BaseController
         $category = $request->get('category', null);
         $id = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
-        $typeRepository = new TypeRepository($app['db']);
-        $statusRepository = new StatusRepository($app['db']);
-        $priorityRepository = new PriorityRepository($app['db']);
-        $projectRepository = new ProjectRepository($app['db']);
 
         list($sortOrder, $sortBy) = $this->checkOrderOptions($sortOrder, $sortBy);
 
         return $app['twig']->render(
             'bug/index.html.twig',
             ['paginator' => $bugRepository->findAllPaginated($page, $id, $sortBy, $sortOrder, $status, $priority, $category),
-                'types' => $typeRepository->findAll(),
-                'statuses' => $statusRepository->findAll(),
-                'priorities' => $priorityRepository->findAll(),
-                'projects' => $projectRepository->findAll(),
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,
                 'priority' => $priority,
@@ -127,23 +119,11 @@ class BugController extends BaseController
     public function viewAction(Application $app, $id)
     {
         $bugRepository = new BugRepository($app['db']);
-        $typeRepository = new TypeRepository($app['db']);
-        $statusRepository = new StatusRepository($app['db']);
-        $priorityRepository = new PriorityRepository($app['db']);
-        $projectRepository = new ProjectRepository($app['db']);
-
-        $bug = $bugRepository->findOneById($id);
-        $projectId = $bug['project_id'];
-
-
         return $app['twig']->render(
             'bug/view.html.twig',
             ['bug' => $bugRepository->findOneById($id),
                 'bugId' => $id,
-                'types' => $typeRepository->findAll(),
-                'statuses' => $statusRepository->findAll(),
-                'priorities' => $priorityRepository->findAll(),
-                'project' => $projectRepository->findOneById($projectId)]
+            ]
         );
     }
 
@@ -398,10 +378,6 @@ class BugController extends BaseController
     {
         $bugRepository = new BugRepository($app['db']);
         $bug = $bugRepository->findOneById($id);
-        $typeRepository = new TypeRepository($app['db']);
-        $statusRepository = new StatusRepository($app['db']);
-        $priorityRepository = new PriorityRepository($app['db']);
-        $projectRepository = new ProjectRepository($app['db']);
 
         if (!$bug) {
             $app['session']->getFlashBag()->add(
@@ -441,10 +417,6 @@ class BugController extends BaseController
                 'bug' => $bug,
                 'form' => $form->createView(),
                 'bugId' => $id,
-                'types' => $typeRepository->findAll(),
-                'statuses' => $statusRepository->findAll(),
-                'priorities' => $priorityRepository->findAll(),
-                'project' => $projectRepository->findOneById($bug['project_id'])
             ]
         );
     }

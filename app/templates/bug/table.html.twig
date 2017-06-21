@@ -31,12 +31,12 @@
 
                             <a href="{{ url('project_bugs',{'id': bug.project_id}) }}"
                                title="{{ 'label.view_all'|trans }}" class="has-text-grey">
-                                {{ bug.project_id }}</a>
+                                {{ bug.project_name }}</a>
                         </td>
                     {% endif %}
                     <td>
                         <span class="tag is-medium">
-                            {{ types[bug.type_id-1].name |trans }}</span>
+                            {{ bug.type_name |trans }}</span>
                     </td>
                     <td>
                         {% include 'bug/_icons.html.twig' with {
@@ -59,7 +59,7 @@
                                            class="change-status is-done"/>
                                 {% endif %}
                             </form>
-                            {{ statuses[bug.status_id-1].name |trans }}</span>
+                            {{ bug.status_name|trans }}</span>
                     </td>
                     <td class="action-column">
                         <a href="{{ url('bug_view', {'id': bug.id}) }}"

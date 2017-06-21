@@ -19,7 +19,7 @@
             {% endif %}
             <tr>
                 <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_project'|trans }}:</b></p></td>
-                <td><p class="single-line">{{ project.name }}</p></td>
+                <td><p class="single-line">{{ bug.project_name }}</p></td>
             </tr>
             {% if bug.start_date %}
                 <tr>
@@ -45,7 +45,7 @@
                         display: 'single',
                         bug_type: bug.type_id
                         } %}
-                        {{ types[bug.type_id-1].name |trans }}</p></td>
+                        {{ bug.type_name |trans }}</p></td>
             </tr>
             <tr>
                 <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_priority'|trans }}:</b></p>
@@ -55,7 +55,7 @@
                         display: 'single',
                         priority: bug.priority_id
                         } %}
-                        {{ priorities[bug.priority_id-1].name |trans }}</p></td>
+                        {{ bug.priority_name |trans }}</p></td>
             </tr>
             <tr>
                 <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_status'|trans }}:</b></p>
@@ -66,7 +66,7 @@
                         status: bug.status_id,
                         priority: bug.priority_id
                         } %}
-                        {{ statuses[bug.status_id-1].name |trans }}</p></td>
+                        {{ bug.status_name |trans }}</p></td>
             </tr>
             {% if action == 'view' %}
                 {% if bug.reproduction %}

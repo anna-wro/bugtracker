@@ -98,15 +98,11 @@ class ProjectController extends BaseController
      * Bugs action.
      *
      * @param \Silex\Application $app Silex application
-     * @param Request $request
      * @param $id
      * @param int $page
      * @param null $sortBy
      * @param null $sortOrder
      * @return
-     * @internal param string $status
-     * @internal param null $priority
-     * @internal param null $category
      * @internal param null $statusFilter
      */
     public function bugsAction(Application $app, Request $request, $id, $page = 1, $sortBy = null, $sortOrder = null)
@@ -129,9 +125,6 @@ class ProjectController extends BaseController
             ['bug' => $bugRepository->findAllFromProject($id, $userId),
                 'projectId' => $id,
                 'paginator' => $bugRepository->findAllPaginatedFromProject($id, $userId, $page, $sortBy, $sortOrder, $status, $priority, $category),
-                'types' => $typeRepository->findAll(),
-                'statuses' => $statusRepository->findAll(),
-                'priorities' => $priorityRepository->findAll(),
                 'project' => $projectRepository->findOneById($id),
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,

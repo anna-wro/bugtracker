@@ -128,12 +128,20 @@ class BugRepository
             'b.priority_id',
             'b.status_id',
             'b.project_id',
-            'b.user_id'
+            'b.user_id',
+            't.name AS type_name',
+            'p.name AS project_name',
+            'pr.name AS priority_name',
+            's.name AS status_name'
         )->from('pr_bugs', 'b')
             ->where('b.project_id = :id')
             ->setParameter(':id', $projectId, \PDO::PARAM_INT)
             ->andWhere('b.user_id = :userId')
-            ->setParameter(':userId', $userId, \PDO::PARAM_INT);
+            ->setParameter(':userId', $userId, \PDO::PARAM_INT)
+            ->join('b', 'pr_types', 't', 'b.type_id = t.id')
+            ->join('b', 'pr_projects', 'p', 'b.project_id = p.id')
+            ->join('b', 'pr_priorities', 'pr', 'b.priority_id = pr.id')
+            ->join('b', 'pr_statuses', 's', 'b.status_id = s.id');
 
         if ($priority) {
             switch ($priority) {
@@ -255,8 +263,16 @@ class BugRepository
             'b.priority_id',
             'b.status_id',
             'b.project_id',
-            'b.user_id'
-        )->from('pr_bugs', 'b');
+            'b.user_id',
+            't.name AS type_name',
+            'p.name AS project_name',
+            'pr.name AS priority_name',
+            's.name AS status_name'
+        )->from('pr_bugs', 'b')
+            ->join('b', 'pr_types', 't', 'b.type_id = t.id')
+            ->join('b', 'pr_projects', 'p', 'b.project_id = p.id')
+            ->join('b', 'pr_priorities', 'pr', 'b.priority_id = pr.id')
+            ->join('b', 'pr_statuses', 's', 'b.status_id = s.id');
     }
 
 
@@ -288,10 +304,18 @@ class BugRepository
             'b.priority_id',
             'b.status_id',
             'b.project_id',
-            'b.user_id'
+            'b.user_id',
+            't.name AS type_name',
+            'p.name AS project_name',
+            'pr.name AS priority_name',
+            's.name AS status_name'
         )->from('pr_bugs', 'b')
             ->where('b.user_id = :id')
-            ->setParameter(':id', $id, \PDO::PARAM_INT);
+            ->setParameter(':id', $id, \PDO::PARAM_INT)
+            ->join('b', 'pr_types', 't', 'b.type_id = t.id')
+            ->join('b', 'pr_projects', 'p', 'b.project_id = p.id')
+            ->join('b', 'pr_priorities', 'pr', 'b.priority_id = pr.id')
+            ->join('b', 'pr_statuses', 's', 'b.status_id = s.id');
 
         if ($priority) {
             switch ($priority) {
