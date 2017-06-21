@@ -435,6 +435,10 @@ class BugRepository
                 // update record
                 $id = $bug['id'];
                 unset($bug['id']);
+                unset($bug['project_name']);
+                unset($bug['type_name']);
+                unset($bug['priority_name']);
+                unset($bug['status_name']);
 
                 return $this->db->update('pr_bugs', $bug, ['id' => $id]);
             } else {
