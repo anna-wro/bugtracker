@@ -151,6 +151,7 @@ class BugType extends AbstractType
             ChoiceType::class,
             [
                 'label' => 'label.bug_project',
+                'invalid_message' => 'message.project_not_selected',
                 'required' => true,
                 'choices' => $this->prepareAvailableProjects($options['projects_repository'], ($options['user_id'])),
                 'choice_translation_domain' => 'messages',

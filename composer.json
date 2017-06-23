@@ -4,5 +4,11 @@
       "echo 'Started web server on http://localhost:8888'",
       "php -S localhost:8888 -t app/web"
     ]
+  },
+  "require-dev": {
+
+    "phpdocumentor/phpdocumentor": "~2.0",
+    "escapestudios/symfony2-coding-standard": "^2.0",
+    "squizlabs/php_codesniffer": "^2.0",
   }
 }

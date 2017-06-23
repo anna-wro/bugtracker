@@ -14,6 +14,10 @@
                 <source>message.password_not_repeated</source>
                 <target>Hasła nie są identyczne</target>
             </trans-unit>
+            <trans-unit id='message.project_not_selected'>
+                <source>message.project_not_selected</source>
+                <target>Utwórz projekt, aby przypisać do niego błędy.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

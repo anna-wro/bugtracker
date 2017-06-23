@@ -72,7 +72,7 @@ $app->register(
                 'anonymous' => true,
                 'logout' => [
                     'logout_path' => 'auth_logout',
-                    'target_url' => 'homepage',
+                    'target_url' => 'auth_login',
                 ],
                 'users' => function () use ($app) {
                     return new Provider\UserProvider($app['db']);
@@ -90,6 +90,5 @@ $app->register(
         ],
     ]
 );
-
 
 return $app;
