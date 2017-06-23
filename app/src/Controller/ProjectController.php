@@ -98,6 +98,7 @@ class ProjectController extends BaseController
      * Bugs action.
      *
      * @param \Silex\Application $app Silex application
+     * @param Request $request
      * @param $id
      * @param int $page
      * @param null $sortBy
@@ -113,10 +114,31 @@ class ProjectController extends BaseController
 
         $userId = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
-        $typeRepository = new TypeRepository($app['db']);
-        $statusRepository = new StatusRepository($app['db']);
-        $priorityRepository = new PriorityRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
+
+        $project = $projectRepository->findOneById($id);
+
+        if(!$project) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'warning',
+                    'message' => 'message.project_not_found',
+                ]
+            );
+            return $app->redirect($app['url_generator']->generate('project_index'));
+        }
+
+        if($project['user_id'] != $userId) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'danger',
+                    'message' => 'message.not_your_project',
+                ]
+            );
+            return $app->redirect($app['url_generator']->generate('project_index'));
+        }
 
         list($sortOrder, $sortBy) = $this->checkOrderOptions($sortOrder, $sortBy);
 
@@ -125,7 +147,7 @@ class ProjectController extends BaseController
             ['bug' => $bugRepository->findAllFromProject($id, $userId),
                 'projectId' => $id,
                 'paginator' => $bugRepository->findAllPaginatedFromProject($id, $userId, $page, $sortBy, $sortOrder, $status, $priority, $category),
-                'project' => $projectRepository->findOneById($id),
+                'project' => $project,
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,
                 'user' => $userId,
@@ -212,6 +234,19 @@ class ProjectController extends BaseController
             return $app->redirect($app['url_generator']->generate('project_index'));
         }
 
+        $userId = $this->getUserId($app);
+
+        if($project['user_id'] != $userId) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'danger',
+                    'message' => 'message.not_your_project',
+                ]
+            );
+            return $app->redirect($app['url_generator']->generate('project_index'));
+        }
+
         $form = $app['form.factory']->createBuilder(ProjectType::class, $project,
             ['project_repository' => new ProjectRepository($app['db']),
                 'locale' => $request->getLocale(),])->getForm();
@@ -264,6 +299,19 @@ class ProjectController extends BaseController
                 ]
             );
 
+            return $app->redirect($app['url_generator']->generate('project_index'));
+        }
+
+        $userId = $this->getUserId($app);
+
+        if($project['user_id'] != $userId) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'danger',
+                    'message' => 'message.not_your_project',
+                ]
+            );
             return $app->redirect($app['url_generator']->generate('project_index'));
         }
 

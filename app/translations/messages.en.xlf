@@ -420,6 +420,18 @@
                 <source>no</source>
                 <target>No</target>
             </trans-unit>
+            <trans-unit id="message.not_your_bug">
+                <source>message.not_your_bug</source>
+                <target>You are not allowed to do this.</target>
+            </trans-unit>
+            <trans-unit id="message.not_your_project">
+                <source>message.not_your_project</source>
+                <target>This is not your project, you are not allowed to do this.</target>
+            </trans-unit>
+            <trans-unit id="message.bug_not_found">
+                <source>message.bug_not_found</source>
+                <target>This bug does not exist.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

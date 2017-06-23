@@ -421,6 +421,18 @@
                 <source>no</source>
                 <target>Nie</target>
             </trans-unit>
+            <trans-unit id="message.not_your_bug">
+                <source>message.not_your_bug</source>
+                <target>Nie nie jest Twój błąd, nie możesz go zobaczyć.</target>
+            </trans-unit>
+            <trans-unit id="message.not_your_project">
+                <source>message.not_your_bug</source>
+                <target>Nie nie jest Twój projekt, nie możesz go zobaczyć.</target>
+            </trans-unit>
+            <trans-unit id="message.bug_not_found">
+                <source>message.bug_not_found</source>
+                <target>Taki bug nie istnieje</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

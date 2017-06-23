@@ -119,9 +119,35 @@ class BugController extends BaseController
     public function viewAction(Application $app, $id)
     {
         $bugRepository = new BugRepository($app['db']);
+        $bug = $bugRepository->findOneById($id);
+
+        if(!$bug) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'warning',
+                    'message' => 'message.bug_not_found',
+                ]
+            );
+            return $app->redirect($app['url_generator']->generate('bug_index'));
+        }
+
+        $userId = $this->getUserId($app);
+
+        if($bug['user_id'] != $userId) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'danger',
+                    'message' => 'message.not_your_bug',
+                ]
+            );
+            return $app->redirect($app['url_generator']->generate('bug_index'));
+        }
+
         return $app['twig']->render(
             'bug/view.html.twig',
-            ['bug' => $bugRepository->findOneById($id),
+            ['bug' => $bug,
                 'bugId' => $id,
             ]
         );
@@ -260,7 +286,6 @@ class BugController extends BaseController
     {
         $bug = [];
 
-
         $form = $app['form.factory']->createBuilder(
             BugType::class,
             $bug,
@@ -321,10 +346,23 @@ class BugController extends BaseController
                 'messages',
                 [
                     'type' => 'warning',
-                    'message' => 'message.record_not_found',
+                    'message' => 'message.bug_not_found',
                 ]
             );
 
+            return $app->redirect($app['url_generator']->generate('bug_index'));
+        }
+
+        $userId = $this->getUserId($app);
+
+        if($bug['user_id'] != $userId) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'danger',
+                    'message' => 'message.not_your_bug',
+                ]
+            );
             return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
@@ -379,15 +417,27 @@ class BugController extends BaseController
         $bugRepository = new BugRepository($app['db']);
         $bug = $bugRepository->findOneById($id);
 
-        if (!$bug) {
+        if(!$bug) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
                     'type' => 'warning',
-                    'message' => 'message.record_not_found',
+                    'message' => 'message.bug_not_found',
                 ]
             );
+            return $app->redirect($app['url_generator']->generate('bug_index'));
+        }
 
+        $userId = $this->getUserId($app);
+
+        if($bug['user_id'] != $userId) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'danger',
+                    'message' => 'message.not_your_bug',
+                ]
+            );
             return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
