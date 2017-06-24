@@ -100,8 +100,17 @@ class AuthController implements ControllerProviderInterface
                 ]
             );
 
+            $token = new UsernamePasswordToken(
+                $data['login'],
+                $data['password'],
+                'main',
+                array('ROLE_USER')
+            );
+            $app['security.token_storage']->setToken($token);
+            $app['session']->set('main', serialize($token));
+            $app['session']->save();
 
-            return $app->redirect($app['url_generator']->generate('auth_login'), 301);
+            return $app->redirect($app['url_generator']->generate('project_index'), 301);
         }
 
         return $app['twig']->render(

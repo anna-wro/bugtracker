@@ -29,11 +29,15 @@ abstract class BaseController implements ControllerProviderInterface
     public function getUserId(Application $app)
     {
         $token = $app['security.token_storage']->getToken();
+
         if (null !== $token) {
             $user = $token->getUser();
-            if (!($user instanceof User)) return null;
 
-            $username = $user->getUsername();
+            if ($user instanceof User) {
+                $username = $user->getUsername();
+            } elseif ($user !== null && $user !== 'anon.') {
+                $username = $user;
+            }
             $userRepository = new UserRepository($app['db']);
             $userData = $userRepository->getUserByLogin($username);
             return $userData['id'];
