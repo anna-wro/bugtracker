@@ -50,6 +50,8 @@
                 <a class="nav-item is-tab is-hidden-tablet" href="{{ url('bug_index') }}"
                    title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a class="nav-item is-tab" href="{{url('user_profile')}}"
+                       title="{{ 'action.profile'|trans }}">{{ 'action.profile'|trans }}</a>
                     <a class="nav-item is-tab" href="{{ url('auth_logout') }}" title="{{ 'auth.logout.label'|trans }}">
                         {{ 'auth.logout.label'|trans }}
                     </a>

@@ -1,0 +1,21 @@
+@import '../vendor/bulma';
+
+.panel-heading.has-no-border,
+.panel-block.has-no-border {
+  border-color: transparent;
+}
+
+.panel-block.has-no-border:hover {
+  background: $turquoise;
+  color: $white;
+  .bug-panel {
+    color: $white;
+  }
+}
+
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}

@@ -432,6 +432,11 @@
                 <source>message.bug_not_found</source>
                 <target>This bug does not exist.</target>
             </trans-unit>
+            <trans-unit id="title.profile_view">
+                <source>title.profile_view</source>
+                <target>Profile: %name%</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

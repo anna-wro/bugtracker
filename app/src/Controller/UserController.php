@@ -7,6 +7,8 @@ namespace Controller;
 
 use Form\LoginType;
 use Form\RegisterType;
+use Repository\BugRepository;
+use Repository\ProjectRepository;
 use Repository\UserRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
@@ -18,7 +20,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  *
  * @package Controller
  */
-class UserController implements ControllerProviderInterface
+class UserController extends BaseController
 {
     /**
      * {@inheritdoc}
@@ -26,9 +28,11 @@ class UserController implements ControllerProviderInterface
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
-        $controller->match('register', [$this, 'registerAction'])
+        $controller->match('/register', [$this, 'registerAction'])
             ->method('GET|POST')
             ->bind('user_register');
+        $controller->get('/profile', [$this, 'profileAction'])
+            ->bind('user_profile');
         return $controller;
     }
 
@@ -88,5 +92,35 @@ class UserController implements ControllerProviderInterface
             ]
         );
     }
+
+    /**
+     * View action.
+     *
+     * @param \Silex\Application $app Silex application
+     * @param string $id Element Id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     */
+    public function profileAction(Application $app)
+    {
+        $userId = $this->getUserId($app);
+
+        $userRepository = new UserRepository($app['db']);
+        $projectRepository = new ProjectRepository($app['db']);
+        $bugRepository = new BugRepository($app['db']);
+
+        $user = $userRepository->findOneById($userId);
+
+        return $app['twig']->render(
+            'user/view.html.twig',
+            ['user' => $user,
+                'projects' => $projectRepository->findOptionsForUser($userId),
+                'bugsDone' => $bugRepository->countBugs($userId, null, 'done'),
+                'bugsAll' => $bugRepository->countBugs($userId)
+            ]
+        );
+    }
+
+
 
 }

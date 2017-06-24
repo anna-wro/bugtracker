@@ -102,6 +102,24 @@ class UserRepository
     }
 
     /**
+     * Gets user by User ID.
+     *
+     * @param $id string UserId
+     * @return array Result
+     * @internal param int $userId User ID
+     */
+
+    public function findOneById($id)
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->where('u.id = :id')
+            ->setParameter(':id', $id);
+        $result = $queryBuilder->execute()->fetch();
+
+        return !$result ? [] : $result;
+    }
+
+    /**
      * Gets user roles by User ID.
      *
      * @param integer $userId User ID
@@ -142,7 +160,7 @@ class UserRepository
 
         $data['password'] = $app['security.encoder.bcrypt']->encodePassword($data['password'], '');
         $data['role_id'] = self::ROLE_USER;
-       
+
         return $this->db->insert('pr_users', $data);
     }
 

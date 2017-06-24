@@ -433,6 +433,10 @@
                 <source>message.bug_not_found</source>
                 <target>Taki bug nie istnieje</target>
             </trans-unit>
+            <trans-unit id="title.profile_view">
+                <source>title.profile_view</source>
+                <target>Profile: %name%</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

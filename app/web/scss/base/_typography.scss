@@ -40,3 +40,7 @@ h1 {
 .has-text-grey {
   color: #80878b;
 }
+.notification a:not(.button) {
+  text-decoration: none;
+  color: $grey-darker;
+}

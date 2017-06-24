@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.profile_view'|trans({'%name%' : user.login}) }}
+{% endblock %}
+
+{% block body %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="column is-8 is-offset-2 single-bug">
+        {% if user|length %}
+            <div class="notification notification--bug">
+            <h1 class="title is-1">{{ user.login }}</h1>
+            {% include 'default/_progress_bar.html.twig' with {
+            'bugsAll': bugsAll,
+            'bugsDone': bugsDone,
+            } %}
+
+            <nav class="panel">
+                <p class="panel-heading has-no-border">
+                    {{ 'title.projects_list'|trans }}
+                </p>
+                {% for project in projects %}
+                    <a href="{{ url('project_bugs', {'id': project.id}) }}"
+                       title="{{ 'label.view'|trans }}" class="panel-block has-no-border">
+                       <span class="panel-icon">
+                          <i class="fa fa-bug bug-panel"></i>
+                       </span>
+                        {{ project.name }}{% if project.description %}: {{ project.description }}{% endif %}
+                    </a>
+                {% endfor %}
+            </nav>
+
+
+            <div class="form-buttons form-buttons--back is-centered">
+                {% include 'default/_button_back.html.twig' %}
+            </div>
+        {% else %}
+            {{ 'profile_not_found'|trans }}
+        {% endif %}
+        </div>
+    {% else %}
+        {% include 'auth/login_required.html.twig' %}
+    {% endif %}
+{% endblock %}

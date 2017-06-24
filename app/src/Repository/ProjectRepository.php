@@ -226,4 +226,27 @@ class ProjectRepository
 
         return $queryBuilder->execute()->fetchAll();
     }
+
+    /**
+     * Projects created by a user
+     *
+     * @param $userId
+     * @return
+     * @internal param null $type
+     */
+
+    public function countProjects($userId)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        $queryBuilder->select(
+            'COUNT(p.id) AS projects'
+        )->from('pr_projects', 'p')
+            ->where('p.user_id = :userId')
+            ->setParameter(':userId', $userId, \PDO::PARAM_INT);;
+
+        $result = $queryBuilder->execute()->fetch();
+
+        return $result['projects'];
+    }
 }

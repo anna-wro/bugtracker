@@ -9,7 +9,7 @@
   font-size: 20px;
 }
 
-.fa-bug {
+.fa-bug:not(.bug-panel) {
   padding-left: 6px;
 }
 
