@@ -82,7 +82,8 @@ $app->register(
         'security.access_rules' => [
             ['^{_locale}/auth.+$', 'IS_AUTHENTICATED_ANONYMOUSLY'],
             ['^{_locale}/.+$', 'ROLE_USER'],
-            ['^{_locale}/.+$', 'ROLE_ADMIN'],
+            ['^{_locale}/user.+$', 'ROLE_ADMIN'],
+            ['^{_locale}/user/profile.+$', 'ROLE_USER'],
 
         ],
         'security.role_hierarchy' => [

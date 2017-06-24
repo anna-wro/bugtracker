@@ -8,6 +8,7 @@ namespace Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Utils\Paginator;
 
 /**
  * Class UserRepository.
@@ -16,8 +17,22 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
  */
 class UserRepository
 {
+    /**
+     * User roles
+     *
+     * const int ROLE_ADMIN
+     * const int ROLE_USER
+     */
+
     CONST ROLE_ADMIN = 1;
     CONST ROLE_USER = 2;
+
+    /**
+     * Number of items per page.
+     *
+     * const int NUM_ITEMS
+     */
+    const NUM_ITEMS = 5;
 
     /**
      * Doctrine DBAL connection.
@@ -99,6 +114,26 @@ class UserRepository
         } catch (DBALException $exception) {
             return [];
         }
+    }
+
+    /**
+     * Get records paginated.
+     *
+     * @param int $page Current page number
+     * @return array Result
+     * @internal param $userId
+     */
+    public function findAllPaginated($page = 1)
+    {
+        $countQueryBuilder = $this->queryAll()
+            ->select('COUNT(DISTINCT u.id) AS total_results')
+            ->setMaxResults(1);
+
+        $paginator = new Paginator($this->queryAll(), $countQueryBuilder);
+        $paginator->setCurrentPage($page);
+        $paginator->setMaxPerPage(self::NUM_ITEMS);
+
+        return $paginator->getCurrentPageResults();
     }
 
     /**
@@ -202,5 +237,17 @@ class UserRepository
                 ->setParameter(':id', $id, \PDO::PARAM_INT);
         }
         return $queryBuilder->execute()->fetchAll();
+    }
+
+    /**
+     * Remove account.
+     *
+     * @param array $account Account
+     *
+     * @return boolean Result
+     */
+    public function delete($account)
+    {
+        return $this->db->delete('pr_users', ['id' => $account['id']]);
     }
 }

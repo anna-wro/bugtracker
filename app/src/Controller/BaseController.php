@@ -44,6 +44,15 @@ abstract class BaseController implements ControllerProviderInterface
         }
     }
 
+    /**
+     * Check order options
+     *
+     * @param null $sortOrder
+     * @param null $sortBy
+     * @return array
+     * @internal param Application $app Silex application
+     */
+
     public function checkOrderOptions($sortOrder = null, $sortBy = null)
     {
         $sortOptions = array('id', 'name', 'type', 'priority', 'status');
@@ -55,5 +64,22 @@ abstract class BaseController implements ControllerProviderInterface
             $sortBy = null;
         }
         return array($sortOrder, $sortBy);
+    }
+
+    /**
+     * Check if user is an admin
+     *
+     * @param $app
+     * @param $id int UserId
+     * @return String $userData['id'] User ID
+     * @internal param Application $app Silex application
+     */
+
+    public function checkIfAdmin(Application $app, $id)
+    {
+        $userRepository = new UserRepository($app['db']);
+        $role = $userRepository->getUserRoles($id);
+        if ($role[0] == 'ROLE_ADMIN') return true;
+        return false;
     }
 }

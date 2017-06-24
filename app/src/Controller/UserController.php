@@ -3,6 +3,7 @@
  * User controller.
  *
  */
+
 namespace Controller;
 
 use Form\LoginType;
@@ -22,12 +23,23 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  */
 class UserController extends BaseController
 {
+    CONST ROLE_ADMIN = 1;
+    CONST ROLE_USER = 2;
+
     /**
      * {@inheritdoc}
      */
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
+        $controller->get('/', [$this, 'indexAction'])
+            ->bind('user_index');
+        $controller->get('/{id}', [$this, 'viewAction'])
+            ->assert('id', '[1-9]\d*')
+            ->bind('user_view');
+        $controller->get('/page/{page}', [$this, 'indexAction'])
+            ->value('page', 1)
+            ->bind('user_index_paginated');
         $controller->match('/register', [$this, 'registerAction'])
             ->method('GET|POST')
             ->bind('user_register');
@@ -37,9 +49,33 @@ class UserController extends BaseController
     }
 
     /**
+     * Index action.
+     *
+     * @param \Silex\Application $app Silex application
+     * @param int $page Current page number
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     */
+    public function indexAction(Application $app, $page = 1)
+    {
+        $id = $this->getUserId($app);
+        $userRepository = new UserRepository($app['db']);
+        $isAdmin = $this->checkIfAdmin($app, $id);
+
+        if ($isAdmin) {
+            return $app['twig']->render(
+                'user/index.html.twig',
+                ['paginator' => $userRepository->findAllPaginated($page)]
+            );
+        } else {
+            return $app->redirect($app['url_generator']->generate('user_profile'));
+        }
+    }
+
+    /**
      * Register action.
      *
-     * @param \Silex\Application                        $app     Silex application
+     * @param \Silex\Application $app Silex application
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
@@ -94,7 +130,7 @@ class UserController extends BaseController
     }
 
     /**
-     * View action.
+     * Profile action.
      *
      * @param \Silex\Application $app Silex application
      * @param string $id Element Id
@@ -121,6 +157,46 @@ class UserController extends BaseController
         );
     }
 
+    /**
+     * View action.
+     *
+     * @param \Silex\Application $app Silex application
+     * @param string $id Element Id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     */
+    public function viewAction(Application $app, $id)
+    {
+        $userRepository = new UserRepository($app['db']);
+        $userId = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
 
+        if ($isAdmin) {
+            $projectRepository = new ProjectRepository($app['db']);
+            $bugRepository = new BugRepository($app['db']);
+            $user = $userRepository->findOneById($id);
 
+            if (!$user) {
+                $app['session']->getFlashBag()->add(
+                    'messages',
+                    [
+                        'type' => 'warning',
+                        'message' => 'message.user_not_found',
+                    ]
+                );
+                return $app->redirect($app['url_generator']->generate('user_index'));
+            }
+
+            return $app['twig']->render(
+                'user/view.html.twig',
+                ['user' => $user,
+                    'projects' => $projectRepository->findOptionsForUser($id),
+                    'bugsDone' => $bugRepository->countBugs($id, null, 'done'),
+                    'bugsAll' => $bugRepository->countBugs($id)
+                ]
+            );
+        }
+
+        return $app->redirect($app['url_generator']->generate('user_profile'));
+    }
 }

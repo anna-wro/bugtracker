@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_list'|trans }}
+{% endblock %}
+ {% block nav_links %}
+     <a class="nav-item nav-item__name">
+         {{ 'title.app'|trans }}
+     </a>
+     <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('project_index') }}"
+        title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
+     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
+        title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+ {% endblock %}
+{% block body %}
+    <h1 class="title is-1">
+        <a href="{{ url('user_index') }}"
+           class="list-name">
+            {{ 'title.user_list'|trans }}</a>
+    </h1>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if paginator.data|length %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>{{ 'label.login'|trans }}</th>
+                    <th class="action-column"></th>
+                    <th class="action-column"></th>
+                    <th class="action-column"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in paginator.data %}
+                    <tr>
+                        <td>
+                            {{ user.id }}
+                        </td>
+                        <td>
+                            <a href="{{ url('user_view', {'id': user.id}) }}"
+                               class="link"
+                               title="{{ 'label.view_profile'|trans }}"><b>{{ user.login|capitalize }}</b>
+                            </a>
+                        </td>
+                        <td class="action-column">
+                            {#<a href="{{ url('project_bugs', {'id': project.id}) }}"#}
+                               {#class="action-icon action-icon--more fa fa-bug"#}
+                               {#title="{{ 'label.view'|trans }}">#}
+                            {#</a>#}
+                        </td>
+                        <td class="action-column">
+                            {#<a href="{{ url('project_edit', {'id': project.id}) }}"#}
+                            {#class="action-icon action-icon--edit fa fa-pencil"#}
+                            {#title="{{ 'label.edit'|trans }}">#}
+                            {#</a>#}
+                        </td>
+                        <td class="action-column">
+                            {#<a href="{{ url('project_delete', {'id': project.id}) }}"#}
+                            {#class="action-icon action-icon--delete fa fa-trash"#}
+                            {#title="{{ 'label.delete'|trans }}">#}
+                            {#</a>#}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div>
+                {{ 'users_not_found'|trans }}
+            </div>
+        {% endif %}
+        <a href="{{ url('user_register') }}" class="button is-primary button__add"
+           title="{{ 'label.user_add'|trans }}">
+            {{ 'label.user_add'|trans }}
+        </a>
+        {% include 'default/_paginator.html.twig' with {
+        paginator: paginator,
+        route_name: 'user_index_paginated',
+        priority: null,
+        status: null,
+        category: null,
+        sortBy: null,
+        sortOrder: null
+        } %}
+    {% else %}
+        {% include 'auth/login_required.html.twig' %}
+    {% endif %}
+{% endblock %}

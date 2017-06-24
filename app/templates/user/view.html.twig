@@ -10,14 +10,20 @@
         {% if user|length %}
             <div class="notification notification--bug">
             <h1 class="title is-1">{{ user.login }}</h1>
-            {% include 'default/_progress_bar.html.twig' with {
-            'bugsAll': bugsAll,
-            'bugsDone': bugsDone,
-            } %}
+            {% if projects|length %}
+                {% include 'default/_progress_bar.html.twig' with {
+                'bugsAll': bugsAll,
+                'bugsDone': bugsDone,
+                } %}
+            {% endif %}
 
             <nav class="panel">
                 <p class="panel-heading has-no-border">
-                    {{ 'title.projects_list'|trans }}
+                    {% if projects|length %}
+                        {{ 'title.projects_list'|trans }}
+                    {% else %}
+                        {{ 'user_with_no_projects'|trans }}
+                    {% endif %}
                 </p>
                 {% for project in projects %}
                     <a href="{{ url('project_bugs', {'id': project.id}) }}"
@@ -29,7 +35,6 @@
                     </a>
                 {% endfor %}
             </nav>
-
 
             <div class="form-buttons form-buttons--back is-centered">
                 {% include 'default/_button_back.html.twig' %}

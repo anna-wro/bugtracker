@@ -437,6 +437,34 @@
                 <source>title.profile_view</source>
                 <target>Profile: %name%</target>
             </trans-unit>
+            <trans-unit id="message.not_your_business">
+                <source>message.not_your_business</source>
+                <target>Nie, nie możesz tego zrobić.</target>
+            </trans-unit>
+            <trans-unit id="users_not_found">
+                <source>users_not_found</source>
+                <target>Nie znaleziono użytkowników</target>
+            </trans-unit>
+            <trans-unit id="message.user_not_found">
+                <source>message.user_not_found</source>
+                <target>Taki użytkownik nie istnieje</target>
+            </trans-unit>
+            <trans-unit id="label.user_add">
+                <source>label.user_add</source>
+                <target>Dodaj kogoś nowego</target>
+            </trans-unit>
+            <trans-unit id="title.user_list">
+                <source>title.user_list</source>
+                <target>Użytkownicy</target>
+            </trans-unit>
+            <trans-unit id="user_with_no_projects">
+                <source>user_with_no_projects</source>
+                <target>Ten użytkownik nie ma żadnych projektów</target>
+            </trans-unit>
+            <trans-unit id="label.view_profile">
+                <source>label.view_profile</source>
+                <target>Zobacz profil</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
