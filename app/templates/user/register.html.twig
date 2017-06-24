@@ -16,7 +16,7 @@
     {% endif %}
 
     <div class="column is-6-desktop is-offset-3-desktop">
-        {{ form_start(form, { method: 'post', action: url('auth_register') }) }}
+        {{ form_start(form, { method: 'post', action: url('user_register') }) }}
         {{ form_widget(form) }}
         <input type="submit" value="{{ 'auth.register.label'|trans }}" class="button button--login is-primary is-medium" />
         {{ form_end(form) }}

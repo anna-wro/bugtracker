@@ -16,6 +16,9 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
  */
 class UserRepository
 {
+    CONST ROLE_ADMIN = 1;
+    CONST ROLE_USER = 2;
+
     /**
      * Doctrine DBAL connection.
      *
@@ -130,11 +133,16 @@ class UserRepository
     }
 
     /**
+     * @param $app
      * @param $data
      * @return int
      */
-    public function save($data)
+    public function save($app, $data)
     {
+
+        $data['password'] = $app['security.encoder.bcrypt']->encodePassword($data['password'], '');
+        $data['role_id'] = self::ROLE_USER;
+       
         return $this->db->insert('pr_users', $data);
     }
 

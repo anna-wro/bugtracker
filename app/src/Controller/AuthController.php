@@ -29,9 +29,6 @@ class AuthController implements ControllerProviderInterface
         $controller->match('login', [$this, 'loginAction'])
             ->method('GET|POST')
             ->bind('auth_login');
-        $controller->match('register', [$this, 'registerAction'])
-            ->method('GET|POST')
-            ->bind('auth_register');
         $controller->get('logout', [$this, 'logoutAction'])
             ->bind('auth_logout');
         $controller->get('home', [$this, 'homeAction'])
@@ -58,66 +55,6 @@ class AuthController implements ControllerProviderInterface
             [
                 'form' => $form->createView(),
                 'error' => $app['security.last_error']($request),
-            ]
-        );
-    }
-
-    /**
-     * Register action.
-     *
-     * @param \Silex\Application                        $app     Silex application
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
-     */
-    public function registerAction(Application $app, Request $request)
-    {
-        $user = [];
-
-        $form = $app['form.factory']->createBuilder(
-            RegisterType::class,
-            $user,
-            [
-                'user_repository' => new UserRepository($app['db']),
-            ]
-        )->getForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository = new UserRepository($app['db']);
-            $data = $form->getData();
-
-            $data['password'] = $app['security.encoder.bcrypt']->encodePassword($data['password'], '');
-            $data['role_id'] = '2';
-
-            $userRepository->save($data);
-
-            $app['session']->getFlashBag()->add(
-                'messages',
-                [
-                    'type' => 'success',
-                    'message' => 'message.user_successfully_added',
-                ]
-            );
-
-            $token = new UsernamePasswordToken(
-                $data['login'],
-                $data['password'],
-                'main',
-                array('ROLE_USER')
-            );
-            $app['security.token_storage']->setToken($token);
-            $app['session']->set('main', serialize($token));
-            $app['session']->save();
-
-            return $app->redirect($app['url_generator']->generate('project_index'), 301);
-        }
-
-        return $app['twig']->render(
-            'auth/register.html.twig',
-            [
-                'user' => $user,
-                'form' => $form->createView(),
             ]
         );
     }

@@ -3,14 +3,14 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Controller\AuthController;
-
-
+use Controller\UserController;
 use Controller\BugController;
 use Controller\ProjectController;
 
 $app->mount('{_locale}/project', new ProjectController());
 $app->mount('{_locale}/bug', new BugController());
 $app->mount('{_locale}/auth', new AuthController());
+$app->mount('{_locale}/user', new UserController());
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
