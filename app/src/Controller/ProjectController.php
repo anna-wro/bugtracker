@@ -287,7 +287,6 @@ class ProjectController extends BaseController
     public function deleteAction(Application $app, $id, Request $request)
     {
         $projectRepository = new ProjectRepository($app['db']);
-        $bugRepository = new BugRepository($app['db']);
         $project = $projectRepository->findOneById($id);
 
         if (!$project) {
@@ -319,7 +318,6 @@ class ProjectController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bugRepository->deleteAllFromProject($id);
             $projectRepository->delete($form->getData());
 
             $app['session']->getFlashBag()->add(

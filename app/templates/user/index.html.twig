@@ -18,7 +18,7 @@
            class="list-name">
             {{ 'title.user_list'|trans }}</a>
     </h1>
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('ROLE_ADMIN') %}
         {% if paginator.data|length %}
             <table class="table">
                 <thead>
@@ -55,10 +55,10 @@
                             {#</a>#}
                         </td>
                         <td class="action-column">
-                            {#<a href="{{ url('project_delete', {'id': project.id}) }}"#}
-                            {#class="action-icon action-icon--delete fa fa-trash"#}
-                            {#title="{{ 'label.delete'|trans }}">#}
-                            {#</a>#}
+                            <a href="{{ url('user_delete', {'id': user.id}) }}"
+                            class="action-icon action-icon--delete fa fa-trash"
+                            title="{{ 'label.delete'|trans }}">
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

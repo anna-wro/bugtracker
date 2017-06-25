@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.user_delete'|trans({'%id%': user.id, '%name%': user.login}) }}{% endblock %}
+{% block nav_links %}
+    <a class="nav-item nav-item__name">
+        {{ 'title.app'|trans }}
+    </a>
+    <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('user_index') }}"
+       title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
+    <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
+       title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+{% endblock %}
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="column is-8-desktop is-offset-2-desktop">
+        <h1 class="title is-1 form-name">{{ 'title.user_delete'|trans({'%id%': user.id}) }}</h1>
+        {% include 'user/_profile.html.twig' with {
+        user: user,
+        action: 'delete'
+        } %}
+        <div class="content form-question">
+            <p class="text has-text-centered is-spaced">{{ 'user_delete'|trans }}
+            </p>
+            <p class="text has-text-centered has-text-danger">{{ 'user_delete_all'|trans }}
+            </p>
+        </div>
+        {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}    {{ form_start(form, { method: 'post', action: url('user_delete', {'id': user.id}) }) }}
+        {{ form_widget(form) }}
+        <div class="form-buttons is-centered">
+            <input type="submit" value="{{ 'yes'|trans|upper }}" class="button is-danger form-button"/>
+            <a href="{{ global.request.headers.get('referer') }}" title="{{ 'label.back_to_list'|trans }}"
+               class="button is-primary form-button">
+                {{ 'no'|trans|upper }}
+            </a>
+        </div>
+        {{ form_end(form) }}
+    {% else %}
+        {% include 'auth/login_required.html.twig' %}
+    {% endif %}
+{% endblock %}

@@ -13,6 +13,8 @@ use Repository\ProjectRepository;
 use Repository\UserRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -37,6 +39,10 @@ class UserController extends BaseController
         $controller->get('/{id}', [$this, 'viewAction'])
             ->assert('id', '[1-9]\d*')
             ->bind('user_view');
+        $controller->match('/{id}/delete', [$this, 'deleteAction'])
+            ->method('GET|POST')
+            ->assert('id', '[1-9]\d*')
+            ->bind('user_delete');
         $controller->get('/page/{page}', [$this, 'indexAction'])
             ->value('page', 1)
             ->bind('user_index_paginated');
@@ -175,7 +181,6 @@ class UserController extends BaseController
             $projectRepository = new ProjectRepository($app['db']);
             $bugRepository = new BugRepository($app['db']);
             $user = $userRepository->findOneById($id);
-
             if (!$user) {
                 $app['session']->getFlashBag()->add(
                     'messages',
@@ -199,4 +204,66 @@ class UserController extends BaseController
 
         return $app->redirect($app['url_generator']->generate('user_profile'));
     }
+
+    /**
+     * Delete action.
+     *
+     * @param \Silex\Application $app Silex application
+     * @param int $id Record id
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     */
+    public function deleteAction(Application $app, $id, Request $request)
+    {
+        $userRepository = new UserRepository($app['db']);
+        $user = $userRepository->findOneById($id);
+
+        if (!$user) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'warning',
+                    'message' => 'message.user_not_found',
+                ]
+            );
+
+            return $app->redirect($app['url_generator']->generate('user_index'));
+        }
+
+        $projectRepository = new ProjectRepository($app['db']);
+        $bugRepository = new BugRepository($app['db']);
+
+        $form = $app['form.factory']->createBuilder(FormType::class, $user)->add('id', HiddenType::class)->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->delete($form->getData());
+
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'success',
+                    'message' => 'message.user_successfully_deleted',
+                ]
+            );
+
+            return $app->redirect(
+                $app['url_generator']->generate('user_index'),
+                301
+            );
+        }
+
+        return $app['twig']->render(
+            'user/delete.html.twig',
+            [
+                'user' => $user,
+                'form' => $form->createView(),
+                'projects' => $projectRepository->findOptionsForUser($id),
+                'bugsDone' => $bugRepository->countBugs($id, null, 'done'),
+                'bugsAll' => $bugRepository->countBugs($id)
+            ]
+        );
+    }
+
 }

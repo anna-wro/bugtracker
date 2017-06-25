@@ -465,6 +465,26 @@
                 <source>label.view_profile</source>
                 <target>Zobacz profil</target>
             </trans-unit>
+            <trans-unit id="message.user_successfully_deleted">
+                <source>message.user_successfully_deleted</source>
+                <target>Użytkownik został pomyślnie usunięty</target>
+            </trans-unit>
+            <trans-unit id="message.user_successfully_edited">
+                <source>message.user_successfully_edited</source>
+                <target>Dane użytkownika zostały pomyślnie edytowane</target>
+            </trans-unit>
+            <trans-unit id="title.user_delete">
+                <source>title.user_delete</source>
+                <target>Usuń konto #%id%</target>
+            </trans-unit>
+            <trans-unit id="user_delete">
+                <source>user_delete</source>
+                <target>Czy naprawdę chcesz usunąć to konto?</target>
+            </trans-unit>
+            <trans-unit id="user_delete_all">
+                <source>user_delete_all</source>
+                <target>Wszystkie powiązane z nim projekty i błędy również zostaną usunięte!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
