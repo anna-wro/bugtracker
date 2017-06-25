@@ -192,11 +192,19 @@ class UserRepository
      */
     public function save($app, $data)
     {
-
         $data['password'] = $app['security.encoder.bcrypt']->encodePassword($data['password'], '');
-        $data['role_id'] = self::ROLE_USER;
 
-        return $this->db->insert('pr_users', $data);
+        if (isset($data['id']) && ctype_digit((string) $data['id'])) {
+            // update record
+            $id = $data['id'];
+            unset($data['id']);
+
+            return $this->db->update('pr_users', $data, ['id' => $id]);
+        } else {
+            // add new record
+            $data['role_id'] = self::ROLE_USER;
+            return $this->db->insert('pr_users', $data);
+        }
     }
 
     /**

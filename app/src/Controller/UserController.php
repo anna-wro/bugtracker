@@ -12,7 +12,6 @@ use Repository\BugRepository;
 use Repository\ProjectRepository;
 use Repository\UserRepository;
 use Silex\Application;
-use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +38,10 @@ class UserController extends BaseController
         $controller->get('/{id}', [$this, 'viewAction'])
             ->assert('id', '[1-9]\d*')
             ->bind('user_view');
+        $controller->match('/{id}/edit', [$this, 'editAction'])
+            ->method('GET|POST')
+            ->assert('id', '[1-9]\d*')
+            ->bind('user_edit');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
@@ -265,5 +268,62 @@ class UserController extends BaseController
             ]
         );
     }
+
+    /**
+     * Edit action.
+     *
+     * @param \Silex\Application $app Silex application
+     * @param int $id Record id
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     */
+    public function editAction(Application $app, $id, Request $request)
+    {
+        $userRepository = new UserRepository($app['db']);
+        $user = $userRepository->findOneById($id);
+
+        if (!$user) {
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'warning',
+                    'message' => 'message.user_not_found',
+                ]
+            );
+
+            return $app->redirect($app['url_generator']->generate('user_index'));
+        }
+
+        $form = $app['form.factory']->createBuilder(RegisterType::class, $user,
+            ['user_repository' => new UserRepository($app['db']),
+                'validation_groups' => 'edit_user',
+            ])->add('id', HiddenType::class)->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $userRepository->save($app, $data);
+
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'success',
+                    'message' => 'message.user_successfully_edited',
+                ]
+            );
+
+            return $app->redirect($app['url_generator']->generate('user_index'), 301);
+        }
+
+        return $app['twig']->render(
+            'user/edit.html.twig',
+            [
+                'user' => $user,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
 
 }

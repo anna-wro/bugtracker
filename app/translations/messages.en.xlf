@@ -476,6 +476,10 @@
                 <source>title.user_delete</source>
                 <target>Delete user #%id%</target>
             </trans-unit>
+            <trans-unit id="title.user_edit">
+                <source>title.user_edit</source>
+                <target>Edit user #%id%</target>
+            </trans-unit>
             <trans-unit id="user_delete">
                 <source>user_delete</source>
                 <target>Do you really want to delete this user?</target>
@@ -484,6 +488,11 @@
                 <source>user_delete_all</source>
                 <target>All his/her projects and bugs will also disappear.</target>
             </trans-unit>
+            <trans-unit id="label.change_password">
+                <source>label.change_password</source>
+                <target>Change password</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

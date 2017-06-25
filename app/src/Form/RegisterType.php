@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Validator\Constraints as CustomAssert;
@@ -34,16 +36,17 @@ class RegisterType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'max_length' => 32,
+                    'readonly' => (isset($options['data']) && isset($options['data']['id'])),
 
                 ],
                 'constraints' => [
                     new Assert\NotBlank(
-                        ['groups' => ['registration']]),
+                        ['groups' => ['registration', 'edit_user']]),
                     new Assert\Length(
                         [
                             'min' => 4,
                             'max' => 32,
-                            'groups' => ['registration'],
+                            'groups' => ['registration', 'edit_user'],
                         ]
                     ),
                     new CustomAssert\UniqueValue(
@@ -68,17 +71,31 @@ class RegisterType extends AbstractType
                 'second_options' => array('label' => 'label.repeat.password'),
                 'constraints' => [
                     new Assert\NotBlank([
-                        'groups' => ['registration'],
+                        'groups' => ['registration', 'edit_user'],
                     ]),
                     new Assert\Length(
                         [
-                            'groups' => ['registration'],
+                            'groups' => ['registration', 'edit_user'],
                             'min' => 6,
                             'max' => 32,
                         ]
                     ),
                 ],
             ]
+        );
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+                $data = $event->getData();
+
+                $normData = $form->getNormData();
+
+                if (isset($normData['id'])) {
+                    $data['login'] = isset($normData['login']) ? $normData['login'] : '';
+                    $event->setData($data);
+                }
+            }
         );
     }
 
@@ -94,7 +111,7 @@ class RegisterType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'validation_groups' => array('registration'),
+                'validation_groups' => 'registration',
                 'user_repository' => null,
 
             ]

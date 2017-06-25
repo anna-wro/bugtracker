@@ -49,10 +49,10 @@
                             {#</a>#}
                         </td>
                         <td class="action-column">
-                            {#<a href="{{ url('project_edit', {'id': project.id}) }}"#}
-                            {#class="action-icon action-icon--edit fa fa-pencil"#}
-                            {#title="{{ 'label.edit'|trans }}">#}
-                            {#</a>#}
+                            <a href="{{ url('user_edit', {'id': user.id}) }}"
+                            class="action-icon action-icon--edit fa fa-key"
+                            title="{{ 'label.edit'|trans }}">
+                            </a>
                         </td>
                         <td class="action-column">
                             <a href="{{ url('user_delete', {'id': user.id}) }}"

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.user_edit'|trans({'%id%': user.id}) }}{% endblock %}
+{% block nav_links %}
+    <a class="nav-item nav-item__name">
+        {{ 'title.app'|trans }}
+    </a>
+    <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('user_index') }}"
+       title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
+    <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
+       title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+{% endblock %}
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="column is-6-desktop is-offset-3-desktop">
+            <h1 class="title is-1 form-name">{{ 'title.user_edit'|trans({'%id%': user.id}) }}</h1>
+            {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
+            {{ form_start(form, { method: 'post', action: url('user_edit', {'id': user.id}) }) }}
+            {{ form_widget(form) }}
+            <div class="form-buttons form-buttons--edit is-centered">
+                {% include 'default/_button_back.html.twig' %}
+                <input type="submit" value="{{ 'action.save_changes'|trans }}"
+                       class="button is-info form-button"/>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    {% else %}
+        {% include 'auth/login_required.html.twig' %}
+    {% endif %}
+{% endblock %}
