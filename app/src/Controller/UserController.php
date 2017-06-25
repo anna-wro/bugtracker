@@ -10,8 +10,10 @@ use Form\LoginType;
 use Form\RegisterType;
 use Repository\BugRepository;
 use Repository\ProjectRepository;
+use Repository\RolesRepository;
 use Repository\UserRepository;
 use Silex\Application;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,8 +26,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  */
 class UserController extends BaseController
 {
-    CONST ROLE_ADMIN = 1;
-    CONST ROLE_USER = 2;
 
     /**
      * {@inheritdoc}
@@ -38,9 +38,10 @@ class UserController extends BaseController
         $controller->get('/{id}', [$this, 'viewAction'])
             ->assert('id', '[1-9]\d*')
             ->bind('user_view');
-        $controller->match('/{id}/edit', [$this, 'editAction'])
+        $controller->match('/{id}/edit/{type}', [$this, 'editAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
+            ->assert('type', '[a-z]*')
             ->bind('user_edit');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
             ->method('GET|POST')
@@ -98,8 +99,9 @@ class UserController extends BaseController
             $user,
             [
                 'user_repository' => new UserRepository($app['db']),
+                'roles_repository' => new RolesRepository($app['db'])
             ]
-        )->getForm();
+        )->remove('role_id')->getForm();
 
         $form->handleRequest($request);
 
@@ -276,9 +278,10 @@ class UserController extends BaseController
      * @param int $id Record id
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
+     * @param null $type
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
-    public function editAction(Application $app, $id, Request $request)
+    public function editAction(Application $app, $id, Request $request, $type = null)
     {
         $userRepository = new UserRepository($app['db']);
         $user = $userRepository->findOneById($id);
@@ -295,10 +298,32 @@ class UserController extends BaseController
             return $app->redirect($app['url_generator']->generate('user_index'));
         }
 
-        $form = $app['form.factory']->createBuilder(RegisterType::class, $user,
-            ['user_repository' => new UserRepository($app['db']),
-                'validation_groups' => 'edit_user',
-            ])->add('id', HiddenType::class)->getForm();
+        if($type == 'password') {
+            $form = $app['form.factory']->createBuilder(RegisterType::class, $user,
+                [
+                    'user_repository' => new UserRepository($app['db']),
+                    'validation_groups' => 'edit_user',
+                    'roles_repository' => new RolesRepository($app['db']),
+                    'role_id' => $user['role_id']
+                ])
+                ->add('id', HiddenType::class)
+                ->remove('role_id')
+                ->getForm();
+        }
+
+        if($type == 'role') {
+            $form = $app['form.factory']->createBuilder(RegisterType::class, $user,
+                [
+                    'user_repository' => new UserRepository($app['db']),
+                    'validation_groups' => 'edit_user',
+                    'roles_repository' => new RolesRepository($app['db']),
+                    'role_id' => $user['role_id']
+                ])
+                ->add('id', HiddenType::class)
+                ->remove('password')
+                ->getForm();
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -321,6 +346,7 @@ class UserController extends BaseController
             [
                 'user' => $user,
                 'form' => $form->createView(),
+                'type' => $type
             ]
         );
     }

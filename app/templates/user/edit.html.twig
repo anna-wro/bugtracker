@@ -1,6 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'title.user_edit'|trans({'%id%': user.id}) }}{% endblock %}
+{% block title %}
+    {% if type == 'password' %}
+        {{ 'title.change_password'|trans({'%id%': user.id}) }}
+    {% elseif type == 'role' %}
+        {{ 'title.change_role'|trans({'%id%': user.id}) }}
+    {% else %}
+        {{ 'title.user_edit'|trans({'%id%': user.id}) }}
+    {% endif %}
+{% endblock %}
 {% block nav_links %}
     <a class="nav-item nav-item__name">
         {{ 'title.app'|trans }}
@@ -13,9 +21,17 @@
 {% block body %}
     {% if is_granted('ROLE_ADMIN') %}
         <div class="column is-6-desktop is-offset-3-desktop">
-            <h1 class="title is-1 form-name">{{ 'title.user_edit'|trans({'%id%': user.id}) }}</h1>
+            <h1 class="title is-1 form-name">
+                {% if type == 'password' %}
+                    {{ 'title.change_password'|trans({'%id%': user.id}) }}
+                {% elseif type == 'role' %}
+                    {{ 'title.change_role'|trans({'%id%': user.id}) }}
+                {% else %}
+                    {{ 'title.user_edit'|trans({'%id%': user.id}) }}
+                {% endif %}
+            </h1>
             {% form_theme form with ['form/form_div_layout.html.twig', 'form/form_errors.html.twig'] %}
-            {{ form_start(form, { method: 'post', action: url('user_edit', {'id': user.id}) }) }}
+            {{ form_start(form, { method: 'post', action: url('user_edit', {'id': user.id, 'type': type}) }) }}
             {{ form_widget(form) }}
             <div class="form-buttons form-buttons--edit is-centered">
                 {% include 'default/_button_back.html.twig' %}

@@ -6,6 +6,7 @@
 namespace Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,6 +24,10 @@ use Validator\Constraints as CustomAssert;
  */
 class RegisterType extends AbstractType
 {
+
+    CONST ROLE_ADMIN = 1;
+    CONST ROLE_USER = 2;
+
     /**
      * {@inheritdoc}
      */
@@ -67,7 +72,7 @@ class RegisterType extends AbstractType
                 'invalid_message' => 'message.password_not_repeated',
                 'options' => array('attr' => array('class' => 'password-field')),
                 'required' => true,
-                'first_options'  => array('label' => 'label.password'),
+                'first_options' => array('label' => 'label.password'),
                 'second_options' => array('label' => 'label.repeat.password'),
                 'constraints' => [
                     new Assert\NotBlank([
@@ -83,6 +88,25 @@ class RegisterType extends AbstractType
                 ],
             ]
         );
+        $builder->add(
+            'role_id',
+            ChoiceType::class,
+            [
+                'label' => 'label.role',
+                'required' => true,
+                'choices' => $this->prepareOptionsForChoices($options['roles_repository']),
+                'choice_translation_domain' => 'messages',
+                'data' => $options['role_id'],
+                'constraints' => [
+                    new Assert\NotNull(
+                        ['groups' => ['edit_user']]
+                    ),
+                ],
+            ]
+        );
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            // ... adding the name field if needed
+        });
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
             function (FormEvent $event) {
@@ -113,8 +137,22 @@ class RegisterType extends AbstractType
             [
                 'validation_groups' => 'registration',
                 'user_repository' => null,
+                'roles_repository' => null,
+                'role_id' => self::ROLE_USER
 
             ]
         );
+    }
+
+    protected function prepareOptionsForChoices($repository)
+    {
+        $options = $repository->findAll();
+        $choices = [];
+
+
+        foreach ($options as $option) {
+            $choices[$option['name']] = $option['id'];
+        }
+        return $choices;
     }
 }

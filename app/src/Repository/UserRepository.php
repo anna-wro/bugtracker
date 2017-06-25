@@ -192,9 +192,12 @@ class UserRepository
      */
     public function save($app, $data)
     {
-        $data['password'] = $app['security.encoder.bcrypt']->encodePassword($data['password'], '');
+        if (isset($data['password'])) {
+            $data['password'] = $app['security.encoder.bcrypt']->encodePassword($data['password'], '');
 
-        if (isset($data['id']) && ctype_digit((string) $data['id'])) {
+        }
+
+        if (isset($data['id']) && ctype_digit((string)$data['id'])) {
             // update record
             $id = $data['id'];
             unset($data['id']);
@@ -214,7 +217,7 @@ class UserRepository
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
-        return $queryBuilder->select('u.id', 'u.login')
+        return $queryBuilder->select('u.id', 'u.login', 'u.role_id')
             ->from('pr_users', 'u');
     }
 
@@ -231,9 +234,9 @@ class UserRepository
             ->orWhere('u.login = :loginLower')
             ->setParameters(
                 array(
-                    ':login'=> $login,
-                    ':loginUpper' =>strtoupper($login),
-                    ':loginLower' =>strtolower($login),
+                    ':login' => $login,
+                    ':loginUpper' => strtoupper($login),
+                    ':loginLower' => strtolower($login),
                 ),
                 array(
                     \PDO::PARAM_STR,

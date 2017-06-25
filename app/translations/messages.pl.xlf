@@ -489,6 +489,30 @@
                 <source>user_delete_all</source>
                 <target>Wszystkie powiązane z nim projekty i błędy również zostaną usunięte!</target>
             </trans-unit>
+            <trans-unit id="label.role">
+                <source>label.role</source>
+                <target>Uprawnienia</target>
+            </trans-unit>
+            <trans-unit id="label.change_role">
+                <source>label.change_role</source>
+                <target>Zmień uprawnienia</target>
+            </trans-unit>
+            <trans-unit id="ROLE_ADMIN">
+                <source>ROLE_ADMIN</source>
+                <target>Administrator</target>
+            </trans-unit>
+            <trans-unit id="ROLE_USER">
+                <source>ROLE_USER</source>
+                <target>Użytkownik</target>
+            </trans-unit>
+            <trans-unit id="title.change_role">
+                <source>title.change_role</source>
+                <target>#%id%: Uprawnienia</target>
+            </trans-unit>
+            <trans-unit id="title.change_password">
+                <source>title.change_password</source>
+                <target>#%id%: Zmień hasło</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

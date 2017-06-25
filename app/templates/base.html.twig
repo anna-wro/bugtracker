@@ -37,6 +37,10 @@
                        title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
                     <a class="nav-item is-tab is-active" href="{{ url('bug_index') }}"
                        title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="nav-item is-tab" href="{{ url('user_index') }}"
+                           title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
+                    {% endif %}
                 {% endblock %}
             </div>
             <span class="nav-toggle">
@@ -50,7 +54,7 @@
                 <a class="nav-item is-tab is-hidden-tablet" href="{{ url('bug_index') }}"
                    title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a class="nav-item is-tab" href="{{url('user_profile')}}"
+                    <a class="nav-item is-tab" href="{{ url('user_profile') }}"
                        title="{{ 'action.profile'|trans }}">{{ 'action.profile'|trans }}</a>
                     <a class="nav-item is-tab" href="{{ url('auth_logout') }}" title="{{ 'auth.logout.label'|trans }}">
                         {{ 'auth.logout.label'|trans }}
@@ -94,11 +98,11 @@
                             Wróbel</a></b>
                     <br/>Projekt zaliczeniowy z Systemu Interakcyjnego</p>
                 {#<p>#}
-                    {#<a class="icon" href="https://github.com/anna-wro/">#}
-                        {#<svg class="icon">#}
-                            {#<use xlink:href="#github"></use>#}
-                        {#</svg>#}
-                    {#</a>#}
+                {#<a class="icon" href="https://github.com/anna-wro/">#}
+                {#<svg class="icon">#}
+                {#<use xlink:href="#github"></use>#}
+                {#</svg>#}
+                {#</a>#}
                 {#</p>#}
             </div>
         </div>

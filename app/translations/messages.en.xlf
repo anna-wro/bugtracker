@@ -492,7 +492,30 @@
                 <source>label.change_password</source>
                 <target>Change password</target>
             </trans-unit>
-
+            <trans-unit id="label.change_role">
+                <source>label.change_role</source>
+                <target>Change role</target>
+            </trans-unit>
+            <trans-unit id="label.role">
+                <source>label.role</source>
+                <target>Role</target>
+            </trans-unit>
+            <trans-unit id="ROLE_ADMIN">
+                <source>ROLE_ADMIN</source>
+                <target>Admin</target>
+            </trans-unit>
+            <trans-unit id="ROLE_USER">
+                <source>ROLE_USER</source>
+                <target>User</target>
+            </trans-unit>
+            <trans-unit id="title.change_role">
+                <source>title.change_role</source>
+                <target>#%id%: Change role</target>
+            </trans-unit>
+            <trans-unit id="title.change_password">
+                <source>title.change_password</source>
+                <target>#%id%: Change password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
