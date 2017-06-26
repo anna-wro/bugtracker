@@ -153,9 +153,9 @@ class ProjectController extends BaseController
 
         return $app['twig']->render(
             'project/bugs.html.twig',
-            ['bug' => $bugRepository->findAllFromProject($id, $userId),
+            ['bug' => $bugRepository->findAllFromProject($id),
                 'projectId' => $id,
-                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $userId, $page, $sortBy, $sortOrder, $status, $priority, $category),
+                'paginator' => $bugRepository->findAllPaginatedFromProject($id, $page, $sortBy, $sortOrder, $status, $priority, $category),
                 'project' => $project,
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,

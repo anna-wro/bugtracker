@@ -102,10 +102,11 @@ class ProjectRepository
     /**
      * Find one record.
      * @param $id
+     * @param $isAdmin
      * @return array|mixed Result
      * @internal param string $id Element id
      */
-    public function findOptionsForUser($id)
+    public function findOptionsForUser($id, $isAdmin)
     {
 
         $queryBuilder = $this->db->createQueryBuilder();
@@ -117,9 +118,12 @@ class ProjectRepository
             'p.start_date',
             'p.end_date',
             'p.user_id'
-        )->from('pr_projects', 'p')
-            ->where('p.user_id = :id')
-            ->setParameter(':id', $id, \PDO::PARAM_INT);
+        )->from('pr_projects', 'p');
+
+        if (!$isAdmin) {
+            $queryBuilder->where('p.user_id = :id')
+                ->setParameter(':id', $id, \PDO::PARAM_INT);
+        }
 
         return $queryBuilder->execute()->fetchAll();
 

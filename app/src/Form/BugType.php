@@ -153,7 +153,7 @@ class BugType extends AbstractType
                 'label' => 'label.bug_project',
                 'invalid_message' => 'message.project_not_selected',
                 'required' => true,
-                'choices' => $this->prepareAvailableProjects($options['projects_repository'], ($options['user_id'])),
+                'choices' => $this->prepareAvailableProjects($options['projects_repository'], ($options['user_id']), $options['is_admin']),
                 'choice_translation_domain' => 'messages',
                 'constraints' => [
                     new Assert\NotNull(
@@ -237,6 +237,7 @@ class BugType extends AbstractType
                 'user_id' => null,
                 'project_id' => null,
                 'locale' => null,
+                'is_admin' => null
             ]
         );
     }
@@ -253,9 +254,9 @@ class BugType extends AbstractType
         return $choices;
     }
 
-    protected function prepareAvailableProjects($repository, $userId)
+    protected function prepareAvailableProjects($repository, $userId, $isAdmin)
     {
-        $projects = $repository->findOptionsForUser($userId);
+        $projects = $repository->findOptionsForUser($userId, $isAdmin);
         $choices = [];
 
         foreach ($projects as $project) {

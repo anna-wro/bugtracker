@@ -122,7 +122,7 @@ class BugRepository
      * @internal param string $id Project id
      */
 
-    public function findAllFromProject($projectId, $userId, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
+    public function findAllFromProject($projectId, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
@@ -138,7 +138,6 @@ class BugRepository
             'b.priority_id',
             'b.status_id',
             'b.project_id',
-            'b.user_id',
             't.name AS type_name',
             'p.name AS project_name',
             'pr.name AS priority_name',
@@ -146,8 +145,6 @@ class BugRepository
         )->from('pr_bugs', 'b')
             ->where('b.project_id = :id')
             ->setParameter(':id', $projectId, \PDO::PARAM_INT)
-            ->andWhere('b.user_id = :userId')
-            ->setParameter(':userId', $userId, \PDO::PARAM_INT)
             ->join('b', 'pr_types', 't', 'b.type_id = t.id')
             ->join('b', 'pr_projects', 'p', 'b.project_id = p.id')
             ->join('b', 'pr_priorities', 'pr', 'b.priority_id = pr.id')
@@ -240,12 +237,12 @@ class BugRepository
      * @internal param null $statusFilter
      */
 
-    public function findAllPaginatedFromProject($projectId, $userId, $page = 1, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
+    public function findAllPaginatedFromProject($projectId, $page = 1, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
     {
-        $countQueryBuilder = $this->findAllFromProject($projectId, $userId)
+        $countQueryBuilder = $this->findAllFromProject($projectId)
             ->select('COUNT(DISTINCT b.id) AS total_results')
             ->setMaxResults(1);
-        $paginator = new Paginator($this->findAllFromProject($projectId, $userId, $sortBy, $sortOrder, $status, $priority, $category), $countQueryBuilder);
+        $paginator = new Paginator($this->findAllFromProject($projectId, $sortBy, $sortOrder, $status, $priority, $category), $countQueryBuilder);
         $paginator->setCurrentPage($page);
         $paginator->setMaxPerPage(self::NUM_ITEMS);
 

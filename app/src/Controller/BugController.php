@@ -288,6 +288,9 @@ class BugController extends BaseController
      */
     public function addAction(Application $app, Request $request)
     {
+        $id = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $id);
+
         $bug = [];
 
         $form = $app['form.factory']->createBuilder(
@@ -300,6 +303,7 @@ class BugController extends BaseController
                 'priorities_repository' => new PriorityRepository($app['db']),
                 'user_id' => $this->getUserId($app),
                 'locale' => $request->getLocale(),
+                'is_admin' => $isAdmin,
             ]
         )->getForm();
         $form->handleRequest($request);
