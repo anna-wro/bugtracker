@@ -2,6 +2,7 @@
 /**
  * Project repository.
  */
+
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
@@ -20,6 +21,13 @@ class ProjectRepository
      * const int NUM_ITEMS
      */
     const NUM_ITEMS = 5;
+
+    /**
+     * Number of items per page for admin view.
+     *
+     * const int NUM_ITEMS
+     */
+    const NUM_ITEMS_ADMIN = 10;
 
     /**
      * Doctrine DBAL connection.
@@ -57,15 +65,19 @@ class ProjectRepository
      * @param int $page Current page number
      * @return array Result
      */
-    public function findAllPaginated($page = 1, $userId)
+    public function findAllPaginated($page = 1, $userId = null)
     {
-        $countQueryBuilder = $this->queryAllFromUser($userId)
+        $countQueryBuilder = $this->queryAll($userId)
             ->select('COUNT(DISTINCT p.id) AS total_results')
             ->setMaxResults(1);
 
-        $paginator = new Paginator($this->queryAllFromUser($userId), $countQueryBuilder);
+        $paginator = new Paginator($this->queryAll($userId), $countQueryBuilder);
         $paginator->setCurrentPage($page);
-        $paginator->setMaxPerPage(self::NUM_ITEMS);
+        if ($userId) {
+            $paginator->setMaxPerPage(self::NUM_ITEMS);
+        } else {
+            $paginator->setMaxPerPage(self::NUM_ITEMS_ADMIN);
+        }
 
         return $paginator->getCurrentPageResults();
     }
@@ -93,7 +105,8 @@ class ProjectRepository
      * @return array|mixed Result
      * @internal param string $id Element id
      */
-    public function findOptionsForUser($id){
+    public function findOptionsForUser($id)
+    {
 
         $queryBuilder = $this->db->createQueryBuilder();
 
@@ -121,10 +134,10 @@ class ProjectRepository
      */
     public function save($project)
     {
-        if($project['start_date'] == 0000-00-00) $project['start_date'] = null;
-        if($project['end_date'] == 0000-00-00) $project['end_date'] = null;
+        if ($project['start_date'] == 0000 - 00 - 00) $project['start_date'] = null;
+        if ($project['end_date'] == 0000 - 00 - 00) $project['end_date'] = null;
 
-        if (isset($project['id']) && ctype_digit((string) $project['id'])) {
+        if (isset($project['id']) && ctype_digit((string)$project['id'])) {
             // update record
             $id = $project['id'];
             unset($project['id']);
@@ -151,13 +164,14 @@ class ProjectRepository
     /**
      * Query all records.
      *
+     * @param null $id User id
      * @return \Doctrine\DBAL\Query\QueryBuilder Result
      */
-    protected function queryAll()
+    protected function queryAll($id = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
-        return $queryBuilder->select(
+        $queryBuilder->select(
             'p.id',
             'p.name',
             'p.description',
@@ -165,29 +179,15 @@ class ProjectRepository
             'p.end_date',
             'p.user_id'
         )->from('pr_projects', 'p');
+
+        if ($id) {
+            $queryBuilder->where('p.user_id = :id')
+                ->setParameter(':id', $id, \PDO::PARAM_INT);
+        }
+
+        return $queryBuilder;
     }
 
-    /**
-     * Query all records from chosen user.
-     *
-     * @param $id
-     * @return \Doctrine\DBAL\Query\QueryBuilder Result
-     */
-    protected function queryAllFromUser($id)
-    {
-        $queryBuilder = $this->db->createQueryBuilder();
-
-        return $queryBuilder->select(
-            'p.id',
-            'p.name',
-            'p.description',
-            'p.start_date',
-            'p.end_date',
-            'p.user_id'
-        )->from('pr_projects', 'p')
-            ->where('p.user_id = :id')
-            ->setParameter(':id', $id, \PDO::PARAM_INT);
-    }
 
     /**
      * Find for uniqueness.
@@ -207,10 +207,10 @@ class ProjectRepository
             ->andWhere('p.user_id = :userId')
             ->setParameters(
                 array(
-                    ':name'=> $name,
-                    ':nameUpper' =>strtoupper($name),
-                    ':nameLower' =>strtolower($name),
-                    ':userId'=> $userId,
+                    ':name' => $name,
+                    ':nameUpper' => strtoupper($name),
+                    ':nameLower' => strtolower($name),
+                    ':userId' => $userId,
                 ),
                 array(
                     \PDO::PARAM_STR,

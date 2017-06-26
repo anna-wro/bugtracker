@@ -25,6 +25,13 @@ class BugRepository
     const NUM_ITEMS = 8;
 
     /**
+     * Number of items per page for admin view.
+     *
+     * const int NUM_ITEMS
+     */
+    const NUM_ITEMS_ADMIN = 15;
+
+    /**
      * Doctrine DBAL connection.
      *
      * @var \Doctrine\DBAL\Connection $db
@@ -57,17 +64,16 @@ class BugRepository
      * Get records paginated.
      *
      * @param int $page Current page number
-     *
      * @param int $userId User ID
-     * @param $sortBy
-     * @param $sortOrder
-     * @param null $status
-     * @param null $priority
-     * @param null $category
+     * @param null $sortBy Sort category
+     * @param null $sortOrder Sort order
+     * @param null $status Status filter
+     * @param null $priority Priority filter
+     * @param null $category Category filter
      * @return array Result
      */
 
-    public function findAllPaginated($page = 1, $userId, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
+    public function findAllPaginated($page = 1, $userId = null, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
     {
         $countQueryBuilder = $this->queryAllFromUser($userId)
             ->select('COUNT(DISTINCT b.id) AS total_results')
@@ -75,7 +81,11 @@ class BugRepository
 
         $paginator = new Paginator($this->queryAllFromUser($userId, $sortBy, $sortOrder, $status, $priority, $category), $countQueryBuilder);
         $paginator->setCurrentPage($page);
-        $paginator->setMaxPerPage(self::NUM_ITEMS);
+        if ($userId) {
+            $paginator->setMaxPerPage(self::NUM_ITEMS);
+        } else {
+            $paginator->setMaxPerPage(self::NUM_ITEMS_ADMIN);
+        }
 
         return $paginator->getCurrentPageResults();
     }
@@ -288,7 +298,7 @@ class BugRepository
      * @return \Doctrine\DBAL\Query\QueryBuilder Result
      * @internal param null $statusFilter
      */
-    protected function queryAllFromUser($id, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
+    protected function queryAllFromUser($id = null, $sortBy = null, $sortOrder = null, $status = null, $priority = null, $category = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
@@ -309,10 +319,14 @@ class BugRepository
             'p.name AS project_name',
             'pr.name AS priority_name',
             's.name AS status_name'
-        )->from('pr_bugs', 'b')
-            ->where('b.user_id = :id')
-            ->setParameter(':id', $id, \PDO::PARAM_INT)
-            ->join('b', 'pr_types', 't', 'b.type_id = t.id')
+        )->from('pr_bugs', 'b');
+
+        if ($id) {
+            $queryBuilder->where('b.user_id = :id')
+                ->setParameter(':id', $id, \PDO::PARAM_INT);
+        }
+
+        $queryBuilder->join('b', 'pr_types', 't', 'b.type_id = t.id')
             ->join('b', 'pr_projects', 'p', 'b.project_id = p.id')
             ->join('b', 'pr_priorities', 'pr', 'b.priority_id = pr.id')
             ->join('b', 'pr_statuses', 's', 'b.status_id = s.id');
@@ -381,15 +395,18 @@ class BugRepository
      * @return
      */
 
-    public function countBugs($userId, $projectId = null, $type = null)
+    public function countBugs($userId = null, $projectId = null, $type = null)
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
         $queryBuilder->select(
             'COUNT(b.id) AS bugs'
-        )->from('pr_bugs', 'b')
-            ->where('b.user_id = :userId')
-            ->setParameter(':userId', $userId, \PDO::PARAM_INT);;
+        )->from('pr_bugs', 'b');
+
+        if ($userId) {
+            $queryBuilder->where('b.user_id = :userId')
+                ->setParameter(':userId', $userId, \PDO::PARAM_INT);
+        }
 
         if ($projectId) {
             $queryBuilder->andWhere('b.project_id = :id')

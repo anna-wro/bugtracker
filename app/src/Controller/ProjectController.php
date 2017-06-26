@@ -87,10 +87,17 @@ class ProjectController extends BaseController
     {
         $id = $this->getUserId($app);
         $projectRepository = new ProjectRepository($app['db']);
+        $isAdmin = $this->checkIfAdmin($app, $id);
+        if($isAdmin) $id = null;
 
         return $app['twig']->render(
             'project/index.html.twig',
-            ['paginator' => $projectRepository->findAllPaginated($page, $id)]
+            ['paginator' => $projectRepository->findAllPaginated($page, $id),
+                'sortBy' => null,
+                'sortOrder' => null,
+                'priority' => null,
+                'status' => null,
+                'category' => null,]
         );
     }
 
@@ -115,10 +122,11 @@ class ProjectController extends BaseController
         $userId = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
         $projectRepository = new ProjectRepository($app['db']);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
 
         $project = $projectRepository->findOneById($id);
 
-        if(!$project) {
+        if (!$project) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -129,7 +137,7 @@ class ProjectController extends BaseController
             return $app->redirect($app['url_generator']->generate('project_index'));
         }
 
-        if($project['user_id'] != $userId) {
+        if ($project['user_id'] != $userId && !$isAdmin) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -141,6 +149,7 @@ class ProjectController extends BaseController
         }
 
         list($sortOrder, $sortBy) = $this->checkOrderOptions($sortOrder, $sortBy);
+        $userId = $project['user_id'];
 
         return $app['twig']->render(
             'project/bugs.html.twig',
@@ -221,6 +230,8 @@ class ProjectController extends BaseController
     {
         $projectRepository = new ProjectRepository($app['db']);
         $project = $projectRepository->findOneById($id);
+        $userId = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
 
         if (!$project) {
             $app['session']->getFlashBag()->add(
@@ -236,7 +247,7 @@ class ProjectController extends BaseController
 
         $userId = $this->getUserId($app);
 
-        if($project['user_id'] != $userId) {
+        if ($project['user_id'] != $userId && !$isAdmin) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -302,8 +313,9 @@ class ProjectController extends BaseController
         }
 
         $userId = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
 
-        if($project['user_id'] != $userId) {
+        if ($project['user_id'] != $userId && !$isAdmin) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [

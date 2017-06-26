@@ -510,11 +510,11 @@
             </trans-unit>
             <trans-unit id="title.change_role">
                 <source>title.change_role</source>
-                <target>#%id%: Change role</target>
+                <target>User #%id%: Change role</target>
             </trans-unit>
             <trans-unit id="title.change_password">
                 <source>title.change_password</source>
-                <target>#%id%: Change password</target>
+                <target>User #%id%: Change password</target>
             </trans-unit>
         </body>
     </file>

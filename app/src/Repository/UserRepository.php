@@ -32,6 +32,7 @@ class UserRepository
      *
      * const int NUM_ITEMS
      */
+
     const NUM_ITEMS = 5;
 
     /**
@@ -185,9 +186,10 @@ class UserRepository
         }
     }
 
+
     /**
-     * @param $app
-     * @param $data
+     * @param \Silex\Application $app Silex application
+     * @param $data array Data to save
      * @return int
      */
     public function save($app, $data)

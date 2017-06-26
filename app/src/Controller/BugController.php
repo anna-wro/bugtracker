@@ -91,8 +91,10 @@ class BugController extends BaseController
         $category = $request->get('category', null);
         $id = $this->getUserId($app);
         $bugRepository = new BugRepository($app['db']);
-
         list($sortOrder, $sortBy) = $this->checkOrderOptions($sortOrder, $sortBy);
+
+        $isAdmin = $this->checkIfAdmin($app, $id);
+        if ($isAdmin) $id = null;
 
         return $app['twig']->render(
             'bug/index.html.twig',
@@ -121,7 +123,8 @@ class BugController extends BaseController
         $bugRepository = new BugRepository($app['db']);
         $bug = $bugRepository->findOneById($id);
 
-        if(!$bug) {
+
+        if (!$bug) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -133,8 +136,9 @@ class BugController extends BaseController
         }
 
         $userId = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
 
-        if($bug['user_id'] != $userId) {
+        if ($bug['user_id'] != $userId && !$isAdmin) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -354,8 +358,9 @@ class BugController extends BaseController
         }
 
         $userId = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
 
-        if($bug['user_id'] != $userId) {
+        if ($bug['user_id'] != $userId && !$isAdmin) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -417,7 +422,7 @@ class BugController extends BaseController
         $bugRepository = new BugRepository($app['db']);
         $bug = $bugRepository->findOneById($id);
 
-        if(!$bug) {
+        if (!$bug) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
@@ -429,8 +434,9 @@ class BugController extends BaseController
         }
 
         $userId = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
 
-        if($bug['user_id'] != $userId) {
+        if ($bug['user_id'] != $userId && !$isAdmin) {
             $app['session']->getFlashBag()->add(
                 'messages',
                 [
