@@ -384,7 +384,8 @@ class BugController extends BaseController
                 'statuses_repository' => new StatusRepository($app['db']),
                 'priorities_repository' => new PriorityRepository($app['db']),
                 'user_id' => $this->getUserId($app),
-                'locale' => $request->getLocale(),]
+                'locale' => $request->getLocale(),
+                'is_admin' => $isAdmin,]
         )->getForm();
 
         $form->handleRequest($request);

@@ -513,6 +513,14 @@
                 <source>title.change_password</source>
                 <target>#%id%: Zmień hasło</target>
             </trans-unit>
+            <trans-unit id="column.user_name">
+                <source>column.user_name</source>
+                <target>Konto</target>
+            </trans-unit>
+            <trans-unit id="title.users_list">
+                <source>title.users_list</source>
+                <target>Użytkownicy</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

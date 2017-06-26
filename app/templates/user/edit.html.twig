@@ -9,15 +9,19 @@
         {{ 'title.user_edit'|trans({'%id%': user.id}) }}
     {% endif %}
 {% endblock %}
-{% block nav_links %}
-    <a class="nav-item nav-item__name">
-        {{ 'title.app'|trans }}
-    </a>
-    <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('user_index') }}"
-       title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
-    <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
-       title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
-{% endblock %}
+ {% block nav_links %}
+     <a class="nav-item nav-item__name">
+         {{ 'title.app'|trans }}
+     </a>
+     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
+        title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
+     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
+        title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+     {% if is_granted('ROLE_ADMIN') %}
+         <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('user_index') }}"
+            title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
+     {% endif %}
+ {% endblock %}
 {% block body %}
     {% if is_granted('ROLE_ADMIN') %}
         <div class="column is-6-desktop is-offset-3-desktop">

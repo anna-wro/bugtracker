@@ -163,7 +163,8 @@ class UserController extends BaseController
             ['user' => $user,
                 'projects' => $projectRepository->findOptionsForUser($userId),
                 'bugsDone' => $bugRepository->countBugs($userId, null, 'done'),
-                'bugsAll' => $bugRepository->countBugs($userId)
+                'bugsAll' => $bugRepository->countBugs($userId),
+                'own_profile' => true
             ]
         );
     }
@@ -181,7 +182,6 @@ class UserController extends BaseController
         $userRepository = new UserRepository($app['db']);
         $userId = $this->getUserId($app);
         $isAdmin = $this->checkIfAdmin($app, $userId);
-
         if ($isAdmin) {
             $projectRepository = new ProjectRepository($app['db']);
             $bugRepository = new BugRepository($app['db']);
@@ -196,13 +196,14 @@ class UserController extends BaseController
                 );
                 return $app->redirect($app['url_generator']->generate('user_index'));
             }
-
+            
             return $app['twig']->render(
                 'user/view.html.twig',
                 ['user' => $user,
                     'projects' => $projectRepository->findOptionsForUser($id),
                     'bugsDone' => $bugRepository->countBugs($id, null, 'done'),
-                    'bugsAll' => $bugRepository->countBugs($id)
+                    'bugsAll' => $bugRepository->countBugs($id),
+                    'own_profile' => ($userId == $user['id'])
                 ]
             );
         }
@@ -298,7 +299,7 @@ class UserController extends BaseController
             return $app->redirect($app['url_generator']->generate('user_index'));
         }
 
-        if($type == 'password') {
+        if ($type == 'password') {
             $form = $app['form.factory']->createBuilder(RegisterType::class, $user,
                 [
                     'user_repository' => new UserRepository($app['db']),
@@ -311,7 +312,7 @@ class UserController extends BaseController
                 ->getForm();
         }
 
-        if($type == 'role') {
+        if ($type == 'role') {
             $form = $app['form.factory']->createBuilder(RegisterType::class, $user,
                 [
                     'user_repository' => new UserRepository($app['db']),

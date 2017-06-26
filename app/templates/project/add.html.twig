@@ -10,6 +10,10 @@
        title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
        title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="nav-item is-tab is-hidden-mobile" href="{{ url('user_index') }}"
+           title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
+    {% endif %}
 {% endblock %}
 
 {% block body %}

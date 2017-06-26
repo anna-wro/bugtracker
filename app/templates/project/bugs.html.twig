@@ -11,22 +11,32 @@
         title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
      <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
         title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+     {% if is_granted('ROLE_ADMIN') %}
+         <a class="nav-item is-tab is-hidden-mobile" href="{{ url('user_index') }}"
+            title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
+     {% endif %}
      <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('project_bugs',
      {'id': project.id}) }}"
         title=" {{ 'title.project_bugs'|trans({'%name%': project.name}) }}"> {{ 'title.project_bugs'|trans({'%name%': project.name}) }}</a>
  {% endblock %}
 {% block body %}
     <a href="{{ url('project_bugs', {'id': project.id}) }}">
-        <h1 class="title is-1 list-name">
+        <h1 class="title is-1 list-name {%if is_granted('ROLE_ADMIN')%}list-name--admin {% endif %}">
             {{ 'title.project_bugs'|trans({'%name%': project.name}) }}
         </h1>
+        {% if is_granted('ROLE_ADMIN') %}
+            <p class="text has-text-centered project-login"><a href="{{ url('user_view', {'id': project.user_id}) }}"
+                                                 title="{{ 'label.view_profile'|trans }}">
+                    <span class="action-icon action-icon--more fa fa-user user-icon"></span> {{ project.user_name|capitalize }}
+                </a></p>
+        {% endif %}
         {% include 'default/_progress_bar.html.twig' %}
     </a>
     {% if sortBy %}
         {% include 'bug/_filters.html.twig' with {
         type: 'project_bugs_sorted',
         sortBy: sortBy,
-        sortOrder: sortOrder
+        sortOrder: sortOrder,
         } %}
     {% else %}
         {% include 'bug/_filters.html.twig' with {

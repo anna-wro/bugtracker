@@ -3,6 +3,29 @@
 {% block title %}
     {{ 'title.profile_view'|trans({'%name%' : user.login}) }}
 {% endblock %}
+ {% block nav_links %}
+     <a class="nav-item nav-item__name">
+         {{ 'title.app'|trans }}
+     </a>
+     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
+        title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
+     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
+        title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
+     {% if is_granted('ROLE_ADMIN') %}
+         <a class="nav-item is-tab is-hidden-mobile {% if not own_profile %}is-active{% endif %}"
+            href="{{ url('user_index') }}"
+            title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
+     {% endif %}
+ {% endblock %}
+    {% block profile_link %}
+        {% if own_profile == 'true' %}
+            <a class="nav-item is-tab is-active" href="{{ url('user_profile') }}"
+               title="{{ 'action.profile'|trans }}">{{ 'action.profile'|trans }}</a>
+        {% else %}
+            <a class="nav-item is-tab" href="{{ url('user_profile') }}"
+               title="{{ 'action.profile'|trans }}">{{ 'action.profile'|trans }}</a>
+        {% endif %}
+    {% endblock %}
 
 {% block body %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}

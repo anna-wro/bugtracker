@@ -33,7 +33,7 @@ class UserRepository
      * const int NUM_ITEMS
      */
 
-    const NUM_ITEMS = 5;
+    const NUM_ITEMS = 10;
 
     /**
      * Doctrine DBAL connection.

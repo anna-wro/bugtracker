@@ -274,12 +274,14 @@ class BugRepository
             't.name AS type_name',
             'p.name AS project_name',
             'pr.name AS priority_name',
-            's.name AS status_name'
+            's.name AS status_name',
+            'u.login AS user_name'
         )->from('pr_bugs', 'b')
             ->join('b', 'pr_types', 't', 'b.type_id = t.id')
             ->join('b', 'pr_projects', 'p', 'b.project_id = p.id')
             ->join('b', 'pr_priorities', 'pr', 'b.priority_id = pr.id')
-            ->join('b', 'pr_statuses', 's', 'b.status_id = s.id');
+            ->join('b', 'pr_statuses', 's', 'b.status_id = s.id')
+            ->join('b', 'pr_users', 'u', 'b.user_id = u.id');
     }
 
 
@@ -315,7 +317,8 @@ class BugRepository
             't.name AS type_name',
             'p.name AS project_name',
             'pr.name AS priority_name',
-            's.name AS status_name'
+            's.name AS status_name',
+            'u.login AS user_name'
         )->from('pr_bugs', 'b');
 
         if ($id) {
@@ -326,7 +329,8 @@ class BugRepository
         $queryBuilder->join('b', 'pr_types', 't', 'b.type_id = t.id')
             ->join('b', 'pr_projects', 'p', 'b.project_id = p.id')
             ->join('b', 'pr_priorities', 'pr', 'b.priority_id = pr.id')
-            ->join('b', 'pr_statuses', 's', 'b.status_id = s.id');
+            ->join('b', 'pr_statuses', 's', 'b.status_id = s.id')
+            ->join('b', 'pr_users', 'u', 'b.user_id = u.id');
 
         if ($priority) {
             switch ($priority) {
@@ -453,6 +457,7 @@ class BugRepository
                 unset($bug['type_name']);
                 unset($bug['priority_name']);
                 unset($bug['status_name']);
+                unset($bug['user_name']);
 
                 return $this->db->update('pr_bugs', $bug, ['id' => $id]);
             } else {
@@ -491,20 +496,14 @@ class BugRepository
     public function findForUniqueness($name, $id = null, $userId, $projectId = null)
     {
         $queryBuilder = $this->queryAll();
-        $queryBuilder->where('b.name = :name')
-            ->orWhere('b.name = :nameUpper')
-            ->orWhere('b.name = :nameLower')
+        $queryBuilder->where('LOWER(b.name) = :name')
             ->andWhere('b.user_id = :userId')
             ->setParameters(
                 array(
-                    ':name' => $name,
-                    ':nameUpper' => strtoupper($name),
-                    ':nameLower' => strtolower($name),
+                    ':name' => strtolower($name),
                     ':userId' => $userId,
                 ),
                 array(
-                    \PDO::PARAM_STR,
-                    \PDO::PARAM_STR,
                     \PDO::PARAM_STR,
                     \PDO::PARAM_INT)
             );

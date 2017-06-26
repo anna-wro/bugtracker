@@ -106,7 +106,7 @@ class ProjectRepository
      * @return array|mixed Result
      * @internal param string $id Element id
      */
-    public function findOptionsForUser($id, $isAdmin)
+    public function findOptionsForUser($id, $isAdmin = null)
     {
 
         $queryBuilder = $this->db->createQueryBuilder();
@@ -145,6 +145,7 @@ class ProjectRepository
             // update record
             $id = $project['id'];
             unset($project['id']);
+            unset($project['user_name']);
 
             return $this->db->update('pr_projects', $project, ['id' => $id]);
         } else {
@@ -181,8 +182,10 @@ class ProjectRepository
             'p.description',
             'p.start_date',
             'p.end_date',
-            'p.user_id'
-        )->from('pr_projects', 'p');
+            'p.user_id',
+            'u.login AS user_name'
+        )->from('pr_projects', 'p')
+            ->join('p', 'pr_users', 'u', 'p.user_id = u.id');;
 
         if ($id) {
             $queryBuilder->where('p.user_id = :id')
@@ -205,20 +208,14 @@ class ProjectRepository
     public function findForUniqueness($name, $id = null, $userId)
     {
         $queryBuilder = $this->queryAll();
-        $queryBuilder->where('p.name = :name')
-            ->orWhere('p.name = :nameUpper')
-            ->orWhere('p.name = :nameLower')
+        $queryBuilder->where('LOWER(p.name) = :name')
             ->andWhere('p.user_id = :userId')
             ->setParameters(
                 array(
-                    ':name' => $name,
-                    ':nameUpper' => strtoupper($name),
-                    ':nameLower' => strtolower($name),
+                    ':name' => strtolower($name),
                     ':userId' => $userId,
                 ),
                 array(
-                    \PDO::PARAM_STR,
-                    \PDO::PARAM_STR,
                     \PDO::PARAM_STR,
                     \PDO::PARAM_INT)
             );

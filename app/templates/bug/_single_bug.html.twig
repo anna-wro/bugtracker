@@ -19,7 +19,13 @@
             {% endif %}
             <tr>
                 <td class="single-bug__category"><p class="single-line"><b>{{ 'label.bug_project'|trans }}:</b></p></td>
-                <td><p class="single-line">{{ bug.project_name }}</p></td>
+                <td><p class="single-line"><a href="{{ url('project_bugs', {'id': bug.project_id}) }}"
+                                              title="{{ 'label.view'|trans }}">{{ bug.project_name }}</a></p></td>
+            </tr>
+            <tr>
+                <td class="single-bug__category"><p class="single-line"><b>{{ 'column.user_name'|trans }}:</b></p></td>
+                <td><p class="single-line"><a href="{{ url('user_view', {'id': bug.user_id}) }}" class="has-text-grey"
+                                              title="{{ 'label.view_profile'|trans }}">{{ bug.user_name|capitalize }}</a></p></td>
             </tr>
             {% if bug.start_date %}
                 <tr>

@@ -25,6 +25,8 @@
                 <tr>
                     <th>ID</th>
                     <th>{{ 'label.project_name'|trans }}</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>{{ 'column.user_name'|trans }}</th>{% endif %}
                     <th class="description-column">{{ 'label.project_description'|trans }}</th>
                     <th>{{ 'label.project_start_date'|trans }}</th>
                     <th>{{ 'label.project_end_date'|trans }}</th>
@@ -43,8 +45,12 @@
                             <a href="{{ url('project_bugs', {'id': project.id}) }}"
                                title="{{ 'label.view'|trans }}"><b>{{ project.name }}</b></a>
                         </td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td><a href="{{ url('user_view', {'id': project.user_id}) }}" class="has-text-grey"
+                                   title="{{ 'label.view_profile'|trans }}">{{ project.user_name|capitalize }}</a></td>
+                        {% endif %}
                         <td class="description-column">
-                            {{ project.description|length > 160 ? project.description|slice(0, 160) ~ '...' : project.description  }}
+                            {{ project.description|length > 160 ? project.description|slice(0, 160) ~ '...' : project.description }}
                         </td>
                         <td>
                             {% if  project.start_date != '0000-00-00' %}
