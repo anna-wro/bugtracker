@@ -150,6 +150,13 @@
     {%- endif -%}
 {%- endblock form_label -%}
 
+{%- block widget_attributes -%}
+    id="{{ id }}" name="{{ full_name }}"
+    {%- if disabled %} disabled="disabled" class="is-disabled"{% endif -%}
+    {%- if required %} required="required"{% endif -%}
+    {{ block('attributes') }}
+{%- endblock widget_attributes -%}
+
 {%- block form_start -%}
     {% set method = method|upper %}
     {%- if method in ["GET", "POST"] -%}
