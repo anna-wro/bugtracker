@@ -76,4 +76,15 @@
 
 .user-icon {
   margin-right: 5px;
+  color: $grey-light;
+}
+
+.project-login {
+  a {
+    color: $grey-light;
+    &:hover,
+    &:hover > span {
+      color: $grey;
+    }
+  }
 }

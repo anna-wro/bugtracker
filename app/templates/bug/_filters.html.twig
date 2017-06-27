@@ -34,6 +34,12 @@
             Back-end
         </a>
 
+        <a href="{{ url('project_bugs', {'id': project.id, 'priority': priority, 'status': status, 'category': 'not-a-bug'}) }}"
+           class="tag button is-medium is-light
+{% if category == 'not-a-bug' %} is-selected {% endif %}">
+            Not a bug
+        </a>
+
         <a href="{{ url('project_bugs', {'id': project.id, 'priority': null, 'status': null, 'category': null}) }}"
            class="tag button is-medium is-light is-outlined">
             No filters
@@ -73,6 +79,12 @@
            class="tag button is-medium is-light
 {% if category == 'back-end' %} is-selected {% endif %}">
             Back-end
+        </a>
+
+        <a href="{{ url('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': priority, 'status': status, 'category': 'not-a-bug'}) }}"
+           class="tag button is-medium is-light
+{% if category == 'not-a-bug' %} is-selected {% endif %}">
+            Not a bug
         </a>
 
         <a href="{{ url('project_bugs_sorted', {'id': project.id, 'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': null, 'status': null, 'category': null}) }}"
@@ -115,6 +127,12 @@
             Back-end
         </a>
 
+        <a href="{{ url('bug_index', {'priority': priority, 'status': status, 'category': 'not-a-bug'}) }}"
+           class="tag button is-medium is-light
+{% if category == 'not-a-bug' %} is-selected {% endif %}">
+            Not a bug
+        </a>
+
         <a href="{{ url('bug_index', {'priority': null, 'status': null, 'category': null}) }}"
            class="tag button is-medium is-light is-outlined">
             No filters
@@ -153,6 +171,12 @@
            class="tag button is-medium is-light
 {% if category == 'back-end' %} is-selected {% endif %}">
             Back-end
+        </a>
+
+        <a href="{{ url('bug_index_sorted', {'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': priority, 'status': status, 'category': 'not-a-bug'}) }}"
+           class="tag button is-medium is-light
+{% if category == 'not-a-bug' %} is-selected {% endif %}">
+            Not a bug
         </a>
 
         <a href="{{ url('bug_index_sorted', {'sortBy': sortBy, 'sortOrder': sortOrder, 'priority': null, 'status': null, 'category': null}) }}"

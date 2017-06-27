@@ -53,11 +53,16 @@
   right: 0;
   top: 15px;
   z-index: z('action-buttons');
+  &--profile {
+    top:20px;
+    right: 20px;
+  }
 }
 
 .action-button {
   font-size: 18px;
 }
+
 
 .notification a.action-button {
   color: $yellow;
@@ -82,6 +87,30 @@
   &:hover {
     color: $white;
     background: $red;
+  }
+}
+
+.notification a.action-button.action-button--password {
+  position: absolute;
+  right: 0;
+  top: 70px;
+  color: darken($yellow, 10%);
+  padding: 10px;
+  &:hover {
+    color: $white;
+    background: darken($yellow, 10%);
+  }
+}
+
+.notification a.action-button.action-button--role {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  color: $orange;
+  padding: 12px;
+  &:hover {
+    color: $white;
+    background: $orange;
   }
 }
 

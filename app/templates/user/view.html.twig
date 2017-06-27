@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.profile_view'|trans({'%name%' : user.login}) }}
+    {{ 'title.profile_view'|trans({'%name%' : user.login|capitalize}) }}
 {% endblock %}
  {% block nav_links %}
      <a class="nav-item nav-item__name">

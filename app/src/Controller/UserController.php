@@ -196,7 +196,7 @@ class UserController extends BaseController
                 );
                 return $app->redirect($app['url_generator']->generate('user_index'));
             }
-            
+
             return $app['twig']->render(
                 'user/view.html.twig',
                 ['user' => $user,
@@ -222,6 +222,10 @@ class UserController extends BaseController
      */
     public function deleteAction(Application $app, $id, Request $request)
     {
+        $userId = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
+        if(!$isAdmin) return $app->redirect($app['url_generator']->generate('user_profile'));
+
         $userRepository = new UserRepository($app['db']);
         $user = $userRepository->findOneById($id);
 
@@ -284,6 +288,10 @@ class UserController extends BaseController
      */
     public function editAction(Application $app, $id, Request $request, $type = null)
     {
+        $userId = $this->getUserId($app);
+        $isAdmin = $this->checkIfAdmin($app, $userId);
+        if(!$isAdmin) return $app->redirect($app['url_generator']->generate('user_profile'));
+
         $userRepository = new UserRepository($app['db']);
         $user = $userRepository->findOneById($id);
 

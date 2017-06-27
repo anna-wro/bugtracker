@@ -191,6 +191,10 @@ class BugRepository
                         ->orWhere('b.type_id = 2')
                         ->orWhere('b.type_id = 7');
                     break;
+                case 'not-a-bug':
+                    $queryBuilder->andWhere('b.type_id = 8')
+                        ->orWhere('b.type_id = 9');
+                    break;
             }
         }
 
@@ -372,6 +376,10 @@ class BugRepository
                     $queryBuilder->andWhere('b.type_id = 1')
                         ->orWhere('b.type_id = 2')
                         ->orWhere('b.type_id = 7');
+                    break;
+                case 'not-a-bug':
+                    $queryBuilder->andWhere('b.type_id = 8')
+                        ->orWhere('b.type_id = 9');
                     break;
             }
         }
