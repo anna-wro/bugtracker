@@ -194,6 +194,8 @@ class UserRepository
      */
     public function save($app, $data)
     {
+        unset($data['role_name']);
+
         if (isset($data['password'])) {
             $data['password'] = $app['security.encoder.bcrypt']->encodePassword($data['password'], '');
 
@@ -219,8 +221,9 @@ class UserRepository
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
-        return $queryBuilder->select('u.id', 'u.login', 'u.role_id')
-            ->from('pr_users', 'u');
+        return $queryBuilder->select('u.id', 'u.login', 'u.role_id', 'r.name AS role_name')
+            ->from('pr_users', 'u')
+            ->join('u', 'pr_roles', 'r', 'u.role_id = r.id');
     }
 
     /**

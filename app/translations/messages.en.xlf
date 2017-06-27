@@ -524,6 +524,22 @@
                 <source>title.users_list</source>
                 <target>Users</target>
             </trans-unit>
+            <trans-unit id="label.delete_user">
+                <source>label.delete_user</source>
+                <target>Delete account</target>
+            </trans-unit>
+            <trans-unit id="column.project_count">
+                <source>column.project_count</source>
+                <target>%count% projects</target>
+            </trans-unit>
+            <trans-unit id="column.project_count_zero">
+                <source>column.project_count_zero</source>
+                <target>no projects</target>
+            </trans-unit>
+            <trans-unit id="column.project_count_one">
+                <source>column.project_count_one</source>
+                <target>1 project</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

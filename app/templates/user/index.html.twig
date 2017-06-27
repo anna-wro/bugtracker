@@ -31,6 +31,7 @@
                     <th>{{ 'label.login'|trans }}</th>
                     <th class="action-column"></th>
                     <th class="action-column"></th>
+                    <th class="action-column action-column--edit"></th>
                     <th class="action-column"></th>
                     <th class="action-column"></th>
                 </tr>
@@ -47,28 +48,48 @@
                                title="{{ 'label.view_profile'|trans }}"><b>{{ user.login|capitalize }}</b>
                             </a>
                         </td>
+                        <td class="user-column">
+                            {% set project_count = 0 %}
+                            {% for project in projects %}
+                                {% if project.user_id == user.id %}
+                                    {% set project_count = project_count + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            <p class="project-count">
+                                {% if project_count > 1 %}
+                                    {{ 'column.project_count'|trans({'%count%': project_count}) }}
+                                {% elseif project_count == 1 %}
+                                    {{ 'column.project_count_one'|trans }}
+                                {% else %}
+                                    {{ 'column.project_count_zero'|trans }}
+                                {% endif %}
+                            </p>
+                        </td>
                         <td class="action-column">
                             <a href="{{ url('user_view', {'id': user.id}) }}"
                                class="action-icon action-icon--more fa fa-user"
                                title="{{ 'label.view_profile'|trans }}">
                             </a>
                         </td>
-                        <td class="action-column">
+                        <td class="action-column action-column--edit">
                             <a href="{{ url('user_edit', {'id': user.id, 'type': 'password'}) }}"
-                               class="action-icon action-icon--edit fa fa-pencil"
+                               class="action-icon action-icon--yellow fa fa-pencil"
                                title="{{ 'label.change_password'|trans }}">
                             </a>
                         </td>
-                        <td class="action-column">
+                        <td class="user-column">
                             <a href="{{ url('user_edit', {'id': user.id, 'type': 'role'}) }}"
-                            class="action-icon action-icon--edit fa fa-lock"
-                            title="{{ 'label.change_role'|trans }}">
+                               class="action-icon action-icon--orange fa fa-lock"
+                               title="{{ 'label.change_role'|trans }}">
                             </a>
+                            <p class="role-name">
+                                {{ user.role_name|trans }}
+                            </p>
                         </td>
                         <td class="action-column">
                             <a href="{{ url('user_delete', {'id': user.id}) }}"
-                            class="action-icon action-icon--delete fa fa-trash"
-                            title="{{ 'label.delete'|trans }}">
+                               class="action-icon action-icon--red fa fa-trash"
+                               title="{{ 'label.delete_user'|trans }}">
                             </a>
                         </td>
                     </tr>

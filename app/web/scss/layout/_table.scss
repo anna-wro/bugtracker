@@ -7,7 +7,7 @@ table, .single-bug {
 }
 
 .dot, .priority-dot {
- margin-left: 10px;
+  margin-left: 10px;
 }
 
 th {
@@ -64,4 +64,23 @@ th {
   width: 35%;
   text-align: right;
   padding-right: 20px;
+}
+
+.action-column--edit {
+ width: 50px;
+}
+
+.project-count, .role-name {
+  font-size: $size-6;
+  padding-top: 5px;
+}
+
+.project-count {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.role-name {
+  display: inline-block;
+  padding-left: 10px;
 }

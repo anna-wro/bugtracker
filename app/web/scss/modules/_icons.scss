@@ -28,6 +28,21 @@
   color: $gray;
 }
 
+.action-icon--red:hover {
+  background-color: $red;
+  color: $gray;
+}
+
+.action-icon--yellow:hover {
+  background-color: darken($yellow, 10%);
+  color: $gray;
+}
+
+.action-icon--orange:hover {
+  background-color: $orange;
+  color: $gray;
+}
+
 .icon-back {
   padding-right: 10px;
   padding-top: 2px;

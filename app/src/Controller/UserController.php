@@ -70,12 +70,15 @@ class UserController extends BaseController
     {
         $id = $this->getUserId($app);
         $userRepository = new UserRepository($app['db']);
+        $projectRepository = new ProjectRepository($app['db']);
+
         $isAdmin = $this->checkIfAdmin($app, $id);
 
         if ($isAdmin) {
             return $app['twig']->render(
                 'user/index.html.twig',
-                ['paginator' => $userRepository->findAllPaginated($page)]
+                ['paginator' => $userRepository->findAllPaginated($page),
+                    'projects' => $projectRepository->findAll(),]
             );
         } else {
             return $app->redirect($app['url_generator']->generate('user_profile'));

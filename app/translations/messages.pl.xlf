@@ -497,6 +497,10 @@
                 <source>label.change_role</source>
                 <target>Zmień uprawnienia</target>
             </trans-unit>
+            <trans-unit id="label.change_password">
+                <source>label.change_password</source>
+                <target>Zmień hasło</target>
+            </trans-unit>
             <trans-unit id="ROLE_ADMIN">
                 <source>ROLE_ADMIN</source>
                 <target>Administrator</target>
@@ -520,6 +524,22 @@
             <trans-unit id="title.users_list">
                 <source>title.users_list</source>
                 <target>Użytkownicy</target>
+            </trans-unit>
+            <trans-unit id="label.delete_user">
+                <source>label.delete_user</source>
+                <target>Usuń konto</target>
+            </trans-unit>
+            <trans-unit id="column.project_count">
+                <source>column.project_count</source>
+                <target>Projekty: %count%</target>
+            </trans-unit>
+            <trans-unit id="column.project_count_zero">
+                <source>column.project_count_zero</source>
+                <target>Brak projektów</target>
+            </trans-unit>
+            <trans-unit id="column.project_count_one">
+                <source>column.project_count_one</source>
+                <target>1 projekt</target>
             </trans-unit>
         </body>
     </file>

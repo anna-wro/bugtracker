@@ -185,7 +185,7 @@ class ProjectRepository
             'p.user_id',
             'u.login AS user_name'
         )->from('pr_projects', 'p')
-            ->join('p', 'pr_users', 'u', 'p.user_id = u.id');;
+            ->join('p', 'pr_users', 'u', 'p.user_id = u.id');
 
         if ($id) {
             $queryBuilder->where('p.user_id = :id')
