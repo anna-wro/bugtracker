@@ -7,7 +7,7 @@
      <a class="nav-item nav-item__name">
          {{ 'title.app'|trans }}
      </a>
-     <a class="nav-item is-tab is-hidden-mobile" href="{{ url('project_index') }}"
+     <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('project_index') }}"
         title="{{ 'title.projects_list'|trans }}">{{ 'title.projects_list'|trans }}</a>
      <a class="nav-item is-tab is-hidden-mobile" href="{{ url('bug_index') }}"
         title="{{ 'title.bugs_list'|trans }}">{{ 'title.bugs_list'|trans }}</a>
@@ -15,9 +15,6 @@
          <a class="nav-item is-tab is-hidden-mobile" href="{{ url('user_index') }}"
             title="{{ 'title.users_list'|trans }}">{{ 'title.users_list'|trans }}</a>
      {% endif %}
-     <a class="nav-item is-tab is-hidden-mobile is-active" href="{{ url('project_bugs',
-     {'id': project.id}) }}"
-        title=" {{ 'title.project_bugs'|trans({'%name%': project.name}) }}"> {{ 'title.project_bugs'|trans({'%name%': project.name}) }}</a>
  {% endblock %}
 {% block body %}
     <a href="{{ url('project_bugs', {'id': project.id}) }}">

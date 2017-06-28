@@ -483,11 +483,11 @@
             </trans-unit>
             <trans-unit id="user_delete">
                 <source>user_delete</source>
-                <target>Czy naprawdę chcesz usunąć to konto?</target>
+                <target>Czy naprawdę chcesz skasować to konto?</target>
             </trans-unit>
             <trans-unit id="user_delete_all">
                 <source>user_delete_all</source>
-                <target>Wszystkie powiązane z nim projekty i błędy również zostaną usunięte!</target>
+                <target>Wszystkie powiązane z nim projekty i błędy również znikną!</target>
             </trans-unit>
             <trans-unit id="label.role">
                 <source>label.role</source>
@@ -531,11 +531,11 @@
             </trans-unit>
             <trans-unit id="column.project_count">
                 <source>column.project_count</source>
-                <target>Projekty: %count%</target>
+                <target>%count% projekty</target>
             </trans-unit>
             <trans-unit id="column.project_count_zero">
                 <source>column.project_count_zero</source>
-                <target>Brak projektów</target>
+                <target>brak projektów</target>
             </trans-unit>
             <trans-unit id="column.project_count_one">
                 <source>column.project_count_one</source>
