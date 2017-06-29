@@ -95,7 +95,8 @@ class ProjectType extends AbstractType
                     'data-large-mode' => 'true',
                     'data-lang' => $options['locale'],
                     'data-format' => 'd.m.Y',
-                    'data-theme' => "bugtracker"
+                    'data-theme' => "bugtracker",
+                    'data-modal' => 'true'
                 ],
                 'data' => $formattedDate,
                 'constraints' => [

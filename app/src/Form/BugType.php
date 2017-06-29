@@ -95,7 +95,8 @@ class BugType extends AbstractType
                     'data-lang' => $options['locale'],
                     'data-format' => 'd.m.Y',
                     'data-lock' => 'to',
-                    'data-theme' => "bugtracker"
+                    'data-theme' => "bugtracker",
+                    'data-modal' => 'true'
                 ],
                 'data' => $formattedDate,
                 'constraints' => [
