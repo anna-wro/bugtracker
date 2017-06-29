@@ -1,17 +1,15 @@
 <?php
 /**
- * Auth controller.
+ * Auth controller
  *
- */
+ **/
+
 namespace Controller;
 
 use Form\LoginType;
-use Form\RegisterType;
-use Repository\UserRepository;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * Class AuthController
@@ -21,7 +19,10 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class AuthController implements ControllerProviderInterface
 {
     /**
-     * {@inheritdoc}
+     * Auth Controller
+     * @param \Silex\Application $app Silex application
+     *
+     * @return mixed|\Silex\ControllerCollection
      */
     public function connect(Application $app)
     {
@@ -40,7 +41,7 @@ class AuthController implements ControllerProviderInterface
     /**
      * Login action.
      *
-     * @param \Silex\Application                        $app     Silex application
+     * @param \Silex\Application $app Silex application
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
@@ -84,7 +85,4 @@ class AuthController implements ControllerProviderInterface
     {
         return $app['twig']->render('index.html.twig', []);
     }
-
-
-
 }

@@ -6,14 +6,12 @@
 
 namespace Controller;
 
-use Form\LoginType;
 use Form\RegisterType;
 use Repository\BugRepository;
 use Repository\ProjectRepository;
 use Repository\RolesRepository;
 use Repository\UserRepository;
 use Silex\Application;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +26,10 @@ class UserController extends BaseController
 {
 
     /**
-     * {@inheritdoc}
+     * User Controller
+     * @param \Silex\Application $app Silex application
+     *
+     * @return mixed|\Silex\ControllerCollection
      */
     public function connect(Application $app)
     {
@@ -147,7 +148,6 @@ class UserController extends BaseController
      * Profile action.
      *
      * @param \Silex\Application $app Silex application
-     * @param string $id Element Id
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
@@ -227,7 +227,7 @@ class UserController extends BaseController
     {
         $userId = $this->getUserId($app);
         $isAdmin = $this->checkIfAdmin($app, $userId);
-        if(!$isAdmin) return $app->redirect($app['url_generator']->generate('user_profile'));
+        if (!$isAdmin) return $app->redirect($app['url_generator']->generate('user_profile'));
 
         $userRepository = new UserRepository($app['db']);
         $user = $userRepository->findOneById($id);
@@ -293,7 +293,7 @@ class UserController extends BaseController
     {
         $userId = $this->getUserId($app);
         $isAdmin = $this->checkIfAdmin($app, $userId);
-        if(!$isAdmin) return $app->redirect($app['url_generator']->generate('user_profile'));
+        if (!$isAdmin) return $app->redirect($app['url_generator']->generate('user_profile'));
 
         $userRepository = new UserRepository($app['db']);
         $user = $userRepository->findOneById($id);

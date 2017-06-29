@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Priority Repository.
+ *
+ * @package Repository
+ */
+
 namespace Repository;
 
 use Doctrine\DBAL\Connection;

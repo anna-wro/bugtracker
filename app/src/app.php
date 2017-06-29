@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Bug tracking app
+ *
+ * @link https://anna.pm
+ * @author Anna Wróbel <contact@anna.pm>
+ * @copyright (c) 2017
+ */
+
 use Silex\Application;
 use Silex\Provider\AssetServiceProvider;
 use Silex\Provider\TwigServiceProvider;
@@ -10,7 +18,6 @@ use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\SessionServiceProvider;
-use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 
 $app = new Application();

@@ -1,9 +1,13 @@
 <?php
 
-namespace Repository;
+/**
+ * Status Repository
+ *
+ * @package Repository
+ */
 
+namespace Repository;
 use Doctrine\DBAL\Connection;
-use Utils\Paginator;
 
 /**
  * Class StatusRepository.

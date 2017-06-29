@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Controllers file
+ *
+ */
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Controller\AuthController;

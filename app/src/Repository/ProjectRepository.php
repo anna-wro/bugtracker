@@ -1,6 +1,8 @@
 <?php
 /**
  * Project repository.
+ *
+ * @package Repository
  */
 
 namespace Repository;
@@ -61,9 +63,10 @@ class ProjectRepository
     /**
      * Get records paginated.
      *
-     * @param $userId
-     * @param int $page Current page number
-     * @return array Result
+     * @param int $page
+     * @param null $userId
+     *
+     * @return array
      */
     public function findAllPaginated($page = 1, $userId = null)
     {

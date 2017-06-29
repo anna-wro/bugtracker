@@ -1,13 +1,14 @@
 <?php
 /**
  * Bug repository.
+ *
+ * @package Repository
  */
 
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Silex\Application;
 use Utils\Paginator;
 
 /**
@@ -398,8 +399,8 @@ class BugRepository
 
     /**
      * Bugs to do in a project
-     *
-     * @param $projectId
+     * @param null $userId
+     * @param null $projectId
      * @param null $type
      * @return
      */

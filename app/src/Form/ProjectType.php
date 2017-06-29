@@ -22,7 +22,10 @@ use Validator\Constraints as CustomAssert;
 class ProjectType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Build form
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -145,7 +148,8 @@ class ProjectType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * Configure options
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

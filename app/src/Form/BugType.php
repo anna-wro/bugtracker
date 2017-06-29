@@ -23,7 +23,10 @@ use Validator\Constraints as CustomAssert;
 class BugType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Build form
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -223,7 +226,9 @@ class BugType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * Configure options
+     *
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -243,6 +248,12 @@ class BugType extends AbstractType
         );
     }
 
+    /**
+     * Prepare options for choices
+     *
+     * @param $repository
+     * @return array
+     */
     protected function prepareOptionsForChoices($repository)
     {
         $types = $repository->findAll();
@@ -255,6 +266,14 @@ class BugType extends AbstractType
         return $choices;
     }
 
+    /**
+     * Prepare available projects
+     *
+     * @param $repository
+     * @param $userId
+     * @param $isAdmin
+     * @return array
+     */
     protected function prepareAvailableProjects($repository, $userId, $isAdmin)
     {
         $projects = $repository->findOptionsForUser($userId, $isAdmin);

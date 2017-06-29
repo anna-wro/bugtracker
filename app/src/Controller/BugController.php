@@ -27,7 +27,10 @@ class BugController extends BaseController
 {
 
     /**
-     * {@inheritdoc}
+     * Bug Controller
+     * @param \Silex\Application $app Silex application
+     *
+     * @return mixed|\Silex\ControllerCollection
      */
     public function connect(Application $app)
     {
@@ -77,11 +80,11 @@ class BugController extends BaseController
      * Index action.
      *
      * @param \Silex\Application $app Silex application
-     * @param Request $request
+     * @param Request $request HTTP Request
      * @param int $page Current page number
+     * @param null $sortBy Category to sort by
+     * @param null $sortOrder Sort order
      *
-     * @param null $sortBy
-     * @param null $sortOrder
      * @return Response HTTP Response
      */
     public function indexAction(Application $app, Request $request, $page = 1, $sortBy = null, $sortOrder = null)
@@ -111,7 +114,7 @@ class BugController extends BaseController
 
 
     /**
-     * View action.
+     * See single bug
      *
      * @param \Silex\Application $app Silex application
      * @param string $id Element Id
@@ -159,16 +162,17 @@ class BugController extends BaseController
 
 
     /**
-     * Change status action
+     * Change status of the bug
      *
      * @param \Silex\Application $app Silex application
-     * @param Request $request
-     * @param int $id Record id
-     * @param $type
+     * @param Request $request HTTP Request
+     * @param int $id Bug id
+     * @param String $type Type of the bug list
+     * @internal param null         $sortBy      Category to sort by
+     * @internal param null         $sortOrder   Sort order
+     * @internal param Response     $response    HTTP Response
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @internal param null $sortBy
-     * @internal param null $sortOrder
-     * @internal param Response $response
      */
 
     public function changeStatusAction(Application $app, Request $request, $id, $type)
@@ -279,12 +283,12 @@ class BugController extends BaseController
 
 
     /**
-     * Add action.
+     * Add new bug
      *
      * @param \Silex\Application $app Silex application
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     * @return \Symfony\Component\HttpFoundation\Response            HTTP Response
      */
     public function addAction(Application $app, Request $request)
     {
@@ -323,7 +327,8 @@ class BugController extends BaseController
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bug['project_id']]), 301);
+            return $app->redirect($app['url_generator']->generate('project_bugs',
+                ['id' => $bug['project_id']]), 301);
         }
 
         return $app['twig']->render(
@@ -336,10 +341,10 @@ class BugController extends BaseController
     }
 
     /**
-     * Edit action.
+     * Edit a bug action
      *
      * @param \Silex\Application $app Silex application
-     * @param int $id Record id
+     * @param int $id Bug id
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
@@ -401,7 +406,8 @@ class BugController extends BaseController
                 ]
             );
 
-            return $app->redirect($app['url_generator']->generate('project_bugs', ['id' => $bug['project_id']]), 301);
+            return $app->redirect($app['url_generator']->generate('project_bugs',
+                ['id' => $bug['project_id']]), 301);
         }
 
         return $app['twig']->render(
@@ -414,10 +420,10 @@ class BugController extends BaseController
     }
 
     /**
-     * Delete action.
+     * Delete bug action
      *
      * @param \Silex\Application $app Silex application
-     * @param int $id Record id
+     * @param int $id Bug id
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
@@ -452,7 +458,8 @@ class BugController extends BaseController
             return $app->redirect($app['url_generator']->generate('bug_index'));
         }
 
-        $form = $app['form.factory']->createBuilder(FormType::class, $bug)->add('id', HiddenType::class)->getForm();
+        $form = $app['form.factory']->createBuilder(FormType::class, $bug)
+            ->add('id', HiddenType::class)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

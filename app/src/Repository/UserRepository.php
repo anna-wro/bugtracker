@@ -1,6 +1,8 @@
 <?php
 /**
  * User repository
+ *
+ * @package Repository
  */
 
 namespace Repository;
@@ -188,8 +190,11 @@ class UserRepository
 
 
     /**
+     * Save user data
+     *
      * @param \Silex\Application $app Silex application
      * @param $data array Data to save
+     *
      * @return int
      */
     public function save($app, $data)
@@ -215,6 +220,8 @@ class UserRepository
     }
 
     /**
+     * Query all
+     *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     protected function queryAll()
@@ -227,6 +234,8 @@ class UserRepository
     }
 
     /**
+     * Check for uniqueness
+     *
      * @param $login
      * @param null $id
      * @return array
@@ -234,19 +243,14 @@ class UserRepository
     public function findForUniqueness($login, $id = null)
     {
         $queryBuilder = $this->queryAll();
-        $queryBuilder->where('u.login = :login')
-            ->orWhere('u.login = :loginUpper')
-            ->orWhere('u.login = :loginLower')
+        $queryBuilder->where('LOWER(u.login) = :login')
             ->setParameters(
                 array(
-                    ':login' => $login,
-                    ':loginUpper' => strtoupper($login),
-                    ':loginLower' => strtolower($login),
+                    ':login' => strtolower($login),
                 ),
                 array(
                     \PDO::PARAM_STR,
-                    \PDO::PARAM_STR,
-                    \PDO::PARAM_STR)
+                )
             );
         if ($id) {
             $queryBuilder->andWhere('u.id <> :id')

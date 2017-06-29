@@ -25,11 +25,19 @@ use Validator\Constraints as CustomAssert;
 class RegisterType extends AbstractType
 {
 
+    /**
+     * Admin role constant
+     */
     CONST ROLE_ADMIN = 1;
+    /**
+     * User role constant
+     */
     CONST ROLE_USER = 2;
 
     /**
      * {@inheritdoc}
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -131,6 +139,10 @@ class RegisterType extends AbstractType
         return 'register_type';
     }
 
+    /**
+     * Configure options
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
@@ -144,6 +156,12 @@ class RegisterType extends AbstractType
         );
     }
 
+    /**
+     * Prepare options for choices
+     *
+     * @param $repository
+     * @return array Choices
+     */
     protected function prepareOptionsForChoices($repository)
     {
         $options = $repository->findAll();

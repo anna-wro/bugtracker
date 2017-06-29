@@ -15,7 +15,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 class UniqueValueValidator extends ConstraintValidator
 {
     /**
-     * {@inheritdoc}
+     * Validate method
+     *
+     * @param mixed $value
+     * @param Constraint $constraint
      */
     public function validate($value, Constraint $constraint)
     {
