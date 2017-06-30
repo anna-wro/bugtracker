@@ -1,17 +1,22 @@
 {% if user|length %}
     <div class="notification notification--bug">
         <h1 class="title is-1">{{ user.login|capitalize }}</h1>
-        <div class="action-buttons action-buttons--profile">
-            <a href="{{ url('user_edit', {'id': user.id, 'type': 'password'}) }}" class="fa fa-pencil tag action-button action-button--password"
-               title="{{ 'label.change_password'|trans }}">
-            </a>
-            <a href="{{ url('user_edit', {'id': user.id, 'type': 'role'}) }}" class="fa fa-lock tag action-button action-button--role"
-               title="{{ 'label.change_role'|trans }}">
-            </a>
-            <a href="{{ url('user_delete', {'id': user.id}) }}" class="fa fa-times tag action-button action-button--delete"
-               title="{{ 'label.delete_user'|trans }}">
-            </a>
-        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="action-buttons action-buttons--profile">
+                <a href="{{ url('user_edit', {'id': user.id, 'type': 'password'}) }}"
+                   class="fa fa-pencil tag action-button action-button--password"
+                   title="{{ 'label.change_password'|trans }}">
+                </a>
+                <a href="{{ url('user_edit', {'id': user.id, 'type': 'role'}) }}"
+                   class="fa fa-lock tag action-button action-button--role"
+                   title="{{ 'label.change_role'|trans }}">
+                </a>
+                <a href="{{ url('user_delete', {'id': user.id}) }}"
+                   class="fa fa-times tag action-button action-button--delete"
+                   title="{{ 'label.delete_user'|trans }}">
+                </a>
+            </div>
+        {% endif %}
         {% if projects|length %}
             {% include 'default/_progress_bar.html.twig' with {
             'bugsAll': bugsAll,
